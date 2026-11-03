@@ -1,0 +1,34 @@
+{
+  "train": {
+    "records": 9469,
+    "image_size": [
+      64,
+      64
+    ],
+    "mode": "RGB",
+    "class_counts": {
+      "0": 963,
+      "1": 955,
+      "2": 993,
+      "3": 858,
+      "4": 941,
+      "5": 956,
+      "6": 961,
+      "7": 931,
+      "8": 951,
+      "9": 960
+    }
+  },
+  "test": {
+    "records": 3925,
+    "image_size": [
+      64,
+      64
+    ],
+    "mode": "RGB"
+  },
+  "total_files": 13400,
+  "total_bytes": 115230185,
+  "copy_hashes_verified": true,
+  "sample_submission_ids_match_test": true
+}
