@@ -2,7 +2,7 @@
 
 This repository contains the supplied Dataset 3 files, fixed data preparation, baseline predictions and explicit FGSM/PGD attacks for the COMP5577 project. Adversarial training is the next stage.
 
-**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Step 1, local Step 2 and Step 3 are complete. The actual Kaggle baseline score remains pending. Step 4 (training on the stronger device) is next.
+**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Steps 1–3 are complete. The user submitted the baseline; its actual Kaggle Public Score is **0.51194** ([evidence](docs/results/kaggle_baseline_public_score.png)). Step 4 (training on the stronger device) is next.
 
 ## Supplied files
 
