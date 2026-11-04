@@ -1,3 +1,4 @@
 data/dataset3/** -text
 docs/dataset3_manifest.csv text eol=lf
 *.md text eol=lf
+splits/*.csv -text
