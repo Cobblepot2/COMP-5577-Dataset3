@@ -1,0 +1,11 @@
+{
+  "competition_invite": "https://www.kaggle.com/t/af6658aab6d1415e890535aa591ec2e2",
+  "baseline_file": "results/baseline/submission_baseline.csv",
+  "baseline_sha256": "acb82dd309a12d025c606b274e7f379a562898eb411235bf9b9937882a372c06",
+  "baseline_public_score": null,
+  "baseline_submission_id": null,
+  "baseline_submission_date": null,
+  "status": "Baseline file generated and verified; actual Kaggle submission and public score pending",
+  "defense_public_score": null,
+  "defense_status": "Not trained or submitted"
+}

@@ -1,0 +1,10 @@
+{
+  "experiments": [
+    {"name": "fgsm_eps2", "method": "fgsm", "epsilon": 0.00784313725490196},
+    {"name": "fgsm_eps4", "method": "fgsm", "epsilon": 0.01568627450980392},
+    {"name": "fgsm_eps8", "method": "fgsm", "epsilon": 0.03137254901960784},
+    {"name": "pgd10_eps4", "method": "pgd", "epsilon": 0.01568627450980392, "step_size": 0.00784313725490196, "steps": 10, "restarts": 1},
+    {"name": "pgd10_eps8", "method": "pgd", "epsilon": 0.03137254901960784, "step_size": 0.00784313725490196, "steps": 10, "restarts": 1},
+    {"name": "pgd20_eps8_r3", "method": "pgd", "epsilon": 0.03137254901960784, "step_size": 0.00784313725490196, "steps": 20, "restarts": 3}
+  ]
+}

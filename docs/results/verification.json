@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-04",
+  "baseline_predictions_and_logits_repeat_exactly": true,
+  "all_attack_float_and_quantized_prediction_csvs_repeat_exactly": true,
+  "all_float_and_quantized_attacks_within_budget": true,
+  "baseline_and_attack_clean_predictions_match": true,
+  "submission_rows": 3925,
+  "submission_ids_match_template": true,
+  "submission_labels_in_range": true,
+  "submission_sha256": "acb82dd309a12d025c606b274e7f379a562898eb411235bf9b9937882a372c06",
+  "kaggle_public_score": null,
+  "kaggle_status": "Not yet submitted or measured",
+  "unit_tests_passed": 8,
+  "pip_check": "passed",
+  "training_performed": false
+}

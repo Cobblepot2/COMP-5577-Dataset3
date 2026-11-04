@@ -1,0 +1,274 @@
+{
+  "python": "3.12.14",
+  "torch": "2.9.1+cu128",
+  "numpy": "2.2.6",
+  "cuda_runtime": "12.8",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "config": {
+    "seed": 5577,
+    "validation_fraction": 0.2,
+    "data_dir": "data/dataset3",
+    "split_dir": "splits",
+    "num_classes": 10,
+    "image_size": 64,
+    "input_range": [
+      0.0,
+      1.0
+    ],
+    "epsilon": 0.03137254901960784,
+    "batch_size": 64,
+    "num_workers": 0
+  },
+  "sha256": {
+    "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+    "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5"
+  },
+  "scope": "Local diagnostic on provided-model training data; not unseen-data or Kaggle performance",
+  "validation": {
+    "records": 1894,
+    "image_loading_seconds": 1.5641818000003695,
+    "inference": {
+      "seconds": 0.2998833999954513,
+      "images_per_second": 6315.788069725528,
+      "peak_allocated_mib": 107.603515625,
+      "peak_reserved_mib": 120.0,
+      "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+    },
+    "predicted_class_counts": [
+      193,
+      191,
+      199,
+      172,
+      188,
+      191,
+      192,
+      186,
+      189,
+      193
+    ],
+    "diagnostic_metrics": {
+      "records": 1894,
+      "accuracy": 0.9994720168954594,
+      "macro_f1": 0.9994764074975157,
+      "confusion_matrix_rows_true_columns_predicted": [
+        [
+          193,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          191,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          199,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          172,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          188,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          191,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          192,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          186,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          189,
+          1
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          192
+        ]
+      ],
+      "per_class": [
+        {
+          "label": 0,
+          "support": 193,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 1,
+          "support": 191,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 2,
+          "support": 199,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 3,
+          "support": 172,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 4,
+          "support": 188,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 5,
+          "support": 191,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 6,
+          "support": 192,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 7,
+          "support": 186,
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1": 1.0
+        },
+        {
+          "label": 8,
+          "support": 190,
+          "precision": 1.0,
+          "recall": 0.9947368421052631,
+          "f1": 0.9973614775725593
+        },
+        {
+          "label": 9,
+          "support": 192,
+          "precision": 0.9948186528497409,
+          "recall": 1.0,
+          "f1": 0.9974025974025974
+        }
+      ]
+    }
+  },
+  "test": {
+    "records": 3925,
+    "image_loading_seconds": 5.3163927999994485,
+    "inference": {
+      "seconds": 0.6904788999963785,
+      "images_per_second": 5684.460452043627,
+      "peak_allocated_mib": 107.603515625,
+      "peak_reserved_mib": 122.0,
+      "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+    },
+    "predicted_class_counts": [
+      293,
+      391,
+      248,
+      609,
+      594,
+      333,
+      331,
+      358,
+      488,
+      280
+    ]
+  },
+  "kaggle_public_score": null,
+  "kaggle_status": "Not submitted by this command; obtain the actual score from Kaggle"
+}

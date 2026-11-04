@@ -1,8 +1,8 @@
 # COMP5577 — Dataset 3: Adversarial Robustness
 
-This repository contains the supplied Dataset 3 files and the reproducible preparation stage for the COMP5577 project. Defense implementation and experiment results will be added separately.
+This repository contains the supplied Dataset 3 files, fixed data preparation, baseline predictions and explicit FGSM/PGD attacks for the COMP5577 project. Adversarial training is the next stage.
 
-**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Step 1 is complete; Step 2 (baseline inference) is next.
+**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Step 1, local Step 2 and Step 3 are complete. The actual Kaggle baseline score remains pending. Step 4 (training on the stronger device) is next.
 
 ## Supplied files
 
@@ -22,9 +22,24 @@ Images are 64×64 RGB. The provided model expects float inputs in [0, 1] and per
 
 ## Project constraints
 
-Use only the supplied data. External datasets and pretrained weights are prohibited, except for this supplied Dataset 3 classifier. Implement the attack and defense algorithms explicitly. Evaluate Macro-F1 and record actual Kaggle public scores before and after defense. No performance results are claimed yet.
+Use only the supplied data. External datasets and pretrained weights are prohibited, except for this supplied Dataset 3 classifier. Implement the attack and defense algorithms explicitly. Evaluate Macro-F1 and record actual Kaggle public scores before and after defense. Local measured results are diagnostic and are reported separately from Kaggle scores.
 
 Generated checkpoints, logs and predictions belong in `runs/`, `checkpoints/` and `submissions/`; these are excluded from source control by default.
+
+Selected experiment summaries and figures are intentionally archived under `docs/results/`. The small, reproducible baseline submission is explicitly retained under `results/baseline/` so it can be downloaded on another device; raw run directories remain ignored.
+
+## Steps 2–3: baseline and explicit attacks
+
+```powershell
+.venv/Scripts/python.exe -m dataset3.baseline
+.venv/Scripts/python.exe -m dataset3.evaluate_attacks
+```
+
+The baseline command creates `submissions/submission_baseline.csv` and detailed local results in `runs/baseline/`. It does not submit to Kaggle. The [archived baseline CSV](results/baseline/submission_baseline.csv) contains all 3,925 test predictions in template order.
+
+The attack command uses `configs/attacks.json` and writes metrics, predictions, the fixed mixed-condition mask and example figures to `runs/attacks/`. It evaluates all 1,894 diagnostic images with FGSM at 2/255, 4/255 and 8/255; PGD-10 at 4/255 and 8/255; and PGD-20 with three random starts at 8/255. PNG-style quantized adversarial inputs are measured separately. Attack functions are implemented directly in `dataset3/attacks.py` without a ready-made attack package.
+
+See [measured results and methodology](docs/baseline_and_attacks.md) and the [Step 4 plan](docs/step4_plan.md). The clean diagnostic Macro-F1 is 0.999476; FGSM at 8/255 reduces it to 0.191187 and tested PGD at 8/255 to 0.000000. These are local attacks against the provided model, not Kaggle scores or a defense result.
 
 ## Step 1: environment and fixed split
 
