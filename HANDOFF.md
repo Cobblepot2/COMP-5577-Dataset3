@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-04)
 
-**Step 1, local Step 2 (baseline inference) and Step 3 (attack implementation/evaluation) are complete.** The actual Kaggle baseline score is still pending: a valid submission file exists, but no Kaggle submission has been made or measured. Continue with **Step 4: adversarial training on the user's stronger device**. No training or presentation has been started.
+**Steps 1–3 are complete, including the actual Kaggle baseline score: 0.51194.** The user manually submitted the baseline and supplied a screenshot showing successful completion. Continue with **Step 4: adversarial training on the user's stronger device**. No training or presentation has been started.
 
 The repository is self-contained for the supplied data: all 13,400 original files were imported in commit `4201ec6`. The original local source was `D:/downl/comp-5577-dataset-3`; future contributors should use the repository-relative `data/dataset3/` instead.
 
@@ -43,9 +43,11 @@ The preparation script validates metadata at its entry and reuses the original i
 
 Both commands accept `--config` and `--output`; the baseline also accepts `--submission`, and the attack evaluator `--attacks`. Current measured settings are version-controlled. Baseline output defaults to `runs/baseline/`, attacks to `runs/attacks/`. The archived attack snapshot was taken from the verified second run (`runs/attacks_verified/`) with identical predictions. Repeating every old experiment is unnecessary just to begin Step 4; use the saved evidence and smoke-test the new device.
 
-## Outstanding external item — actual Kaggle baseline score
+## Completed external item — actual Kaggle baseline score
 
-Submit `results/baseline/submission_baseline.csv` to Task 3 and record the actual Public score and submission identifier/date in `docs/results/kaggle_status.json`. It currently explicitly says not submitted. Competition invite: https://www.kaggle.com/t/af6658aab6d1415e890535aa591ec2e2 . No local Kaggle API credentials were configured in this session; the user was asked whether to submit manually or use a logged-in browser. Do not assume an answer, account/team membership or successful submission. Do not use the local score as a substitute.
+The user manually uploaded `submission_baseline.csv`; the screenshot received on 2026-11-04 (Asia/Shanghai) shows **completed, Public Score 0.51194**, with description indicating the supplied classifier, original weights, and no defense. Current authoritative record: `docs/results/kaggle_status.json`; visual evidence: `docs/results/kaggle_baseline_public_score.png`. Numeric submission ID and exact submission timestamp are not visible and remain null. No API credentials are required to continue the local training work. Do not resubmit merely to obtain the already recorded score.
+
+Use **0.51194** as the actual pre-defense Kaggle Public baseline for the report; keep it separate from local diagnostic Macro-F1 0.999476. Local run JSONs preserve the original pre-submission snapshots. The screenshot shows 0/2 final selections and the baseline unchecked; final submission selection remains a later team decision. No leaderboard selection was changed by the agent.
 
 ## Next concrete task — Step 4 on stronger hardware
 

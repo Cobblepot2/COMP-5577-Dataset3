@@ -6,7 +6,7 @@
 
 - 固定验证集 1,894 张：正确 1,893 张，Accuracy=0.999472，Macro-F1=0.999476。
 - 全部测试集 3,925 条预测已生成，并核验模板顺序、标签范围和文件格式。
-- 正式基线文件：[`results/baseline/submission_baseline.csv`](../results/baseline/submission_baseline.csv)。当前尚未取得真实 Kaggle Public 分数。
+- 正式基线文件：[`results/baseline/submission_baseline.csv`](../results/baseline/submission_baseline.csv)。用户已手动提交，真实 **Kaggle Public Score = 0.51194**，提交成功的[截图证据](results/kaggle_baseline_public_score.png)于2026-11-04提供。该分数是后续防御前后比较的基线，与本地诊断分数分开记录。
 - 本次验证/测试推理分别约 0.300s / 0.690s；图片初次加载分别约 1.564s / 5.316s。推理计时排除两次预热与初次图片解码，包含 batch 迭代及 CPU/GPU 数据传输；不是完整脚本墙钟耗时。
 
 ## 全量验证集上的攻击结果
