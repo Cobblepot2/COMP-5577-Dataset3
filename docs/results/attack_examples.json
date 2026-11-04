@@ -1,0 +1,73 @@
+{
+  "attack": {
+    "name": "pgd20_eps8_r3",
+    "method": "pgd",
+    "epsilon": 0.03137254901960784,
+    "step_size": 0.00784313725490196,
+    "steps": 20,
+    "restarts": 3
+  },
+  "selection": "First initially-correct attack success for each true class",
+  "examples": [
+    {
+      "id": "11",
+      "label": 0,
+      "clean_prediction": 0,
+      "adversarial_prediction": 3
+    },
+    {
+      "id": "15",
+      "label": 1,
+      "clean_prediction": 1,
+      "adversarial_prediction": 0
+    },
+    {
+      "id": "12",
+      "label": 2,
+      "clean_prediction": 2,
+      "adversarial_prediction": 7
+    },
+    {
+      "id": "53",
+      "label": 3,
+      "clean_prediction": 3,
+      "adversarial_prediction": 5
+    },
+    {
+      "id": "39",
+      "label": 4,
+      "clean_prediction": 4,
+      "adversarial_prediction": 7
+    },
+    {
+      "id": "28",
+      "label": 5,
+      "clean_prediction": 5,
+      "adversarial_prediction": 3
+    },
+    {
+      "id": "113",
+      "label": 6,
+      "clean_prediction": 6,
+      "adversarial_prediction": 3
+    },
+    {
+      "id": "7",
+      "label": 7,
+      "clean_prediction": 7,
+      "adversarial_prediction": 5
+    },
+    {
+      "id": "19",
+      "label": 8,
+      "clean_prediction": 8,
+      "adversarial_prediction": 0
+    },
+    {
+      "id": "1",
+      "label": 9,
+      "clean_prediction": 9,
+      "adversarial_prediction": 8
+    }
+  ]
+}

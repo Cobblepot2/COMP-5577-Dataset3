@@ -2,7 +2,7 @@
 
 ## Current state (2026-11-04)
 
-**Step 1 is complete: data preparation, fixed split, and GPU/model interface verification.** No training, baseline inference over the test set, attack evaluation, Kaggle submission, or presentation has been completed. Continue with **Step 2: baseline**.
+**Step 1, local Step 2 (baseline inference) and Step 3 (attack implementation/evaluation) are complete.** The actual Kaggle baseline score is still pending: a valid submission file exists, but no Kaggle submission has been made or measured. Continue with **Step 4: adversarial training on the user's stronger device**. No training or presentation has been started.
 
 The repository is self-contained for the supplied data: all 13,400 original files were imported in commit `4201ec6`. The original local source was `D:/downl/comp-5577-dataset-3`; future contributors should use the repository-relative `data/dataset3/` instead.
 
@@ -14,6 +14,12 @@ The repository is self-contained for the supplied data: all 13,400 original file
 - Environment: Python 3.12.14, torch 2.9.1+cu128, NumPy 2.2.6, Pillow 11.3.0; RTX 3060 Laptop GPU with 6,144 MiB. `pip check` passed. Package versions are pinned in `requirements-lock.txt`.
 - Supplied model: 1,175,786 parameters; weights load strictly. A real batch of 64 images passed GPU forward/backward with finite logits and finite nonzero input gradients. Peak PyTorch allocated memory was 372.52 MiB for this check; it is not PGD training peak memory or total process GPU memory. Evidence: `docs/environment_report.json`.
 - No optimizer step was run and supplied weights were not changed.
+- Baseline: 1,894 local diagnostic images, 1,893 correct, Macro-F1 0.9994764075. Generated and archived all 3,925 test predictions in `results/baseline/submission_baseline.csv`. IDs/order/labels verified against the sample; SHA-256 `acb82dd309a12d025c606b274e7f379a562898eb411235bf9b9937882a372c06`.
+- Explicit attacks: FGSM budgets 2/255, 4/255, 8/255; random-start PGD-10 at 4/255 and 8/255; PGD-20 with 3 restarts at 8/255. All run on every diagnostic validation record. Float and 8-bit quantized perturbations remained within the configured budget (1e-6 numerical tolerance).
+- FGSM at 8/255: diagnostic Macro-F1 0.1911868614. PGD-10 and PGD-20 at 8/255: 0.0, with 1,893/1,893 initially correct images successfully attacked. This is evidence of vulnerability, not an achieved defense. Quantization did not restore performance.
+- Metrics include accuracy, Macro-F1 over all 10 labels, per-class precision/recall/F1, confusion matrices, attack success among initially correct records, a fixed 947-attacked/947-clean mixture, timing and GPU memory. Details: `docs/baseline_and_attacks.md`, machine-readable snapshots and figures: `docs/results/`.
+- Reproducibility: two baseline runs produced identical CSV predictions and logits; two full attack sweeps produced identical float and quantized prediction CSVs. The unit suite has 8 passing tests covering input scaling, hand-calculated metrics, the Week 5 analytic FGSM example, PGD constraints/randomness and split properties.
+- The strongest attack sweep used approximately 678 MiB peak PyTorch allocated memory on this machine. This is inference/attack evaluation, not adversarial training memory. Actual times are archived, with warm-up and I/O scope stated.
 
 ## Reproduce Step 1
 
@@ -28,18 +34,28 @@ From the repository root, use Python 3.12 and the setup commands in README. Then
 
 The preparation script validates metadata at its entry and reuses the original import audit. It assumes the supplied dataset remains unchanged. Downstream training should directly consume the committed split CSVs, without re-running preparation in every job or batch. `check_environment.py` deliberately requires CUDA rather than silently switching to CPU. Hardware-specific memory values can differ on other machines. The fixed split is version-controlled and should not change merely because hardware changes.
 
-## Next concrete task — Step 2: baseline
+## Reproduce Steps 2–3
 
-1. Add a small shared image dataset loader for the committed split CSVs and test.csv. Images become CHW float32 values in `[0,1]` by dividing by 255. **ProvidedNet already normalizes internally.** Do not normalize twice.
-2. Load `ProvidedNet` from `data/dataset3/dataset3_model.py` and the original weights; set eval mode. Run local diagnostic inference on `splits/validation.csv`, then test inference in `test.csv` order.
-3. Report Macro-F1 across labels 0–9, per-class results/confusion matrix and inference time/memory. Document warm-up and GPU synchronization for timing. The user-facing report must label provided-model local scores as diagnostic.
-4. Produce ignored `submissions/submission_baseline.csv` with exactly `id,label`, 3,925 rows, IDs in sample_submission order, labels 0–9. Save run configuration and metrics in ignored `runs/`, and commit a concise measured-results summary plus the generating code.
-5. Record the **actual** Kaggle Public score once obtained; never replace it with a local validation score. Competition invite: https://www.kaggle.com/t/af6658aab6d1415e890535aa591ec2e2 . Account login/team entry may require the user. Do not claim a submission happened without evidence.
-6. Update this document and create a PR with completed items and verification, then merge when the stage is complete.
+```powershell
+.venv/Scripts/python.exe -m dataset3.baseline
+.venv/Scripts/python.exe -m dataset3.evaluate_attacks
+```
+
+Both commands accept `--config` and `--output`; the baseline also accepts `--submission`, and the attack evaluator `--attacks`. Current measured settings are version-controlled. Baseline output defaults to `runs/baseline/`, attacks to `runs/attacks/`. The archived attack snapshot was taken from the verified second run (`runs/attacks_verified/`) with identical predictions. Repeating every old experiment is unnecessary just to begin Step 4; use the saved evidence and smoke-test the new device.
+
+## Outstanding external item — actual Kaggle baseline score
+
+Submit `results/baseline/submission_baseline.csv` to Task 3 and record the actual Public score and submission identifier/date in `docs/results/kaggle_status.json`. It currently explicitly says not submitted. Competition invite: https://www.kaggle.com/t/af6658aab6d1415e890535aa591ec2e2 . No local Kaggle API credentials were configured in this session; the user was asked whether to submit manually or use a logged-in browser. Do not assume an answer, account/team membership or successful submission. Do not use the local score as a substitute.
+
+## Next concrete task — Step 4 on stronger hardware
+
+Read `docs/step4_plan.md`. Implement a training entry point with checkpoint/resume and recorded configuration; run clean fine-tuning, FGSM adversarial training and PGD adversarial training comparisons. Start with a short sanity run before full experiments. The user deferred training to the stronger device, so no training command/checkpoint exists yet.
+
+Important code reuse details: `common.load_provided_model()` freezes parameters for evaluation; training must restore parameter gradients. Current PGD candidate selection prioritizes misclassification for evaluation; choose/document a maximum-CE or final-iterate convention for training. Model mode must be handled explicitly around attack generation and outer training. Preserve original weights, fixed splits, and the user's coding rules. New random-initialized models provide a genuinely held-out local comparison; supplied-weight descendants do not.
 
 ## Later stages and constraints
 
-- Step 3: explicit FGSM and random-start projected PGD implementations; enforce `L_inf <= 8/255` in pixel space and clip pixels to `[0,1]`. The actual test attack is not fully disclosed; FGSM is an example in the brief.
+- Step 3 (complete): explicit FGSM and random-start projected PGD implementations; enforce `L_inf <= 8/255` in pixel space and clip pixels to `[0,1]`. The actual test attack is not fully disclosed; FGSM is an example in the brief.
 - Step 4: compare clean fine-tuning, FGSM adversarial training and PGD adversarial training; consider attacks transferred from the provided classifier. New models must start from random weights and use only supplied training data.
 - Step 5: evaluate clean, attacked and approximately 50/50 mixed validation conditions; distinguish transferred attacks from attacks against the defense itself. Run ablations and stronger-attack checks. Do not treat gradient masking as proof of robustness.
 - Step 6: reproducible final inference and actual pre/post-defense Kaggle Public scores. Final model choice and tuning should not rely solely on repeated public leaderboard probing.
