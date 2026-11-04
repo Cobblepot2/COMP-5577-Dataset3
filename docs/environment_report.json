@@ -1,0 +1,32 @@
+{
+  "python": "3.12.14",
+  "torch": "2.9.1+cu128",
+  "numpy": "2.2.6",
+  "pillow": "11.3.0",
+  "cuda_runtime": "12.8",
+  "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+  "gpu_total_mib": 6144,
+  "parameter_count": 1175786,
+  "batch_size_checked": 64,
+  "input_shape": [
+    64,
+    3,
+    64,
+    64
+  ],
+  "input_range": [
+    0.0,
+    1.0
+  ],
+  "logit_shape": [
+    64,
+    10
+  ],
+  "peak_allocated_mib": 372.52,
+  "finite_input_gradients": true,
+  "nonzero_input_gradients": true,
+  "deterministic_algorithms": true,
+  "seed": 5577,
+  "normalization": "Performed inside ProvidedNet; inputs divided by 255 only",
+  "scope": "Single-batch forward/backward smoke check; no optimizer step, no accuracy evaluation"
+}

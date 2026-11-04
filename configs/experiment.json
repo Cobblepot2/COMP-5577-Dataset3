@@ -1,0 +1,12 @@
+{
+  "seed": 5577,
+  "validation_fraction": 0.2,
+  "data_dir": "data/dataset3",
+  "split_dir": "splits",
+  "num_classes": 10,
+  "image_size": 64,
+  "input_range": [0.0, 1.0],
+  "epsilon": 0.03137254901960784,
+  "batch_size": 64,
+  "num_workers": 0
+}

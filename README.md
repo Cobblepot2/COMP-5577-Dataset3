@@ -1,6 +1,8 @@
 # COMP5577 — Dataset 3: Adversarial Robustness
 
-This repository contains the supplied Dataset 3 files for the COMP5577 project. Defense implementation and experiment results will be added separately.
+This repository contains the supplied Dataset 3 files and the reproducible preparation stage for the COMP5577 project. Defense implementation and experiment results will be added separately.
+
+**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Step 1 is complete; Step 2 (baseline inference) is next.
 
 ## Supplied files
 
@@ -23,3 +25,37 @@ Images are 64×64 RGB. The provided model expects float inputs in [0, 1] and per
 Use only the supplied data. External datasets and pretrained weights are prohibited, except for this supplied Dataset 3 classifier. Implement the attack and defense algorithms explicitly. Evaluate Macro-F1 and record actual Kaggle public scores before and after defense. No performance results are claimed yet.
 
 Generated checkpoints, logs and predictions belong in `runs/`, `checkpoints/` and `submissions/`; these are excluded from source control by default.
+
+## Step 1: environment and fixed split
+
+Use Python 3.12 and run commands from the repository root. Windows PowerShell:
+
+```powershell
+python -m venv .venv
+.venv/Scripts/python.exe -m pip install torch==2.9.1 --index-url https://download.pytorch.org/whl/cu128
+.venv/Scripts/python.exe -m pip install -r requirements.txt
+.venv/Scripts/python.exe scripts/prepare_dataset.py
+.venv/Scripts/python.exe -m unittest discover -s tests -v
+.venv/Scripts/python.exe scripts/check_environment.py
+```
+
+The CUDA wheel follows the [official PyTorch installation instructions](https://pytorch.org/get-started/previous-versions/#v291). It installs the runtime required by PyTorch; this project does not require a separate CUDA toolkit build. The GPU check explicitly requires CUDA.
+
+For the exact tested package set, install `requirements-lock.txt` after installing torch; it pins transitive packages as well. The environment is local and excluded from Git. Data preparation details and class counts are in [docs/preparation.md](docs/preparation.md).
+
+`configs/experiment.json` fixes seed 5577 and a 20% per-class validation split. The committed `splits/train.csv` (7,575 rows) and `splits/validation.csv` (1,894 rows) preserve the original image IDs. Both refer to images inside **train_images/**. IDs in test.csv belong to a separate namespace, so an equal numeric ID across train/test does not mean an equal image.
+
+The preparation entry point validates metadata once and reuses the completed image/hash import audit. It assumes the original dataset is unchanged. It does not re-open every image or repeat all file hashes during training. Training scripts should consume the committed split files directly. Split verification results are in `docs/split_report.json`.
+
+The environment check loads the supplied weights, runs a batch of 64 real training images through forward/backward on the GPU, and confirms finite, nonzero input gradients. It performs **no optimizer step** and reports no accuracy score. Its measurements are in `docs/environment_report.json`.
+
+### Evaluation limitation
+
+The provided classifier has already been trained on the supplied training data. Therefore the held-out IDs are not unseen examples for that classifier or its fine-tuned descendants. Use this split for consistent diagnostics of those models, not an unbiased generalization claim. Newly initialized models must train only on `splits/train.csv` during model selection. Kaggle results must be reported separately.
+
+### Coding conventions
+
+- Validate external inputs at the entry point, then rely on the established contract internally.
+- Avoid repeated null checks and blanket try/except blocks.
+- Keep simple one-use logic inline; extract functions for actual reuse or clear responsibility boundaries.
+- Ask before adding defensive machinery solely for low-probability edge cases.

@@ -1,0 +1,73 @@
+{
+  "seed": 5577,
+  "validation_fraction_requested": 0.2,
+  "method": "NumPy default_rng; per-class permutation; round(n_class * fraction); original row order",
+  "training_records": 7575,
+  "validation_records": 1894,
+  "classes": [
+    {
+      "label": 0,
+      "total": 963,
+      "train": 770,
+      "validation": 193
+    },
+    {
+      "label": 1,
+      "total": 955,
+      "train": 764,
+      "validation": 191
+    },
+    {
+      "label": 2,
+      "total": 993,
+      "train": 794,
+      "validation": 199
+    },
+    {
+      "label": 3,
+      "total": 858,
+      "train": 686,
+      "validation": 172
+    },
+    {
+      "label": 4,
+      "total": 941,
+      "train": 753,
+      "validation": 188
+    },
+    {
+      "label": 5,
+      "total": 956,
+      "train": 765,
+      "validation": 191
+    },
+    {
+      "label": 6,
+      "total": 961,
+      "train": 769,
+      "validation": 192
+    },
+    {
+      "label": 7,
+      "total": 931,
+      "train": 745,
+      "validation": 186
+    },
+    {
+      "label": 8,
+      "total": 951,
+      "train": 761,
+      "validation": 190
+    },
+    {
+      "label": 9,
+      "total": 960,
+      "train": 768,
+      "validation": 192
+    }
+  ],
+  "duplicate_training_file_hashes": 0,
+  "train_test_shared_file_hashes": 0,
+  "integrity_source": "docs/dataset3_validation.json and dataset3_manifest.csv (import audit)",
+  "limitation": "The provided model was trained on the supplied training data. This split is not unseen data for that model or its fine-tuned descendants. Train new models only on splits/train.csv for held-out evaluation."
+}
