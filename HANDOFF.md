@@ -2,7 +2,7 @@
 
 ## Current state
 
-Steps 1–5 are complete. Step 6 local inference/export is complete; **the user will manually upload the two defense CSVs and supply real Kaggle Public Scores**. The actual baseline Public Score is still **0.51194**. Do not substitute local validation F1 for a Kaggle score. Step 7 PPT waits for the user-supplied presentation skill, per AGENTS.md.
+Steps 1–6 are complete, including actual user-submitted Kaggle Public Scores: **finetuned40 0.80418**, **random50 0.79277**, baseline **0.51194**. The best observed Public Score is the supplied-weight augmented PGD model (run pgd_augmented), +0.29224 over baseline. Preserve the earlier random50 white-box robustness choice as a different criterion; do not confuse it with Public Score preference. No final competition Select box was changed. Step 7 PPT waits for the user-supplied presentation skill, per AGENTS.md.
 
 Current source implementation commit: 331ec5551dfdd33dc9c200a5ea01b38b31f08170. PR: https://github.com/Cobblepot2/COMP-5577-Dataset3/pull/4. Source and curated measurements are version-controlled; raw runs, optimizer checkpoints, transfer caches and submissions remain ignored. Compact inference checkpoints/CSVs are delivered in this chat's outputs bundle, with identities in docs/results/final_artifacts.json.
 
@@ -23,6 +23,6 @@ The supplied classifier saw all original training IDs; its descendants' local va
 
 Full measured table/methodology/failure classes: docs/results_5070ti.md. Commands, attack conventions and same-directory exact resume: docs/training_and_defense.md. Do not rebuild fixed splits merely for a new device, re-normalize inputs, introduce external data/pretrained weights, or use black-box attack/defense packages.
 
-Next concrete task: receive the user's actual Public Scores for each CSV, update docs/results/kaggle_status.json and results documentation with evidence. Do not automatically choose the team's final Kaggle selection. PPT/report assembly then follows the user's presentation skill and team allocation; do not invent roster/contributions. Brief deadlines previously recorded: Kaggle Nov10 2026 23:59, Canvas Nov13 23:59, timezone to verify in those services.
+Actual scores are archived in docs/results/kaggle_status.json with docs/results/kaggle_defense_public_scores.png (received 2026-11-05 Asia/Shanghai). Both entries Complete; all Select boxes unchecked; numeric submission IDs and absolute timestamps remain null. Local artifact hashes match the two filenames, not server-side checksums. Raw inference JSONs remain pre-submission snapshots. Next concrete task: assemble PPT/report using the user-supplied presentation skill and team allocation; do not invent roster/contributions or choose final Kaggle selections automatically. Brief deadlines previously recorded: Kaggle Nov10 2026 23:59, Canvas Nov13 23:59, timezone to verify in those services.
 
 Local runtime: ../ml-env/Scripts/python.exe relative to this repo. Full training runs in runs/, resume same output directory and original horizon using --resume runs/NAME/last.pt. Inference weights in checkpoints/ are local/ignored. User deliverables are in the surrounding outputs/ directory.

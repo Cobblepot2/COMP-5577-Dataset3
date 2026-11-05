@@ -2,7 +2,19 @@
 
 日期：2026-11-05（Asia/Shanghai）。代码及过程见 [PR #4](https://github.com/Cobblepot2/COMP-5577-Dataset3/pull/4)。
 
-已完成六组训练、七个模型的全量强攻击评估及两份测试集预测。主候选为随机初始化增强 PGD 50 epoch；另保留增强 PGD 微调 40 epoch，展示干净性能与迁移攻击上的取舍。**防御后的真实 Kaggle Public Score 尚待用户手动上传后记录；已有真实基线为 0.51194。下面全部分数是本地 Macro-F1。**
+已完成六组训练、七个模型的全量强攻击评估及两份测试集预测。预提交的白盒鲁棒性选择为随机初始化 PGD 50 epoch；用户实际上传后，增强 PGD 微调 40 epoch 的 **Kaggle Public Score 0.80418** 领先，随机初始化模型为 **0.79277**，基线为 **0.51194**。白盒指标和真实 Public Score 的选择依据分别保留。
+
+## 已验证的 Kaggle Public 成绩
+
+| 提交文件 | Public Score | 相对基线增加 |
+|---|---:|---:|
+| submission_baseline.csv | 0.51194 | — |
+| submission_pgd_random50.csv | 0.79277 | +0.28083 |
+| submission_pgd_finetuned40.csv | **0.80418** | **+0.29224** |
+
+微调模型比随机初始化模型高 0.01141。本次已测 Public Score 优先候选为微调 40-epoch 模型；这不推翻随机模型在直接白盒强攻击下的优势。截图中三个提交均为 Complete，最终 Select 框均未勾选；没有代用户更改最终选择。证据接收于 2026-11-05（Asia/Shanghai），未显示 numeric submission ID 或绝对提交时间，不推测填写。
+
+证据：[Kaggle 成绩截图](results/kaggle_defense_public_scores.png)。下方实验表格继续表示本地 Macro-F1，不能与这里的 Public Score 混填。
 
 ## 方法与数据边界
 
@@ -28,7 +40,7 @@
 | 增强 PGD 微调 40 epoch | 0.862639 | 0.333362 | 0.607821 | 0.831076 | 0.848462 |
 | 随机初始化增强 PGD 50 epoch | 0.796880 | 0.447401 | 0.630491 | 0.787553 | 0.791862 |
 
-原模型在 PGD20×3 下 F1 为 0。随机 50-epoch 候选在同一测试协议下为 0.447401，混合集为 0.630491；增强微调候选干净 F1 0.862639、迁移 PGD20×3 F1 0.831076、迁移混合集 0.848462。二者面对不同威胁有不同优势，真实 Kaggle 排名仍需提交验证。
+原模型在 PGD20×3 下 F1 为 0。随机 50-epoch 候选在同一测试协议下为 0.447401，混合集为 0.630491；增强微调候选干净 F1 0.862639、迁移 PGD20×3 F1 0.831076、迁移混合集 0.848462。二者面对不同威胁有不同优势；本次真实 Public Score 已观测为微调 0.80418、随机初始化 0.79277，未观测 Private/最终排名。
 
 FGSM 微调的白盒 FGSM F1 为 0.431209，但白盒 PGD20×3 仅 0.060370，不能据 FGSM 结果宣称鲁棒。更强源攻击不保证对迁移目标也更强；这些迁移分数不能替代白盒分数。
 
@@ -70,4 +82,4 @@ python -m dataset3.predict_defense --checkpoint runs/pgd_random_converged/best.p
 
 两份 CSV 都是 3,925 行、唯一 ID、样本模板顺序、整数标签 0–9。每个模型均重复完整测试推理，预测和 logits 逐位相同，并重新读取 CSV 检查。文件/模型 SHA-256 及模型对应关系见 `artifact_manifest.json`。
 
-优先的白盒鲁棒候选为 `submission_pgd_random50.csv`；`submission_pgd_finetuned40.csv` 是预先定义的性能取舍对照，在本地迁移攻击下更好。用户手动上传后记录各自真实 Public Score，再由团队决定最终选择。提交前基线 Public Score 0.51194，防御后暂未观测；本地分数不能填入 Kaggle 成绩栏。PPT 继续按交接约定，等待用户提供指定的 presentation skill。
+原预提交白盒鲁棒候选为 `submission_pgd_random50.csv`；真实 Public Score 最高的已测候选现为 `submission_pgd_finetuned40.csv`（0.80418，对比基线增加 0.29224）。保留两个模型和原始实验选择记录，由团队确认最终勾选；截图时均未勾选，未代用户操作。推理 JSON 保留生成时尚未提交的历史快照，最新成绩以 `kaggle_status.json` 和截图为准。本地分数不填入 Kaggle 成绩栏。PPT 继续按交接约定，等待用户提供指定的 presentation skill。
