@@ -1,0 +1,47 @@
+{
+  "date": "2026-11-05",
+  "timezone": "Asia/Shanghai",
+  "selected_run": "pgd_random_converged",
+  "selection": "Maximum worst mixed Macro-F1 across configured white-box FGSM8/PGD10/PGD20x3; clean Macro-F1 tiebreak",
+  "artifacts": [
+    {
+      "role": "primary",
+      "source_run": "pgd_random_converged",
+      "epoch": 50,
+      "checkpoint_filename": "pgd_random_converged.pt",
+      "checkpoint_sha256": "e29f8e2ec6a85a6e6fb768dc886a71e2579aec46f36fd951521d9aa114955792",
+      "checkpoint_bytes": 4731449,
+      "submission_filename": "submission_pgd_random50.csv",
+      "submission_sha256": "579cf12d2df419dc7c84cc6600ab1601082c5b2dfc267d0ac1e9b97c4ebb0617",
+      "records": 3925,
+      "deterministic_repeat": {
+        "full_passes": 2,
+        "predictions_equal": true,
+        "logits_bitwise_equal": true
+      },
+      "source_checkpoint_sha256": "ecaedefefbd35d48c9115981dc72f767b25e48bd2a24ba33573ff60c5a8db6d2",
+      "compact_weights_bitwise_equal_to_evaluated_source": true
+    },
+    {
+      "role": "comparison",
+      "source_run": "pgd_augmented",
+      "epoch": 39,
+      "checkpoint_filename": "pgd_augmented.pt",
+      "checkpoint_sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "checkpoint_bytes": 4730979,
+      "submission_filename": "submission_pgd_finetuned40.csv",
+      "submission_sha256": "ad5667a2dbfd816142abb558883db3f6b076a282bc902de7e3d2a2c6e26a4b4a",
+      "records": 3925,
+      "deterministic_repeat": {
+        "full_passes": 2,
+        "predictions_equal": true,
+        "logits_bitwise_equal": true
+      },
+      "source_checkpoint_sha256": "2e11528df3e8ccef8c153ce86b55022b2ce4f14a4d9f81f0ce96c4082a98e451",
+      "compact_weights_bitwise_equal_to_evaluated_source": true
+    }
+  ],
+  "actual_kaggle_baseline_public_score": 0.51194,
+  "defense_kaggle_public_scores": null,
+  "kaggle_submission": "User will upload CSVs manually; no post-defense score claimed"
+}
