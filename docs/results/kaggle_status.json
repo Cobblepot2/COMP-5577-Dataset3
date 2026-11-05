@@ -14,20 +14,58 @@
   "submission_description": "Baseline: provided classifier, original weights, no defense",
   "selected_for_final_at_observation": false,
   "evidence_limitations": "Screenshot shows filename, completed status, description and public score, but no numeric submission ID or exact timestamp. The SHA-256 above identifies the repository artifact, not a server-side checksum.",
-  "defense_public_score": null,
-  "defense_status": "Trained and evaluated; two verified CSVs delivered, awaiting user manual upload and actual Public Scores",
+  "defense_public_score": 0.80418,
+  "defense_status": "Both defense submissions Complete; Public Scores verified from user screenshot",
   "defense_candidates": [
     {
       "run": "pgd_random_converged",
       "file": "submission_pgd_random50.csv",
       "sha256": "579cf12d2df419dc7c84cc6600ab1601082c5b2dfc267d0ac1e9b97c4ebb0617",
-      "public_score": null
+      "public_score": 0.79277,
+      "submission_status": "Complete",
+      "submission_id": null,
+      "submission_date": null,
+      "selected_for_final_at_observation": false,
+      "delta_vs_baseline": 0.28083
     },
     {
       "run": "pgd_augmented",
       "file": "submission_pgd_finetuned40.csv",
       "sha256": "ad5667a2dbfd816142abb558883db3f6b076a282bc902de7e3d2a2c6e26a4b4a",
-      "public_score": null
+      "public_score": 0.80418,
+      "submission_status": "Complete",
+      "submission_id": null,
+      "submission_date": null,
+      "selected_for_final_at_observation": false,
+      "delta_vs_baseline": 0.29224
     }
-  ]
+  ],
+  "defense_public_score_run": "pgd_augmented",
+  "defense_public_score_definition": "Highest observed Public Score among the two submitted defense candidates",
+  "defense_score_observation": {
+    "evidence": "docs/results/kaggle_defense_public_scores.png",
+    "evidence_sha256": "ddfc2b88c3d0b4c3e29617e579b06a0035ea36eb096754b37522ac0b77aa0ea8",
+    "evidence_source": "User-provided Kaggle submissions screenshot",
+    "evidence_received_date": "2026-11-05",
+    "evidence_timezone": "Asia/Shanghai",
+    "submission_method": "User manual browser upload",
+    "best_observed_public_run": "pgd_augmented",
+    "best_observed_public_score": 0.80418,
+    "scores_by_filename": {
+      "submission_pgd_finetuned40.csv": 0.80418,
+      "submission_pgd_random50.csv": 0.79277
+    },
+    "baseline_public_score": 0.51194,
+    "improvements_over_baseline": {
+      "submission_pgd_finetuned40.csv": 0.29224,
+      "submission_pgd_random50.csv": 0.28083
+    },
+    "finetuned_minus_random": 0.01141,
+    "selected_for_final_at_observation": {
+      "submission_pgd_finetuned40.csv": false,
+      "submission_pgd_random50.csv": false,
+      "submission_baseline.csv": false
+    },
+    "evidence_limitations": "Screenshot shows filenames, Complete status, Public Scores, relative ages and unchecked Select boxes. Numeric submission IDs and exact absolute timestamps are not visible. Local CSV hashes identify local artifacts, not server-side checksums. Public scores do not establish private/final leaderboard results."
+  }
 }
