@@ -75,4 +75,8 @@ This writes `submission.csv` and `inference_metrics.json`. It requires exactly 3
 python -m unittest discover -s tests -v
 ```
 
-The implementation verification run passed 18 tests covering attacks, training updates and mode handling, epoch-boundary RNG/optimizer/scheduler/loader resume, actual mixed F1, transfer-cache reuse, and submission validation. Experiment measurements belong in the run reports and results documentation.
+The implementation verification run passed 22 tests covering attacks, training updates and mode handling, epoch-boundary RNG/optimizer/scheduler/loader resume, actual mixed F1, transfer-cache reuse, and submission validation. Experiment measurements belong in the run reports and results documentation.
+
+## Measured stronger-device continuation
+
+Six training runs and seven full attack evaluations are complete; see [results](results_5070ti.md). Extended configurations are `configs/training_pgd_augmented.json` and `configs/training_random_convergence.json`. The latter is a longer convergence-oriented trial, not proof that optimization globally converged. Compact exported checkpoints preserve inference weights/metadata and omit resume state. Actual post-defense Kaggle scores remain pending manual upload.

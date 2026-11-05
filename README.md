@@ -1,8 +1,8 @@
 # COMP5577 — Dataset 3: Adversarial Robustness
 
-This repository contains the supplied Dataset 3 files, fixed data preparation, baseline predictions and explicit FGSM/PGD attacks for the COMP5577 project. Adversarial training is the next stage.
+This repository contains the supplied Dataset 3 files, fixed data preparation, baseline predictions and explicit FGSM/PGD attacks for the COMP5577 project. Adversarial training, strong defense evaluation and reproducible test inference are now implemented and measured.
 
-**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Steps 1–3 are complete. The user submitted the baseline; its actual Kaggle Public Score is **0.51194** ([evidence](docs/results/kaggle_baseline_public_score.png)). Step 4 (training on the stronger device) is next.
+**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Steps 1–3 are complete. The user submitted the baseline; its actual Kaggle Public Score is **0.51194** ([evidence](docs/results/kaggle_baseline_public_score.png)). Steps 4–5 and local Step 6 inference are now complete on the stronger device; the user will manually upload defense CSVs for actual post-defense Kaggle scores. See [new-device results](docs/results_5070ti.md) and [training/inference commands](docs/training_and_defense.md).
 
 ## Supplied files
 

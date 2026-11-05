@@ -1,0 +1,548 @@
+{
+  "selection": "Maximum worst mixed Macro-F1 across configured white-box FGSM8/PGD10/PGD20x3; clean Macro-F1 tiebreak",
+  "scope": "Local model selection only; no Kaggle post-defense score measured",
+  "selected_run": "pgd_random_converged",
+  "rows": [
+    {
+      "name": "provided_baseline",
+      "clean_macro_f1": 0.9994764074975157,
+      "attacks": {
+        "white_box_fgsm8": {
+          "float_macro_f1": 0.1915360704169356,
+          "quantized_macro_f1": 0.1915360704169356,
+          "mixed_macro_f1": 0.6077500415449835,
+          "mixed_quantized_macro_f1": 0.6077500415449835,
+          "float_accuracy": 0.1958817317845829,
+          "attack_success_rate": 0.8045430533544639,
+          "seconds": 0.36018740001600236,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "white_box_pgd10": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5091168873864437,
+          "mixed_quantized_macro_f1": 0.5091168873864437,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 2.1376942000351846,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "white_box_pgd20x3": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5122747404776293,
+          "mixed_quantized_macro_f1": 0.5122747404776293,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 11.364137099997606,
+          "peak_allocated_mib": 701.01416015625
+        },
+        "transfer_fgsm8": {
+          "float_macro_f1": 0.1915360704169356,
+          "quantized_macro_f1": 0.1915360704169356,
+          "mixed_macro_f1": 0.6077500415449835,
+          "mixed_quantized_macro_f1": 0.6077500415449835,
+          "float_accuracy": 0.1958817317845829,
+          "attack_success_rate": 0.8045430533544639,
+          "seconds": 0.34948269999586046,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "transfer_pgd10": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5091168873864437,
+          "mixed_quantized_macro_f1": 0.5091168873864437,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 2.1597395000280812,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "transfer_pgd20x3": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5122747404776293,
+          "mixed_quantized_macro_f1": 0.5122747404776293,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 11.471363899996504,
+          "peak_allocated_mib": 701.01416015625
+        }
+      },
+      "white_box_pgd_strength_check": {
+        "pgd10_accuracy": 0.0,
+        "pgd20x3_accuracy": 0.0,
+        "new_failures_under_pgd20x3": 0,
+        "recovered_under_pgd20x3": 0,
+        "interpretation": "Finite-attack stress test; survival does not certify robustness"
+      },
+      "worst_configured_white_box_mixed_macro_f1": 0.5091168873864437,
+      "empirical_all_float_survival_accuracy": 0.0,
+      "checkpoint_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+      "scope": "Local diagnostic on provided-model training data; not unseen-data or Kaggle performance"
+    },
+    {
+      "name": "clean_provided",
+      "clean_macro_f1": 0.9962383262575052,
+      "attacks": {
+        "white_box_fgsm8": {
+          "float_macro_f1": 0.09108425263910887,
+          "quantized_macro_f1": 0.09108425263910887,
+          "mixed_macro_f1": 0.5603732499853525,
+          "mixed_quantized_macro_f1": 0.5603732499853525,
+          "float_accuracy": 0.09503695881731784,
+          "attack_success_rate": 0.904610492845787,
+          "seconds": 0.35401579999597743,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "white_box_pgd10": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5148015709456584,
+          "mixed_quantized_macro_f1": 0.5148015709456584,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 2.145286999992095,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "white_box_pgd20x3": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5189642503357182,
+          "mixed_quantized_macro_f1": 0.5189642503357182,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 11.352757999964524,
+          "peak_allocated_mib": 701.01416015625
+        },
+        "transfer_fgsm8": {
+          "float_macro_f1": 0.18975870751754292,
+          "quantized_macro_f1": 0.18975870751754292,
+          "mixed_macro_f1": 0.6078656927920453,
+          "mixed_quantized_macro_f1": 0.6078656927920453,
+          "float_accuracy": 0.191129883843717,
+          "attack_success_rate": 0.8086910439851617,
+          "seconds": 0.1826493000262417,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd10": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5086024626309223,
+          "mixed_quantized_macro_f1": 0.5086024626309223,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 0.18102620000718161,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd20x3": {
+          "float_macro_f1": 0.0,
+          "quantized_macro_f1": 0.0,
+          "mixed_macro_f1": 0.5117717768329216,
+          "mixed_quantized_macro_f1": 0.5117717768329216,
+          "float_accuracy": 0.0,
+          "attack_success_rate": 1.0,
+          "seconds": 0.18717829999513924,
+          "peak_allocated_mib": 214.0419921875
+        }
+      },
+      "white_box_pgd_strength_check": {
+        "pgd10_accuracy": 0.0,
+        "pgd20x3_accuracy": 0.0,
+        "new_failures_under_pgd20x3": 0,
+        "recovered_under_pgd20x3": 0,
+        "interpretation": "Finite-attack stress test; survival does not certify robustness"
+      },
+      "worst_configured_white_box_mixed_macro_f1": 0.5148015709456584,
+      "empirical_all_float_survival_accuracy": 0.0,
+      "checkpoint_sha256": "59769a2382fc4015453cc5d27931f2a695ffc3741d70f16ce03cd500fa3e45cc",
+      "scope": "Fine-tuned supplied checkpoint; upstream pretraining may include validation records, so local validation is diagnostic rather than unseen-data performance"
+    },
+    {
+      "name": "fgsm_provided",
+      "clean_macro_f1": 0.9009287928933383,
+      "attacks": {
+        "white_box_fgsm8": {
+          "float_macro_f1": 0.43120850685918155,
+          "quantized_macro_f1": 0.43120850685918155,
+          "mixed_macro_f1": 0.6659291802637154,
+          "mixed_quantized_macro_f1": 0.6659291802637154,
+          "float_accuracy": 0.43189017951425557,
+          "attack_success_rate": 0.5216627634660421,
+          "seconds": 0.3577792000141926,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "white_box_pgd10": {
+          "float_macro_f1": 0.09722787453643765,
+          "quantized_macro_f1": 0.09722787453643765,
+          "mixed_macro_f1": 0.5015954336537349,
+          "mixed_quantized_macro_f1": 0.5015954336537349,
+          "float_accuracy": 0.09503695881731784,
+          "attack_success_rate": 0.8946135831381733,
+          "seconds": 2.14685829996597,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "white_box_pgd20x3": {
+          "float_macro_f1": 0.06037033429723417,
+          "quantized_macro_f1": 0.06037033429723417,
+          "mixed_macro_f1": 0.47980059517340007,
+          "mixed_quantized_macro_f1": 0.47980059517340007,
+          "float_accuracy": 0.05807814149947202,
+          "attack_success_rate": 0.9355971896955504,
+          "seconds": 11.17028299998492,
+          "peak_allocated_mib": 701.01416015625
+        },
+        "transfer_fgsm8": {
+          "float_macro_f1": 0.6784849661150241,
+          "quantized_macro_f1": 0.6784849661150241,
+          "mixed_macro_f1": 0.7863496167011117,
+          "mixed_quantized_macro_f1": 0.7863496167011117,
+          "float_accuracy": 0.6752903907074974,
+          "attack_success_rate": 0.2529274004683841,
+          "seconds": 0.19140030001290143,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd10": {
+          "float_macro_f1": 0.6601722892088141,
+          "quantized_macro_f1": 0.6602923512711053,
+          "mixed_macro_f1": 0.769759342998219,
+          "mixed_quantized_macro_f1": 0.769759342998219,
+          "float_accuracy": 0.6578669482576558,
+          "attack_success_rate": 0.27107728337236536,
+          "seconds": 0.1968075000331737,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd20x3": {
+          "float_macro_f1": 0.6434734861430458,
+          "quantized_macro_f1": 0.6429620612176233,
+          "mixed_macro_f1": 0.7625993838471329,
+          "mixed_quantized_macro_f1": 0.7625993838471329,
+          "float_accuracy": 0.6378035902851109,
+          "attack_success_rate": 0.2933255269320843,
+          "seconds": 0.18902150000212714,
+          "peak_allocated_mib": 214.0419921875
+        }
+      },
+      "white_box_pgd_strength_check": {
+        "pgd10_accuracy": 0.09503695881731784,
+        "pgd20x3_accuracy": 0.05807814149947202,
+        "new_failures_under_pgd20x3": 70,
+        "recovered_under_pgd20x3": 0,
+        "interpretation": "Finite-attack stress test; survival does not certify robustness"
+      },
+      "worst_configured_white_box_mixed_macro_f1": 0.47980059517340007,
+      "empirical_all_float_survival_accuracy": 0.05807814149947202,
+      "checkpoint_sha256": "4aace5bc4eaca2bc02f1e4efc3e732b0864c8a01ebfb1ffd9e711bb3cc3300c9",
+      "scope": "Fine-tuned supplied checkpoint; upstream pretraining may include validation records, so local validation is diagnostic rather than unseen-data performance"
+    },
+    {
+      "name": "pgd_provided",
+      "clean_macro_f1": 0.7854924233447773,
+      "attacks": {
+        "white_box_fgsm8": {
+          "float_macro_f1": 0.4005429130416583,
+          "quantized_macro_f1": 0.4005429130416583,
+          "mixed_macro_f1": 0.5991919256384043,
+          "mixed_quantized_macro_f1": 0.5991919256384043,
+          "float_accuracy": 0.41077085533262936,
+          "attack_success_rate": 0.4802939211756847,
+          "seconds": 0.35259989998303354,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "white_box_pgd10": {
+          "float_macro_f1": 0.3084748442107695,
+          "quantized_macro_f1": 0.3084748442107695,
+          "mixed_macro_f1": 0.5543421617452712,
+          "mixed_quantized_macro_f1": 0.5543421617452712,
+          "float_accuracy": 0.31784582893347413,
+          "attack_success_rate": 0.5978623914495658,
+          "seconds": 2.15170390001731,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "white_box_pgd20x3": {
+          "float_macro_f1": 0.2873905522424941,
+          "quantized_macro_f1": 0.2873905522424941,
+          "mixed_macro_f1": 0.5464083313958307,
+          "mixed_quantized_macro_f1": 0.5464083313958307,
+          "float_accuracy": 0.2961985216473073,
+          "attack_success_rate": 0.625250501002004,
+          "seconds": 11.199497899971902,
+          "peak_allocated_mib": 701.01416015625
+        },
+        "transfer_fgsm8": {
+          "float_macro_f1": 0.7304861566525667,
+          "quantized_macro_f1": 0.7304861566525667,
+          "mixed_macro_f1": 0.7536788376341218,
+          "mixed_quantized_macro_f1": 0.7536788376341218,
+          "float_accuracy": 0.7365364308342133,
+          "attack_success_rate": 0.07014028056112225,
+          "seconds": 0.18564199999673292,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd10": {
+          "float_macro_f1": 0.7500741473151202,
+          "quantized_macro_f1": 0.7500741473151202,
+          "mixed_macro_f1": 0.7671459592990644,
+          "mixed_quantized_macro_f1": 0.7671459592990644,
+          "float_accuracy": 0.7560718057022175,
+          "attack_success_rate": 0.04408817635270541,
+          "seconds": 0.20584680000320077,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd20x3": {
+          "float_macro_f1": 0.7489457178632939,
+          "quantized_macro_f1": 0.7489457178632939,
+          "mixed_macro_f1": 0.7670995817277078,
+          "mixed_quantized_macro_f1": 0.7670995817277078,
+          "float_accuracy": 0.7550158394931362,
+          "attack_success_rate": 0.04609218436873747,
+          "seconds": 0.2013994000153616,
+          "peak_allocated_mib": 214.0419921875
+        }
+      },
+      "white_box_pgd_strength_check": {
+        "pgd10_accuracy": 0.31784582893347413,
+        "pgd20x3_accuracy": 0.2961985216473073,
+        "new_failures_under_pgd20x3": 41,
+        "recovered_under_pgd20x3": 0,
+        "interpretation": "Finite-attack stress test; survival does not certify robustness"
+      },
+      "worst_configured_white_box_mixed_macro_f1": 0.5464083313958307,
+      "empirical_all_float_survival_accuracy": 0.2961985216473073,
+      "checkpoint_sha256": "9936a238ca7285dd881fba3b589431d4741d4230f13928a3a11a123046954ebf",
+      "scope": "Fine-tuned supplied checkpoint; upstream pretraining may include validation records, so local validation is diagnostic rather than unseen-data performance"
+    },
+    {
+      "name": "pgd_random_short",
+      "clean_macro_f1": 0.6440396235041554,
+      "attacks": {
+        "white_box_fgsm8": {
+          "float_macro_f1": 0.37762287994513233,
+          "quantized_macro_f1": 0.37762287994513233,
+          "mixed_macro_f1": 0.5163803408682998,
+          "mixed_quantized_macro_f1": 0.5163803408682998,
+          "float_accuracy": 0.38542766631467795,
+          "attack_success_rate": 0.41081517352703795,
+          "seconds": 0.361895700043533,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "white_box_pgd10": {
+          "float_macro_f1": 0.33501293820217043,
+          "quantized_macro_f1": 0.33501293820217043,
+          "mixed_macro_f1": 0.4966239713214109,
+          "mixed_quantized_macro_f1": 0.4966239713214109,
+          "float_accuracy": 0.34213305174234426,
+          "attack_success_rate": 0.47699757869249393,
+          "seconds": 2.135373700002674,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "white_box_pgd20x3": {
+          "float_macro_f1": 0.3280633948724527,
+          "quantized_macro_f1": 0.3280837059438778,
+          "mixed_macro_f1": 0.49253632226152577,
+          "mixed_quantized_macro_f1": 0.49253632226152577,
+          "float_accuracy": 0.3347412882787751,
+          "attack_success_rate": 0.4882970137207425,
+          "seconds": 11.227975799993146,
+          "peak_allocated_mib": 701.01416015625
+        },
+        "transfer_fgsm8": {
+          "float_macro_f1": 0.6379122862974791,
+          "quantized_macro_f1": 0.6379122862974791,
+          "mixed_macro_f1": 0.6398060198724445,
+          "mixed_quantized_macro_f1": 0.6398060198724445,
+          "float_accuracy": 0.646779303062302,
+          "attack_success_rate": 0.014527845036319613,
+          "seconds": 0.18759719998342916,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd10": {
+          "float_macro_f1": 0.6402999115883011,
+          "quantized_macro_f1": 0.6402999115883011,
+          "mixed_macro_f1": 0.642205404124937,
+          "mixed_quantized_macro_f1": 0.642205404124937,
+          "float_accuracy": 0.6499472016895459,
+          "attack_success_rate": 0.008071025020177562,
+          "seconds": 0.183757999970112,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd20x3": {
+          "float_macro_f1": 0.6398834015437173,
+          "quantized_macro_f1": 0.6398834015437173,
+          "mixed_macro_f1": 0.6417410994360381,
+          "mixed_quantized_macro_f1": 0.6417410994360381,
+          "float_accuracy": 0.6494192185850053,
+          "attack_success_rate": 0.00887812752219532,
+          "seconds": 0.18244860001141205,
+          "peak_allocated_mib": 214.0419921875
+        }
+      },
+      "white_box_pgd_strength_check": {
+        "pgd10_accuracy": 0.34213305174234426,
+        "pgd20x3_accuracy": 0.3347412882787751,
+        "new_failures_under_pgd20x3": 14,
+        "recovered_under_pgd20x3": 0,
+        "interpretation": "Finite-attack stress test; survival does not certify robustness"
+      },
+      "worst_configured_white_box_mixed_macro_f1": 0.49253632226152577,
+      "empirical_all_float_survival_accuracy": 0.3347412882787751,
+      "checkpoint_sha256": "2a78c9712f2b3640ab8391f081085dcf7a9e79eb550b7c439fcdcc1e1dd6bfa4",
+      "scope": "Randomly initialized ProvidedNet trained only on fixed train.csv; validation excluded from gradient updates but used for checkpoint selection; independent test needed for unbiased final performance"
+    },
+    {
+      "name": "pgd_augmented",
+      "clean_macro_f1": 0.8626394443879033,
+      "attacks": {
+        "white_box_fgsm8": {
+          "float_macro_f1": 0.44330215261582834,
+          "quantized_macro_f1": 0.44330215261582834,
+          "mixed_macro_f1": 0.6586388391404879,
+          "mixed_quantized_macro_f1": 0.6586388391404879,
+          "float_accuracy": 0.44720168954593453,
+          "attack_success_rate": 0.48227383863080686,
+          "seconds": 0.353609099984169,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "white_box_pgd10": {
+          "float_macro_f1": 0.35754047287882706,
+          "quantized_macro_f1": 0.35754047287882706,
+          "mixed_macro_f1": 0.6198108345931465,
+          "mixed_quantized_macro_f1": 0.6198108345931465,
+          "float_accuracy": 0.3611404435058078,
+          "attack_success_rate": 0.5819070904645477,
+          "seconds": 2.1426535000209697,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "white_box_pgd20x3": {
+          "float_macro_f1": 0.3333620037926124,
+          "quantized_macro_f1": 0.3333620037926124,
+          "mixed_macro_f1": 0.607820515605154,
+          "mixed_quantized_macro_f1": 0.607820515605154,
+          "float_accuracy": 0.336325237592397,
+          "attack_success_rate": 0.6106356968215159,
+          "seconds": 11.143193900003098,
+          "peak_allocated_mib": 701.01416015625
+        },
+        "transfer_fgsm8": {
+          "float_macro_f1": 0.8152447994946819,
+          "quantized_macro_f1": 0.8152447994946819,
+          "mixed_macro_f1": 0.8384964883441095,
+          "mixed_quantized_macro_f1": 0.8384964883441095,
+          "float_accuracy": 0.8167898627243928,
+          "attack_success_rate": 0.0550122249388753,
+          "seconds": 0.20280009997077286,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd10": {
+          "float_macro_f1": 0.8318556535688142,
+          "quantized_macro_f1": 0.8318556535688142,
+          "mixed_macro_f1": 0.8493882213116424,
+          "mixed_quantized_macro_f1": 0.8493882213116424,
+          "float_accuracy": 0.8331573389651531,
+          "attack_success_rate": 0.035452322738386305,
+          "seconds": 0.1976003999589011,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd20x3": {
+          "float_macro_f1": 0.8310757959852111,
+          "quantized_macro_f1": 0.8310757959852111,
+          "mixed_macro_f1": 0.8484624041936254,
+          "mixed_quantized_macro_f1": 0.8484624041936254,
+          "float_accuracy": 0.8321013727560718,
+          "attack_success_rate": 0.03667481662591687,
+          "seconds": 0.20713850000174716,
+          "peak_allocated_mib": 214.0419921875
+        }
+      },
+      "white_box_pgd_strength_check": {
+        "pgd10_accuracy": 0.3611404435058078,
+        "pgd20x3_accuracy": 0.336325237592397,
+        "new_failures_under_pgd20x3": 47,
+        "recovered_under_pgd20x3": 0,
+        "interpretation": "Finite-attack stress test; survival does not certify robustness"
+      },
+      "worst_configured_white_box_mixed_macro_f1": 0.607820515605154,
+      "empirical_all_float_survival_accuracy": 0.336325237592397,
+      "checkpoint_sha256": "2e11528df3e8ccef8c153ce86b55022b2ce4f14a4d9f81f0ce96c4082a98e451",
+      "scope": "Fine-tuned supplied checkpoint; upstream pretraining may include validation records, so local validation is diagnostic rather than unseen-data performance"
+    },
+    {
+      "name": "pgd_random_converged",
+      "clean_macro_f1": 0.7968800030888226,
+      "attacks": {
+        "white_box_fgsm8": {
+          "float_macro_f1": 0.5002101705306339,
+          "quantized_macro_f1": 0.5002101705306339,
+          "mixed_macro_f1": 0.656289698016929,
+          "mixed_quantized_macro_f1": 0.656289698016929,
+          "float_accuracy": 0.5063357972544879,
+          "attack_success_rate": 0.3665785997357992,
+          "seconds": 0.3628518999903463,
+          "peak_allocated_mib": 400.00732421875
+        },
+        "white_box_pgd10": {
+          "float_macro_f1": 0.4574164513532069,
+          "quantized_macro_f1": 0.4574164513532069,
+          "mixed_macro_f1": 0.6363912160926254,
+          "mixed_quantized_macro_f1": 0.6363912160926254,
+          "float_accuracy": 0.4651531151003168,
+          "attack_success_rate": 0.4180977542932629,
+          "seconds": 2.1273653999669477,
+          "peak_allocated_mib": 415.01220703125
+        },
+        "white_box_pgd20x3": {
+          "float_macro_f1": 0.4474008952537599,
+          "quantized_macro_f1": 0.4474008952537599,
+          "mixed_macro_f1": 0.63049062944152,
+          "mixed_quantized_macro_f1": 0.63049062944152,
+          "float_accuracy": 0.455649419218585,
+          "attack_success_rate": 0.4299867899603699,
+          "seconds": 11.16875060001621,
+          "peak_allocated_mib": 701.01416015625
+        },
+        "transfer_fgsm8": {
+          "float_macro_f1": 0.7871848300408433,
+          "quantized_macro_f1": 0.7871848300408433,
+          "mixed_macro_f1": 0.7934547606610712,
+          "mixed_quantized_macro_f1": 0.7934547606610712,
+          "float_accuracy": 0.7893347412882787,
+          "attack_success_rate": 0.013870541611624834,
+          "seconds": 0.1822750000283122,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd10": {
+          "float_macro_f1": 0.788667609333192,
+          "quantized_macro_f1": 0.788667609333192,
+          "mixed_macro_f1": 0.7924299359887655,
+          "mixed_quantized_macro_f1": 0.7924299359887655,
+          "float_accuracy": 0.7909186906019008,
+          "attack_success_rate": 0.012549537648612946,
+          "seconds": 0.1869719999958761,
+          "peak_allocated_mib": 214.0419921875
+        },
+        "transfer_pgd20x3": {
+          "float_macro_f1": 0.7875533906040996,
+          "quantized_macro_f1": 0.7875533906040996,
+          "mixed_macro_f1": 0.7918616463415157,
+          "mixed_quantized_macro_f1": 0.7918616463415157,
+          "float_accuracy": 0.7898627243928195,
+          "attack_success_rate": 0.012549537648612946,
+          "seconds": 0.1824481000076048,
+          "peak_allocated_mib": 214.0419921875
+        }
+      },
+      "white_box_pgd_strength_check": {
+        "pgd10_accuracy": 0.4651531151003168,
+        "pgd20x3_accuracy": 0.455649419218585,
+        "new_failures_under_pgd20x3": 18,
+        "recovered_under_pgd20x3": 0,
+        "interpretation": "Finite-attack stress test; survival does not certify robustness"
+      },
+      "worst_configured_white_box_mixed_macro_f1": 0.63049062944152,
+      "empirical_all_float_survival_accuracy": 0.455649419218585,
+      "checkpoint_sha256": "ecaedefefbd35d48c9115981dc72f767b25e48bd2a24ba33573ff60c5a8db6d2",
+      "scope": "Randomly initialized ProvidedNet trained only on fixed train.csv; validation excluded from gradient updates but used for checkpoint selection; independent test needed for unbiased final performance"
+    }
+  ],
+  "strength_check": "PGD20x3 retained every PGD10 float failure for every evaluated model; accuracy never increased",
+  "certified_robustness": false
+}

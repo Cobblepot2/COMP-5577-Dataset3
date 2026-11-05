@@ -15,5 +15,19 @@
   "selected_for_final_at_observation": false,
   "evidence_limitations": "Screenshot shows filename, completed status, description and public score, but no numeric submission ID or exact timestamp. The SHA-256 above identifies the repository artifact, not a server-side checksum.",
   "defense_public_score": null,
-  "defense_status": "Not trained or submitted"
+  "defense_status": "Trained and evaluated; two verified CSVs delivered, awaiting user manual upload and actual Public Scores",
+  "defense_candidates": [
+    {
+      "run": "pgd_random_converged",
+      "file": "submission_pgd_random50.csv",
+      "sha256": "579cf12d2df419dc7c84cc6600ab1601082c5b2dfc267d0ac1e9b97c4ebb0617",
+      "public_score": null
+    },
+    {
+      "run": "pgd_augmented",
+      "file": "submission_pgd_finetuned40.csv",
+      "sha256": "ad5667a2dbfd816142abb558883db3f6b076a282bc902de7e3d2a2c6e26a4b4a",
+      "public_score": null
+    }
+  ]
 }

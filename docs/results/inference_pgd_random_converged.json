@@ -1,0 +1,143 @@
+{
+  "python": "3.12.13",
+  "torch": "2.9.1+cu128",
+  "numpy": "2.2.6",
+  "cuda_runtime": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "config": {
+    "seed": 5577,
+    "validation_fraction": 0.2,
+    "data_dir": "data/dataset3",
+    "split_dir": "splits",
+    "num_classes": 10,
+    "image_size": 64,
+    "input_range": [
+      0.0,
+      1.0
+    ],
+    "epsilon": 0.03137254901960784,
+    "batch_size": 64,
+    "num_workers": 0
+  },
+  "sha256": {
+    "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+    "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5"
+  },
+  "scope": "Unlabeled 3925-image test inference; no test accuracy or Kaggle score is inferred",
+  "checkpoint": {
+    "epoch": 50,
+    "training_config": {
+      "mode": "pgd",
+      "initialization": "random",
+      "epochs": 50,
+      "batch_size": 128,
+      "learning_rate": 0.05,
+      "momentum": 0.9,
+      "weight_decay": 0.0005,
+      "scheduler": "cosine",
+      "min_learning_rate": 0.0,
+      "epsilon": 0.03137254901960784,
+      "step_size": 0.00784313725490196,
+      "steps": 7,
+      "random_start": true,
+      "clean_weight": 0.5,
+      "augmentation": true,
+      "validation_attack": {
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 10,
+        "restarts": 1
+      }
+    },
+    "config": {
+      "seed": 5577,
+      "validation_fraction": 0.2,
+      "data_dir": "data/dataset3",
+      "split_dir": "splits",
+      "num_classes": 10,
+      "image_size": 64,
+      "input_range": [
+        0.0,
+        1.0
+      ],
+      "epsilon": 0.03137254901960784,
+      "batch_size": 64,
+      "num_workers": 0
+    },
+    "provenance": {
+      "python": "3.12.13",
+      "torch": "2.9.1+cu128",
+      "numpy": "2.2.6",
+      "cuda_runtime": "12.8",
+      "gpu": "NVIDIA GeForce RTX 5070 Ti",
+      "config": {
+        "seed": 5577,
+        "validation_fraction": 0.2,
+        "data_dir": "data/dataset3",
+        "split_dir": "splits",
+        "num_classes": 10,
+        "image_size": 64,
+        "input_range": [
+          0.0,
+          1.0
+        ],
+        "epsilon": 0.03137254901960784,
+        "batch_size": 64,
+        "num_workers": 0
+      },
+      "sha256": {
+        "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+        "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+        "splits/train.csv": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+        "data/dataset3/dataset3_model.py": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+        "configs/experiment.json": "fc89de8605c660cfe1e13af708ebcb189a36e18ae790766f5ad252975f53a99c",
+        "configs/training_random_convergence.json": "996eec8c2272d88c3d93e0a0427fa13b796826ba54fb147efab335cb9ea60604"
+      },
+      "scope": "Randomly initialized ProvidedNet trained only on fixed train.csv; validation excluded from gradient updates but used for checkpoint selection; independent test needed for unbiased final performance"
+    },
+    "best_selection": {
+      "mixed_macro_f1": 0.636961573380807,
+      "clean_macro_f1": 0.7968800030888226,
+      "epoch": 50
+    },
+    "checkpoint": "checkpoints\\pgd_random_converged.pt",
+    "checkpoint_sha256": "e29f8e2ec6a85a6e6fb768dc886a71e2579aec46f36fd951521d9aa114955792"
+  },
+  "records": 3925,
+  "output": "runs\\inference_pgd_random_converged\\submission.csv",
+  "submission_sha256": "579cf12d2df419dc7c84cc6600ab1601082c5b2dfc267d0ac1e9b97c4ebb0617",
+  "test_csv_sha256": "598d3a8721d8313a4fe001a75022b8fa54abe4490894accde538c5024dbd96a8",
+  "sample_submission_sha256": "72bdf9427c8f3209950caf4fa4238ed130efbd4b1f142f6bb04863d2f456feee",
+  "label_counts": [
+    404,
+    416,
+    371,
+    315,
+    424,
+    385,
+    412,
+    403,
+    406,
+    389
+  ],
+  "timing": {
+    "seconds": 0.20998769998550415,
+    "images_per_second": 18691.570983781196,
+    "peak_allocated_mib": 171.541015625,
+    "peak_reserved_mib": 242.0,
+    "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+  },
+  "repeat_timing": {
+    "seconds": 0.20119290001457557,
+    "images_per_second": 19508.640711057153,
+    "peak_allocated_mib": 171.541015625,
+    "peak_reserved_mib": 242.0,
+    "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+  },
+  "deterministic_repeat": {
+    "full_passes": 2,
+    "predictions_equal": true,
+    "logits_bitwise_equal": true
+  },
+  "submitted_to_kaggle": false
+}
