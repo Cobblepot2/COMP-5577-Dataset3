@@ -14,6 +14,8 @@ from .common import (ImageRecords, load_provided_model, load_records, provenance
                      setup, write_json, write_predictions)
 from .evaluation import make_loader, predict_clean
 from .metrics import classification_metrics
+from .stress_attacks import margin_pgd
+from .tta import configure_predictor
 
 
 def load_defense(config, checkpoint, device):
@@ -45,6 +47,27 @@ def load_defense(config, checkpoint, device):
     return model, metadata
 
 
+def load_transfer_source(config, checkpoint, device):
+    """Load a frozen, unwrapped source and identify the weights actually used."""
+    model, loaded = load_defense(config, checkpoint, device)
+    metadata = {
+        "source_kind": "provided" if checkpoint is None else "checkpoint",
+        "checkpoint": loaded["checkpoint"],
+        "checkpoint_sha256": loaded["checkpoint_sha256"],
+        "initialization": loaded.get("initialization", loaded.get("training_config", {}).get("initialization")),
+        "epoch": loaded.get("epoch"),
+        "inference_transform": "identity_unwrapped_model_logits",
+    }
+    identity = {"source_architecture_sha256": hashlib.sha256(
+        (Path(config["data_dir"]) / "dataset3_model.py").read_bytes()).hexdigest()}
+    if checkpoint is None:
+        # Retain the original source-identity keys for the default provided source.
+        identity["provided_model_sha256"] = loaded["checkpoint_sha256"]
+    else:
+        identity.update(source_kind="checkpoint", source_checkpoint_sha256=loaded["checkpoint_sha256"])
+    return model, metadata, identity
+
+
 def fixed_mixed_mask(records):
     """The same half of the fixed validation ordering is attacked for every model."""
     mask = np.zeros(records, dtype=bool)
@@ -71,7 +94,9 @@ def attack_metrics(labels, clean, attacked, quantized, mixed_mask):
     }
 
 
-def attack_suite(suite):
+def attack_suite(suite, stress=False):
+    if stress and suite != "full":
+        raise ValueError("Stress attacks require the full suite")
     settings = []
     methods = [("fgsm8", "fgsm", 1, 1), ("pgd10", "pgd", 10, 1)]
     if suite == "full":
@@ -85,12 +110,23 @@ def attack_suite(suite):
             if method == "pgd":
                 entry.update(step_size=2 / 255, steps=steps, restarts=restarts)
             settings.append(entry)
+    if stress:
+        for name, method, objective in [
+            ("pgd50x5", "pgd", "cross_entropy"),
+            ("margin_pgd50x5", "margin_pgd", "max_other_logit_minus_true_logit"),
+        ]:
+            settings.append({"name": f"white_box_{name}", "threat_model": "white_box",
+                             "method": method, "objective": objective, "epsilon": 8 / 255,
+                             "step_size": 2 / 255, "steps": 50, "restarts": 5})
     return settings
 
 
 def _generate(source, images, labels, settings, generator):
     if settings["method"] == "fgsm":
         return fgsm(source, images, labels, settings["epsilon"])
+    if settings["method"] == "margin_pgd":
+        return margin_pgd(source, images, labels, settings["epsilon"], settings["step_size"],
+                          settings["steps"], settings["restarts"], generator=generator)
     return pgd(source, images, labels, settings["epsilon"], settings["step_size"],
                settings["steps"], settings["restarts"], generator=generator)
 
@@ -201,7 +237,15 @@ def main():
     parser.add_argument("--output", default="runs/defense")
     parser.add_argument("--suite", choices=("quick", "full"), default="full")
     parser.add_argument("--transfer-cache", help="Reuse source float attacks across candidate defenses")
+    parser.add_argument("--transfer-source-checkpoint",
+                        help="Trusted local transfer-source checkpoint; default is the unwrapped provided model")
+    parser.add_argument("--horizontal-flip", action="store_true",
+                        help="Average identity/horizontal-flip probabilities; attack the complete predictor")
+    parser.add_argument("--stress", action="store_true",
+                        help="Add white-box CE and margin PGD50x5; requires --suite full")
     args = parser.parse_args()
+    if args.stress and args.suite != "full":
+        parser.error("--stress requires --suite full")
     config, device = setup(args.config)
     if config["seed"] != 5577:
         raise ValueError("The fixed Dataset3 experiment uses seed5577")
@@ -213,7 +257,11 @@ def main():
     dataset = ImageRecords(rows, data / "train_images", labeled=True)
     loader = make_loader(dataset, config)
     model, checkpoint = load_defense(config, args.checkpoint, device)
-    source = load_provided_model(data, device)
+    model, transform = configure_predictor(model, args.horizontal_flip)
+    checkpoint["inference_transform"] = transform
+    # The transfer source stays unwrapped; white-box attacks use the deployed model.
+    source, source_metadata, source_identity = load_transfer_source(
+        config, args.transfer_source_checkpoint, device)
     clean, _, clean_timing = predict_clean(model, loader, device)
     mask = fixed_mixed_mask(len(dataset))
     out = Path(args.output)
@@ -223,25 +271,32 @@ def main():
         writer = csv.writer(stream)
         writer.writerow(["id", "attacked"])
         writer.writerows(zip(dataset.ids, mask.astype(int)))
-    cache_identity = {"provided_model_sha256": hashlib.sha256((data / "provided_model.pt").read_bytes()).hexdigest(),
-                      "validation_csv_sha256": hashlib.sha256(split.read_bytes()).hexdigest(),
-                      "input_pixels_sha256": hashlib.sha256(dataset.images.numpy().tobytes()).hexdigest(),
-                      "source_architecture_sha256": hashlib.sha256((data / "dataset3_model.py").read_bytes()).hexdigest()}
+    cache_identity = dict(source_identity,
+                          validation_csv_sha256=hashlib.sha256(split.read_bytes()).hexdigest(),
+                          input_pixels_sha256=hashlib.sha256(dataset.images.numpy().tobytes()).hexdigest())
     report = provenance(config)
     report["scope"] = checkpoint.get("provenance", {}).get("scope", report["scope"])
     report.update(checkpoint=checkpoint, suite=args.suite, source=cache_identity,
+                  transfer_source=source_metadata,
+                  inference_transform=transform, stress=args.stress,
                   clean=classification_metrics(dataset.labels, clean), clean_timing=clean_timing,
                   initially_correct=int((clean == dataset.labels).sum()),
                   mixed_attacked_records=int(mask.sum()), mixed_mask_seed=5578,
                   mixed_mask_sha256=hashlib.sha256(mask.tobytes()).hexdigest(), attacks=[],
                   certified_robustness=False,
-                  threat_model="Untargeted Linf <=8/255 in [0,1]; transfers use the frozen provided source; white-box attacks use the evaluated defense",
+                  threat_model=("Untargeted Linf <=8/255 in [0,1]; transfers use the frozen, unwrapped "
+                                f"{source_metadata['source_kind']} source {source_metadata['checkpoint']}; "
+                                "white-box attacks use the evaluated defense"),
                   pgd_selection="Per-image misclassification first, then maximum CE across clean input, all iterates and restarts; no FGSM injection")
     survives_float = clean == dataset.labels
     survives_quantized = survives_float.copy()
     white_float = survives_float.copy()
     predictions = {}
-    for settings in attack_suite(args.suite):
+    if args.stress:
+        report["margin_pgd_selection"] = "Per-image misclassification first, then maximum (max other logit - true logit) across clean input, all iterates and restarts"
+        report["stress_attack_implementation_sha256"] = hashlib.sha256(
+            Path(__file__).with_name("stress_attacks.py").read_bytes()).hexdigest()
+    for settings in attack_suite(args.suite, stress=args.stress):
         attack_source = model if settings["threat_model"] == "white_box" else source
         entry, pred, quantized = evaluate_attack(
             model, attack_source, dataset, config, device, settings, clean, mask,
@@ -267,6 +322,19 @@ def main():
             "new_failures_under_pgd20x3": int((weak & ~strong).sum()),
             "recovered_under_pgd20x3": int((~weak & strong).sum()),
             "interpretation": "Finite-attack stress test; survival does not certify robustness"}
+    if args.stress:
+        ce20 = predictions["white_box_pgd20x3"] == dataset.labels
+        ce50 = predictions["white_box_pgd50x5"] == dataset.labels
+        margin50 = predictions["white_box_margin_pgd50x5"] == dataset.labels
+        report["white_box_stress_check"] = {
+            "ce_pgd50x5_accuracy": float(ce50.mean()),
+            "new_failures_beyond_ce_pgd20x3": int((ce20 & ~ce50).sum()),
+            "recovered_ce_pgd20x3_failures": int((~ce20 & ce50).sum()),
+            "margin_additional_failures_beyond_ce_pgd50x5": int((ce50 & ~margin50).sum()),
+            "ce_additional_failures_beyond_margin_pgd50x5": int((margin50 & ~ce50).sum()),
+            "accuracy_surviving_clean_ce50_and_margin50": float(
+                ((clean == dataset.labels) & ce50 & margin50).mean()),
+            "interpretation": "Union of finite adaptive attacks against the complete deployed predictor; not a robustness certificate"}
     write_json(out / "metrics.json", report)
 
 

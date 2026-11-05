@@ -9,6 +9,7 @@ from .common import (ImageRecords, load_records, provenance, setup, write_json,
                      write_predictions)
 from .evaluate_defense import load_defense
 from .evaluation import make_loader, predict_clean
+from .tta import configure_predictor
 
 
 def validate_submission(ids, predictions, sample_ids, expected_count=3925):
@@ -30,6 +31,8 @@ def main():
     parser.add_argument("--config", default="configs/experiment.json")
     parser.add_argument("--checkpoint", required=True, help="Trusted local best.pt/last.pt")
     parser.add_argument("--output", default="runs/inference")
+    parser.add_argument("--horizontal-flip", action="store_true",
+                        help="Average identity/horizontal-flip probabilities")
     args = parser.parse_args()
     config, device = setup(args.config)
     data = Path(config["data_dir"])
@@ -42,6 +45,8 @@ def main():
     validate_submission(ids, np.zeros(len(ids), dtype=np.int64), sample_ids)
     dataset = ImageRecords(rows, data / "test_images", labeled=False)
     model, checkpoint = load_defense(config, args.checkpoint, device)
+    model, transform = configure_predictor(model, args.horizontal_flip)
+    checkpoint["inference_transform"] = transform
     loader = make_loader(dataset, config)
     predictions, logits, timing = predict_clean(model, loader, device)
     repeat, repeat_logits, repeat_timing = predict_clean(model, loader, device)
@@ -57,7 +62,8 @@ def main():
                         np.array([int(r["label"]) for r in saved]), sample_ids)
     report = provenance(config)
     report.update(scope="Unlabeled 3925-image test inference; no test accuracy or Kaggle score is inferred",
-                  checkpoint=checkpoint, records=len(dataset), output=str(submission),
+                  checkpoint=checkpoint, inference_transform=transform,
+                  records=len(dataset), output=str(submission),
                   submission_sha256=hashlib.sha256(submission.read_bytes()).hexdigest(),
                   test_csv_sha256=hashlib.sha256(test_csv.read_bytes()).hexdigest(),
                   sample_submission_sha256=hashlib.sha256(sample_csv.read_bytes()).hexdigest(),
