@@ -8,6 +8,25 @@ from torch import nn
 import torch.nn.functional as F
 
 
+class ProbabilityAverage(nn.Module):
+    """Stable weighted probability average of two predictors; no fitted weights."""
+    def __init__(self, first, second, first_weight=.5):
+        super().__init__()
+        if not math.isfinite(first_weight) or not 0 <= first_weight <= 1:
+            raise ValueError("Ensemble weight must be finite and in [0,1]")
+        self.first, self.second = first, second
+        self.first_weight = float(first_weight)
+
+    def forward(self, images):
+        if self.first_weight == 0:
+            return F.log_softmax(self.second(images), dim=1)
+        if self.first_weight == 1:
+            return F.log_softmax(self.first(images), dim=1)
+        first = F.log_softmax(self.first(images), dim=1) + math.log(self.first_weight)
+        second = F.log_softmax(self.second(images), dim=1) + math.log1p(-self.first_weight)
+        return torch.logaddexp(first, second)
+
+
 class HorizontalFlipAverage(nn.Module):
     """Return log mean probabilities over identity and horizontal-flip views.
 

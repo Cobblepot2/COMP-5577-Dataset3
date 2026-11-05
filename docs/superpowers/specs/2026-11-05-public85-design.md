@@ -27,3 +27,13 @@ After all model/config/TTA choices are frozen, optionally refit the winner on al
 `dataset3/tta.py`: deterministic probability averaging wrapper. Extend evaluation/inference CLIs with optional flip/stress flags; defaults preserve previous behavior. Explicit margin PGD and analytic/bound/gradient tests.
 
 Curated commands, metrics, code/data hashes and actual timings remain reviewable; raw runs/checkpoints/caches ignored. Record Public results only from user evidence. Existing plan and this runtime allowance authorize the bounded implementation/experiments; no account or final-submission selection changes are part of this work.
+
+## Measured extension after the three controlled trials
+
+The original objectives have now been measured: both raw TRADES settings fail the clean eligibility constraint, while hybrid bestepoch37 improves worst-source mixed F1 only from0.838496 to0.850292. Train-only BN calibration repairs some TRADES clean performance but not its attacked performance; hybrid calibration gains are negligible. Internal80/96pixel scaling lowers results and is rejected. Preserve these negatives.
+
+Use the remaining budget for one random-initialized SmallResNet18(width32) experiment, trained only on7575IDs during selection. CIFAR-style3x3stem, four2-block residual stages32/64/128/256, internal given normalization, no external weights/data. Eightyepoch cosine LR.1,batch128,momentum.9,decay.0005; equalclean/source-adversarial CE in one joint BN forward. Source adversarial images use frozen provided FGSM8/PGD10 cached training inputs, equal per-image sampling, with shared crop/flip applied jointly to clean/adversarial pairs. This avoids per-step self-PGD overhead and tests architecture diversity; it is a transfer-focused recipe, not a claim of broad robustness.
+
+Reuse the same clean eligibility and worst-source mixed selection. The attack teacher previously saw validation IDs, so the student validation is still diagnostic despite excluding validation inputs from its own updates. Every finalist receives the reserved random50 source and adaptive full-predictor stress evaluation. Freeze architecture/config/horizon/stopping epoch/inference settings before any new Public Score; at most two new CSVs. No tuning from a new Public Score within this batch.
+
+In parallel, the earlier hybrid protocol is already frozen in runs/public85_frozen/hybrid_refit_protocol.json: restart from supplied weights on all9469records, original40epoch cosine horizon, stop37, identity+flip inference, no BN recalibration and no validation/selection during finalrefit. This is candidate1. Residual settings/selection procedure form candidate2 only if local evidence justifies it within the user's15:47CST budget boundary.

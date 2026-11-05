@@ -27,6 +27,45 @@ class CompetingClasses(nn.Module):
 
 
 class TTAStressTests(unittest.TestCase):
+    def test_two_model_probability_average_preserves_both_input_gradient_branches(self):
+        from dataset3.tta import ProbabilityAverage
+
+        class RightPixel(LeftPixel):
+            def forward(self, images):
+                return super().forward(images.flip(-1))
+
+        first = LeftPixel().eval().requires_grad_(False)
+        second = RightPixel().eval().requires_grad_(False)
+        with torch.no_grad():
+            second.scale.fill_(math.log(4.))
+        x = torch.tensor([[[[1., 0.]]]], dtype=torch.float64, requires_grad=True)
+        ensemble = ProbabilityAverage(first, second)
+        probabilities = ensemble(x).exp()
+        torch.testing.assert_close(probabilities, torch.tensor([[.7, .3]], dtype=torch.float64))
+        gradient, = torch.autograd.grad(probabilities[0, 0], x)
+        torch.testing.assert_close(gradient, torch.tensor(
+            [[[[.045 * math.log(9.), .125 * math.log(4.)]]]], dtype=torch.float64))
+        self.assertTrue(torch.isfinite(gradient).all())
+        self.assertTrue(torch.all(gradient != 0))
+        self.assertTrue(all(p.grad is None for p in ensemble.parameters()))
+        weighted = ProbabilityAverage(first, second, first_weight=.25)
+        torch.testing.assert_close(weighted(x).exp(), torch.tensor([[.6, .4]], dtype=torch.float64))
+
+    def test_two_model_average_is_stable_and_validates_weights(self):
+        from dataset3.tta import ProbabilityAverage
+        first, second = LeftPixel().eval(), LeftPixel().eval()
+        with torch.no_grad():
+            first.scale.fill_(2000.)
+            second.scale.fill_(2000.)
+        x = torch.ones(1, 1, 1, 2, dtype=torch.float64)
+        for weight in (0., .5, 1.):
+            result = ProbabilityAverage(first, second, first_weight=weight)(x)
+            self.assertTrue(torch.isfinite(result).all())
+            torch.testing.assert_close(result, torch.tensor([[0., -2000.]], dtype=torch.float64))
+        for weight in (-.1, 1.1, float("nan")):
+            with self.assertRaises(ValueError):
+                ProbabilityAverage(first, second, first_weight=weight)
+
     def test_flip_averages_probabilities_and_differentiates_both_views(self):
         from dataset3.tta import HorizontalFlipAverage
         model = LeftPixel().eval().requires_grad_(False)

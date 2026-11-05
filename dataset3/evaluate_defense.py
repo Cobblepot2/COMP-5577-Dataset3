@@ -15,7 +15,7 @@ from .common import (ImageRecords, load_provided_model, load_records, provenance
 from .evaluation import make_loader, predict_clean
 from .metrics import classification_metrics
 from .stress_attacks import margin_pgd
-from .tta import configure_predictor
+from .tta import configure_predictor, ProbabilityAverage
 
 
 def load_defense(config, checkpoint, device):
@@ -24,12 +24,15 @@ def load_defense(config, checkpoint, device):
     Training checkpoints contain NumPy/Python RNG state and therefore require
     trusted local checkpoint deserialization, unlike the tensor-only source.
     """
-    model = load_provided_model(config["data_dir"], device)
     if checkpoint is None:
+        model = load_provided_model(config["data_dir"], device)
         path = Path(config["data_dir"]) / "provided_model.pt"
         return model, {"checkpoint": str(path),
                        "checkpoint_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-                       "initialization": "provided baseline", "epoch": 0}
+                       "initialization": "provided baseline", "epoch": 0,
+                       "architecture": "provided", "architecture_width": 32,
+                       "architecture_code_sha256": hashlib.sha256(
+                           (Path(config["data_dir"]) / "dataset3_model.py").read_bytes()).hexdigest()}
     path = Path(checkpoint)
     state = torch.load(path, map_location="cpu", weights_only=False)
     if not isinstance(state, dict) or "model_state_dict" not in state:
@@ -37,13 +40,26 @@ def load_defense(config, checkpoint, device):
     for key in ("num_classes", "image_size", "input_range"):
         if key in state.get("config", {}) and key in config and state["config"][key] != config[key]:
             raise ValueError(f"Checkpoint/config mismatch for {key}")
+    architecture = state.get("training_config", {}).get(
+        "architecture", state.get("provenance", {}).get("architecture", "provided"))
+    if architecture == "small_resnet18":
+        from .residual import SmallResNet18
+        model = SmallResNet18(num_classes=config["num_classes"]).to(device)
+        architecture_path = Path(__file__).with_name("residual.py")
+    elif architecture == "provided":
+        model = load_provided_model(config["data_dir"], device)
+        architecture_path = Path(config["data_dir"]) / "dataset3_model.py"
+    else:
+        raise ValueError(f"Unsupported checkpoint architecture: {architecture}")
     model.load_state_dict(state["model_state_dict"], strict=True)
     model.eval().requires_grad_(False)
     metadata = {key: state[key] for key in
                 ("epoch", "training_config", "config", "provenance", "best_selection")
                 if key in state}
     metadata.update(checkpoint=str(path),
-                    checkpoint_sha256=hashlib.sha256(path.read_bytes()).hexdigest())
+                    checkpoint_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),
+                    architecture=architecture, architecture_width=32,
+                    architecture_code_sha256=hashlib.sha256(architecture_path.read_bytes()).hexdigest())
     return model, metadata
 
 
@@ -57,15 +73,47 @@ def load_transfer_source(config, checkpoint, device):
         "initialization": loaded.get("initialization", loaded.get("training_config", {}).get("initialization")),
         "epoch": loaded.get("epoch"),
         "inference_transform": "identity_unwrapped_model_logits",
+        "architecture": loaded["architecture"],
+        "architecture_width": loaded["architecture_width"],
+        "architecture_code_sha256": loaded["architecture_code_sha256"],
     }
-    identity = {"source_architecture_sha256": hashlib.sha256(
-        (Path(config["data_dir"]) / "dataset3_model.py").read_bytes()).hexdigest()}
+    identity = {"source_architecture_sha256": loaded["architecture_code_sha256"]}
     if checkpoint is None:
         # Retain the original source-identity keys for the default provided source.
         identity["provided_model_sha256"] = loaded["checkpoint_sha256"]
     else:
         identity.update(source_kind="checkpoint", source_checkpoint_sha256=loaded["checkpoint_sha256"])
     return model, metadata, identity
+
+
+def load_predictor(config, checkpoint, device, horizontal_flip=False,
+                   ensemble_checkpoint=None, ensemble_weight=.5):
+    """Load the deployed predictor: optional probability ensemble, then flip TTA."""
+    model, primary = load_defense(config, checkpoint, device)
+    member_states = [(primary, 1.)]
+    if ensemble_checkpoint is not None:
+        second, secondary = load_defense(config, ensemble_checkpoint, device)
+        model = ProbabilityAverage(model, second, first_weight=ensemble_weight).eval()
+        member_states = [(primary, float(ensemble_weight)), (secondary, 1. - float(ensemble_weight))]
+    elif ensemble_weight != .5:
+        raise ValueError("--ensemble-weight requires --ensemble-checkpoint")
+    model, transform = configure_predictor(model, horizontal_flip)
+    members = [{"checkpoint": state["checkpoint"], "checkpoint_sha256": state["checkpoint_sha256"],
+                "architecture": state["architecture"], "architecture_width": state["architecture_width"],
+                "architecture_code_sha256": state["architecture_code_sha256"], "weight": weight,
+                "epoch": state.get("epoch"),
+                "initialization": state.get("initialization", state.get("training_config", {}).get("initialization")),
+                "final_refit": state.get("training_config", {}).get("final_refit"),
+                "scope": state.get("provenance", {}).get("scope")}
+               for state, weight in member_states]
+    pipeline = {"members": members,
+                "member_aggregation": "weighted_mean_softmax_probabilities" if len(members) == 2 else "single_model_logits",
+                "inference_transform": transform,
+                "transform_order": "member_probability_average_then_identity_flip_average" if len(members) == 2 else "single_model_then_optional_flip_average",
+                "aggregation_implementation_sha256": hashlib.sha256(Path(__file__).with_name("tta.py").read_bytes()).hexdigest()}
+    pipeline["pipeline_sha256"] = hashlib.sha256(json.dumps(pipeline, sort_keys=True).encode()).hexdigest()
+    primary.update(inference_transform=transform, inference_pipeline=pipeline)
+    return model, primary, pipeline
 
 
 def fixed_mixed_mask(records):
@@ -241,6 +289,9 @@ def main():
                         help="Trusted local transfer-source checkpoint; default is the unwrapped provided model")
     parser.add_argument("--horizontal-flip", action="store_true",
                         help="Average identity/horizontal-flip probabilities; attack the complete predictor")
+    parser.add_argument("--ensemble-checkpoint", help="Optional second trusted checkpoint; average model probabilities")
+    parser.add_argument("--ensemble-weight", type=float, default=.5,
+                        help="First checkpoint's probability weight (default: 0.5)")
     parser.add_argument("--stress", action="store_true",
                         help="Add white-box CE and margin PGD50x5; requires --suite full")
     args = parser.parse_args()
@@ -256,9 +307,10 @@ def main():
         raise ValueError("Expected the fixed 1894-record validation split")
     dataset = ImageRecords(rows, data / "train_images", labeled=True)
     loader = make_loader(dataset, config)
-    model, checkpoint = load_defense(config, args.checkpoint, device)
-    model, transform = configure_predictor(model, args.horizontal_flip)
-    checkpoint["inference_transform"] = transform
+    model, checkpoint, pipeline = load_predictor(
+        config, args.checkpoint, device, args.horizontal_flip,
+        args.ensemble_checkpoint, args.ensemble_weight)
+    transform = pipeline["inference_transform"]
     # The transfer source stays unwrapped; white-box attacks use the deployed model.
     source, source_metadata, source_identity = load_transfer_source(
         config, args.transfer_source_checkpoint, device)
@@ -276,9 +328,11 @@ def main():
                           input_pixels_sha256=hashlib.sha256(dataset.images.numpy().tobytes()).hexdigest())
     report = provenance(config)
     report["scope"] = checkpoint.get("provenance", {}).get("scope", report["scope"])
+    if len(pipeline["members"]) == 2:
+        report["scope"] = "Validation-selected two-model probability ensemble; per-member validation scopes are recorded in inference_pipeline.members; local results are diagnostic"
     report.update(checkpoint=checkpoint, suite=args.suite, source=cache_identity,
                   transfer_source=source_metadata,
-                  inference_transform=transform, stress=args.stress,
+                  inference_transform=transform, inference_pipeline=pipeline, stress=args.stress,
                   clean=classification_metrics(dataset.labels, clean), clean_timing=clean_timing,
                   initially_correct=int((clean == dataset.labels).sum()),
                   mixed_attacked_records=int(mask.sum()), mixed_mask_seed=5578,
