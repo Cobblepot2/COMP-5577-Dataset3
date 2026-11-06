@@ -1,5 +1,7 @@
 # Dataset 3：新设备训练与防御结果
 
+> Historical stage snapshot: the later [Public85 study](results_public85.md) records the newest user-reported Public Score 0.85725. Values below describe the earlier stage.
+
 日期：2026-11-05（Asia/Shanghai）。代码及过程见 [PR #4](https://github.com/Cobblepot2/COMP-5577-Dataset3/pull/4)。
 
 已完成六组训练、七个模型的全量强攻击评估及两份测试集预测。预提交的白盒鲁棒性选择为随机初始化 PGD 50 epoch；用户实际上传后，增强 PGD 微调 40 epoch 的 **Kaggle Public Score 0.80418** 领先，随机初始化模型为 **0.79277**，基线为 **0.51194**。白盒指标和真实 Public Score 的选择依据分别保留。

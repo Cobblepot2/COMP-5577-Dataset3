@@ -1,0 +1,229 @@
+{
+  "python": "3.12.13",
+  "torch": "2.9.1+cu128",
+  "numpy": "2.2.6",
+  "cuda_runtime": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "config": {
+    "seed": 5577,
+    "validation_fraction": 0.2,
+    "data_dir": "data/dataset3",
+    "split_dir": "splits",
+    "num_classes": 10,
+    "image_size": 64,
+    "input_range": [
+      0.0,
+      1.0
+    ],
+    "epsilon": 0.03137254901960784,
+    "batch_size": 64,
+    "num_workers": 0
+  },
+  "sha256": {
+    "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+    "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5"
+  },
+  "scope": "Unlabeled 3925-image test inference; no test accuracy or Kaggle score is inferred",
+  "checkpoint": {
+    "epoch": 37,
+    "training_config": {
+      "initialization": "provided",
+      "epochs": 40,
+      "batch_size": 128,
+      "learning_rate": 0.01,
+      "momentum": 0.9,
+      "weight_decay": 0.0005,
+      "scheduler": "cosine",
+      "min_learning_rate": 0.0,
+      "epsilon": 0.03137254901960784,
+      "step_size": 0.00784313725490196,
+      "steps": 7,
+      "random_start": true,
+      "clean_weight": 0.75,
+      "augmentation": true,
+      "clean_floor": 0.857639,
+      "validation_attack": {
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 10,
+        "restarts": 1
+      },
+      "mode": "hybrid",
+      "beta": 1.0,
+      "final_refit": true
+    },
+    "config": {
+      "seed": 5577,
+      "validation_fraction": 0.2,
+      "data_dir": "data/dataset3",
+      "split_dir": "splits",
+      "num_classes": 10,
+      "image_size": 64,
+      "input_range": [
+        0.0,
+        1.0
+      ],
+      "epsilon": 0.03137254901960784,
+      "batch_size": 64,
+      "num_workers": 0
+    },
+    "provenance": {
+      "python": "3.12.13",
+      "torch": "2.9.1+cu128",
+      "numpy": "2.2.6",
+      "cuda_runtime": "12.8",
+      "gpu": "NVIDIA GeForce RTX 5070 Ti",
+      "config": {
+        "seed": 5577,
+        "validation_fraction": 0.2,
+        "data_dir": "data/dataset3",
+        "split_dir": "splits",
+        "num_classes": 10,
+        "image_size": 64,
+        "input_range": [
+          0.0,
+          1.0
+        ],
+        "epsilon": 0.03137254901960784,
+        "batch_size": 64,
+        "num_workers": 0
+      },
+      "sha256": {
+        "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+        "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+        "data\\dataset3\\train.csv": "e9909432b5840d13dfbae88500261d1ed81aded7985c2fb8ea6daa70d998cb07",
+        "data\\dataset3\\dataset3_model.py": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+        "configs\\experiment.json": "fc89de8605c660cfe1e13af708ebcb189a36e18ae790766f5ad252975f53a99c",
+        "configs\\improve_hybrid.json": "38ec3133fb71bc16159c4b0aa7961208f32bda693ab0109653a061533b8cf841",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\improve_training.py": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\training.py": "daaab072d20381ff050a7e4c5c83dcf7360d1c61fac59b537630e763587ad8fc",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\attacks.py": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944"
+      },
+      "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit",
+      "final_refit": true
+    },
+    "best_selection": null,
+    "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_hybrid_full37.pt",
+    "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+    "architecture": "provided",
+    "architecture_width": 32,
+    "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+    "inference_transform": {
+      "name": "identity_horizontal_flip_probability_average",
+      "views": [
+        "identity",
+        "horizontal_flip"
+      ],
+      "aggregation": "arithmetic_mean_softmax_probabilities",
+      "attack_output": "log_mean_probabilities",
+      "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+    },
+    "inference_pipeline": {
+      "members": [
+        {
+          "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_hybrid_full37.pt",
+          "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+          "architecture": "provided",
+          "architecture_width": 32,
+          "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "weight": 1.0,
+          "epoch": 37,
+          "initialization": "provided",
+          "final_refit": true,
+          "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+        }
+      ],
+      "member_aggregation": "single_model_logits",
+      "inference_transform": {
+        "name": "identity_horizontal_flip_probability_average",
+        "views": [
+          "identity",
+          "horizontal_flip"
+        ],
+        "aggregation": "arithmetic_mean_softmax_probabilities",
+        "attack_output": "log_mean_probabilities",
+        "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+      },
+      "transform_order": "single_model_then_optional_flip_average",
+      "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+      "pipeline_sha256": "9e35362c728e9118582c214717852834504473d4ce3cde3a49cdcc588606ae43"
+    }
+  },
+  "inference_transform": {
+    "name": "identity_horizontal_flip_probability_average",
+    "views": [
+      "identity",
+      "horizontal_flip"
+    ],
+    "aggregation": "arithmetic_mean_softmax_probabilities",
+    "attack_output": "log_mean_probabilities",
+    "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+  },
+  "inference_pipeline": {
+    "members": [
+      {
+        "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_hybrid_full37.pt",
+        "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+        "architecture": "provided",
+        "architecture_width": 32,
+        "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+        "weight": 1.0,
+        "epoch": 37,
+        "initialization": "provided",
+        "final_refit": true,
+        "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+      }
+    ],
+    "member_aggregation": "single_model_logits",
+    "inference_transform": {
+      "name": "identity_horizontal_flip_probability_average",
+      "views": [
+        "identity",
+        "horizontal_flip"
+      ],
+      "aggregation": "arithmetic_mean_softmax_probabilities",
+      "attack_output": "log_mean_probabilities",
+      "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+    },
+    "transform_order": "single_model_then_optional_flip_average",
+    "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+    "pipeline_sha256": "9e35362c728e9118582c214717852834504473d4ce3cde3a49cdcc588606ae43"
+  },
+  "records": 3925,
+  "output": "runs\\public85_inference_hybrid_full37\\submission.csv",
+  "submission_sha256": "fa3520160c6d247327adc46c7ae396dad2c07d5f4cb886b4b41377a4b6f32432",
+  "test_csv_sha256": "598d3a8721d8313a4fe001a75022b8fa54abe4490894accde538c5024dbd96a8",
+  "sample_submission_sha256": "72bdf9427c8f3209950caf4fa4238ed130efbd4b1f142f6bb04863d2f456feee",
+  "label_counts": [
+    385,
+    408,
+    369,
+    381,
+    399,
+    413,
+    412,
+    401,
+    395,
+    362
+  ],
+  "timing": {
+    "seconds": 0.3219649000093341,
+    "images_per_second": 12190.769863069578,
+    "peak_allocated_mib": 174.54345703125,
+    "peak_reserved_mib": 244.0,
+    "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+  },
+  "repeat_timing": {
+    "seconds": 0.34938570007216185,
+    "images_per_second": 11234.002992078193,
+    "peak_allocated_mib": 174.54345703125,
+    "peak_reserved_mib": 244.0,
+    "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+  },
+  "deterministic_repeat": {
+    "full_passes": 2,
+    "predictions_equal": true,
+    "logits_bitwise_equal": true
+  },
+  "submitted_to_kaggle": false
+}

@@ -1,0 +1,114 @@
+{
+  "seed": 5577,
+  "device": "cpu",
+  "training_records": 64,
+  "ids": [
+    "7219",
+    "3881",
+    "5200",
+    "5102",
+    "2066",
+    "7165",
+    "4253",
+    "4726",
+    "239",
+    "9330",
+    "7631",
+    "4694",
+    "7108",
+    "7045",
+    "5190",
+    "4717",
+    "2466",
+    "8682",
+    "8089",
+    "5551",
+    "1335",
+    "2991",
+    "8453",
+    "6532",
+    "6525",
+    "2311",
+    "5481",
+    "8415",
+    "3394",
+    "9095",
+    "6331",
+    "8084",
+    "2656",
+    "4005",
+    "6859",
+    "8244",
+    "4534",
+    "8377",
+    "5567",
+    "1992",
+    "2222",
+    "2215",
+    "1346",
+    "8441",
+    "3402",
+    "3425",
+    "909",
+    "5511",
+    "1901",
+    "3772",
+    "985",
+    "6622",
+    "1345",
+    "984",
+    "8143",
+    "4887",
+    "5458",
+    "8804",
+    "8404",
+    "5235",
+    "6506",
+    "3729",
+    "1269",
+    "8877"
+  ],
+  "dropout": "disabled in all conditions",
+  "qualification": "Training-image diagnostic; batch-stat prediction is not a valid validation/test score",
+  "models": {
+    "trades03_last": {
+      "epoch": 40,
+      "eval_saved_BN": {
+        "ce": 0.6335660219192505,
+        "correct": 56
+      },
+      "training_batch_BN": {
+        "ce": 0.03662855178117752,
+        "correct": 64
+      },
+      "weights_unchanged": true,
+      "buffers_restored": true
+    },
+    "trades03_best": {
+      "epoch": 3,
+      "eval_saved_BN": {
+        "ce": 0.5078395009040833,
+        "correct": 61
+      },
+      "training_batch_BN": {
+        "ce": 0.2112446129322052,
+        "correct": 62
+      },
+      "weights_unchanged": true,
+      "buffers_restored": true
+    },
+    "fine40": {
+      "epoch": 39,
+      "eval_saved_BN": {
+        "ce": 0.12709473073482513,
+        "correct": 63
+      },
+      "training_batch_BN": {
+        "ce": 0.17064647376537323,
+        "correct": 62
+      },
+      "weights_unchanged": true,
+      "buffers_restored": true
+    }
+  }
+}

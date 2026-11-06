@@ -2,7 +2,7 @@
 
 This repository contains the supplied Dataset 3 files, fixed data preparation, baseline predictions and explicit FGSM/PGD attacks for the COMP5577 project. Adversarial training, strong defense evaluation and reproducible test inference are now implemented and measured.
 
-**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Steps 1–3 are complete. The user submitted the baseline; its actual Kaggle Public Score is **0.51194** ([evidence](docs/results/kaggle_baseline_public_score.png)). Steps 4–6 are complete: actual Kaggle Public Scores are **0.80418** for PGD finetuned40 and **0.79277** for PGD random50 ([screenshot](docs/results/kaggle_defense_public_scores.png)); the best observed defense improves over baseline by **0.29224**. Final competition selections remain unchanged. See [new-device results](docs/results_5070ti.md) and [training/inference commands](docs/training_and_defense.md).
+**Continuing this project? Start with [HANDOFF.md](HANDOFF.md) and [AGENTS.md](AGENTS.md).** Steps1–6 and the follow-up Public Score target are complete: the user reports **0.85725** for `submission_public85_residual_hybrid50_flip.csv`, exceeding **0.85** and improving by **0.05307** over the prior best0.80418 (**+0.34531** over baseline0.51194). The follow-up hybrid-only candidate scored0.81816. [Actual score records](docs/results/public85/kaggle_scores.json) distinguish user text from the [earlier screenshot](docs/results/kaggle_defense_public_scores.png). Final competition selections were not changed by this agent; current Select status is unknown. See the [follow-up study](docs/results_public85.md), [historical device results](docs/results_5070ti.md), and [commands](docs/training_and_defense.md).
 
 ## Supplied files
 

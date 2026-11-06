@@ -1,0 +1,35 @@
+{
+  "verified_date": "2026-11-06",
+  "tests": {
+    "command": "python -m unittest discover -s tests -q",
+    "count": 53,
+    "seconds": 1.941,
+    "passed": true
+  },
+  "helper_compile_passed": true,
+  "diff_check_passed": true,
+  "complete_pipelines_checked": true,
+  "bitwise_repeat_full_test_records": 3925,
+  "all_attack_linf_bounds_passed": true,
+  "pgd_failure_retention_passed": true,
+  "independent_cpu_source_reviews": [
+    "training/objective/architecture/ensemble",
+    "stress helper and frozen sampling",
+    "export and compact schema",
+    "completed study archive"
+  ],
+  "independent_results_review": {
+    "reports": 6,
+    "attack_cases": 22,
+    "passed": true,
+    "checks": [
+      "CSV metrics recomputation",
+      "inference CSV/template and checkpoint hashes",
+      "exact200 sample and100/947 masks",
+      "float/8bit bounds",
+      "PGD failure retention",
+      "pipeline equivalence after path normalization"
+    ]
+  },
+  "no_robustness_certificate": true
+}

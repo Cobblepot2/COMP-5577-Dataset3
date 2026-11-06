@@ -3,3 +3,4 @@ docs/dataset3_manifest.csv text eol=lf
 *.md text eol=lf
 splits/*.csv -text
 results/baseline/*.csv -text whitespace=cr-at-eol
+scripts/evaluate_public85_checks.py text eol=lf

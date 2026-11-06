@@ -1,0 +1,60 @@
+{
+  "ids": [
+    "1",
+    "2463",
+    "4722",
+    "7229"
+  ],
+  "labels": [
+    9,
+    4,
+    4,
+    4
+  ],
+  "device": "cpu",
+  "seed": 5577,
+  "records": 4,
+  "repeats": 30,
+  "batchnorm": "frozen at saved running statistics",
+  "models": {
+    "trades03_last": {
+      "epoch": 31,
+      "dropout_active_clean_clean_KL_mean": 0.03964299422999223,
+      "dropout_active_clean_clean_KL_std": 0.015501666476409446,
+      "dropout_active_clean_adv_KL_mean": 2.239362366994222,
+      "dropout_active_clean_adv_KL_std": 0.43359358735773257,
+      "dropout_disabled_clean_clean_KL": 0.0,
+      "dropout_disabled_clean_adv_KL": 2.142721176147461,
+      "eval_clean_correct": 2,
+      "eval_adv_correct": 2,
+      "observed_linf": 0.03137257695198059,
+      "parameters_and_BN_buffers_unchanged": true
+    },
+    "fine40": {
+      "epoch": 39,
+      "dropout_active_clean_clean_KL_mean": 0.07711446043103934,
+      "dropout_active_clean_clean_KL_std": 0.04608945614225671,
+      "dropout_active_clean_adv_KL_mean": 0.6947364499171574,
+      "dropout_active_clean_adv_KL_std": 0.149265275608009,
+      "dropout_disabled_clean_clean_KL": 0.0,
+      "dropout_disabled_clean_adv_KL": 0.6311440467834473,
+      "eval_clean_correct": 2,
+      "eval_adv_correct": 2,
+      "observed_linf": 0.03137257695198059,
+      "parameters_and_BN_buffers_unchanged": true
+    },
+    "provided": {
+      "epoch": 0,
+      "dropout_active_clean_clean_KL_mean": 0.028246092206488053,
+      "dropout_active_clean_clean_KL_std": 0.014889679213719385,
+      "dropout_active_clean_adv_KL_mean": 8.381220706303914,
+      "dropout_active_clean_adv_KL_std": 0.4199717514836839,
+      "dropout_disabled_clean_clean_KL": 0.0,
+      "dropout_disabled_clean_adv_KL": 8.332311630249023,
+      "eval_clean_correct": 4,
+      "eval_adv_correct": 1,
+      "observed_linf": 0.03137257695198059,
+      "parameters_and_BN_buffers_unchanged": true
+    }
+  }
+}
