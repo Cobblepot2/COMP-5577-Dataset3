@@ -21,8 +21,47 @@
 .venv/Scripts/python.exe -m dataset3.training --training configs/training_pgd_augmented10_clean75.json --output runs/loss_weight_10/clean75
 .venv/Scripts/python.exe -m dataset3.evaluate_defense --checkpoint runs/loss_weight_10/clean50/last.pt --suite full --output runs/loss_weight_10/eval_clean50 --transfer-cache runs/loss_weight_10/transfer_cache
 .venv/Scripts/python.exe -m dataset3.evaluate_defense --checkpoint runs/loss_weight_10/clean75/last.pt --suite full --output runs/loss_weight_10/eval_clean75 --transfer-cache runs/loss_weight_10/transfer_cache
+.venv/Scripts/python.exe scripts/summarize_loss_weight_study.py
 ```
 
 ## 结果
 
-尚未测得；训练与评估完成后填写实际结果。
+两组均实际完成 10 轮。实测设备为 RTX 3060 Laptop 6,144 MiB，Python 3.12.14、PyTorch 2.9.1+cu128、NumPy 2.2.6；沿用仓库现有训练与攻击实现。
+
+预先固定的第 10 轮主比较如下。PGD10 由当前候选自身生成，混合指标在固定 947 张攻击图与 947 张干净图的预测上重新计算。
+
+| 干净/对抗损失权重 | 干净 Macro-F1 | 自身 PGD10 全攻击 F1 | 自身 PGD10 50% 混合 F1 |
+|---|---:|---:|---:|
+| 0.5 / 0.5 | 0.790126 | 0.355456 | 0.576588 |
+| 0.75 / 0.25 | **0.864958** | 0.257082 | 0.567843 |
+
+提高干净损失权重后，干净 Macro-F1 增加 0.074832，约 7.48 个百分点；自身 PGD10 混合 F1 降低 0.008746。这是固定十轮配置中的实测权衡。
+
+## 完整攻击评估
+
+下表使用同一份第 10 轮权重，在全部 1,894 张原始验证图片上重新进行完整评估。源攻击均由冻结的课程原模型生成；白盒攻击直接针对待评估候选。全部预算 8/255，PGD20×3 为 20 步、3 个随机起点；全攻击列为全部图片受攻击时的浮点 Macro-F1。
+
+| 干净/对抗权重 | 源 FGSM 全攻击 F1 | 源 PGD10 全攻击 F1 | 源 PGD20×3 全攻击 F1 | 源 PGD20×3 混合 F1 | 自身 PGD20×3 全攻击 F1 | 自身 PGD20×3 混合 F1 |
+|---|---:|---:|---:|---:|---:|---:|
+| 0.5 / 0.5 | 0.744008 | 0.759384 | 0.761967 | 0.778121 | **0.340004** | **0.570533** |
+| 0.75 / 0.25 | **0.769972** | **0.801730** | **0.803696** | **0.832457** | 0.231000 | 0.555430 |
+
+3:1 在这次十轮对照中改善了干净识别与课程源攻击迁移表现，同时降低了自身白盒 PGD 防御表现。因此，它可以作为偏重保留干净能力及课程源攻击场景的选择，但没有全面优于 1:1。该实验只有一个固定种子、两个权重及十轮训练，未确定最优比例，也不能将本次结论直接推广到四十轮。
+
+逐轮验证与完整评估的 PGD 随机起点流不同，两套原始指标分别保留。课程源攻击较强并不保证其在不同目标模型上的迁移效果更强。
+
+## 检查点与资源
+
+按历史训练入口的混合 F1 规则，0.5/0.5 组会选择第 9 轮，0.75/0.25 组会选择第 8 轮；相应干净 F1 分别为 0.791411 和 0.870585。本实验的主比较没有改用这些检查点，仍统一使用第 10 轮。
+
+两组训练与逐轮验证计时合计分别为 451.793 秒和 456.467 秒；峰值 allocated 显存均为 1,251.313 MiB。这里的计时排除初始数据加载和检查点写入，完整攻击评估另计；两组源攻击使用相同缓存，第二组源攻击评估不再重复生成扰动。
+
+## 验证与交接
+
+- 训练相关 9 项单元测试通过；汇总脚本编译通过。
+- 两份配置除 clean_weight 外完全一致，均使用第 10 轮检查点。
+- 26 份预测 CSV 均覆盖同序的 1,894 个验证 ID；全部干净、浮点攻击、8 位攻击及半攻击混合指标从 CSV 重新计算并与记录一致。
+- 全部扰动满足像素与 8/255 预算；PGD20×3 保留各候选 PGD10 已找到的全部浮点失败。
+- 原始训练 JSON、完整评估 JSON、逐轮摘要、预测 CSV、检查点哈希和代码哈希见 [results/loss_weights_10/summary.json](results/loss_weights_10/summary.json) 及同目录。
+
+这是补充诊断实验，没有重新生成或提交 Kaggle CSV，没有改变既有最终模型。报告如引用本结果，应明确其为后续补做的对照，避免改变真实研究顺序。

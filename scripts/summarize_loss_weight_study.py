@@ -27,6 +27,11 @@ def main():
                "scope": "Post-hoc, single-seed, fixed-epoch local diagnostic; no Kaggle submission or change to deployed models",
                "primary_checkpoint_rule": "Completed epoch 10 of a 10-epoch cosine horizon, independent of validation scores",
                "training_records": 7575, "validation_records": 1894, "runs": []}
+    summary["source_code_sha256"] = {
+        name: hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+        for name in ["dataset3/training.py", "dataset3/evaluate_defense.py", "dataset3/attacks.py",
+                     "dataset3/common.py", "dataset3/metrics.py", "scripts/summarize_loss_weight_study.py"]
+    }
     reference_settings = None
     reference_mask = None
     source_predictions = {}
@@ -119,6 +124,7 @@ def main():
                                "all_float_quantized_and_mixed_metrics_recomputed": True,
                                "shared_original_source_attack_cache": True,
                                "all_attack_bounds_passed": True, "pgd_failure_retention_passed": True}
+    summary["shared_training_settings"] = reference_settings
     (args.output / "summary.json").write_text(json.dumps(summary, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"summary": str(args.output / "summary.json"), "runs": [
         {"name": run["name"], "clean_f1": run["final_clean_macro_f1"], "attacks": run["attacks"]} for run in summary["runs"]],

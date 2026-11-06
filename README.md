@@ -6,6 +6,8 @@ This repository contains the supplied Dataset 3 files, fixed data preparation, b
 
 The frozen-model [C&W follow-up](docs/cw_evaluation.md) adds an independent optimization attack without retraining. On the same fixed200 sample, the final ensemble has bounded-C&W Macro-F1 **0.142899** and ASR **85.79%**, compared with baseline F1 **0**. The [Chinese Task3 report section](docs/task3_report_zh.md) includes these results alongside the actual Public **0.85725**. English report finalization awaits the user's review of the Chinese version.
 
+The [post-hoc ten-epoch loss-weight study](docs/loss_weight_study.md), completed on 2026-11-07, compares otherwise identical augmented PGD runs with clean/adversarial CE weights 0.5/0.5 and 0.75/0.25. Fixed-epoch clean F1 rises from **0.790126** to **0.864958**, and original-source PGD20x3 mixed F1 rises from **0.778121** to **0.832457**; own-white-box PGD20x3 all-attacked F1 falls from **0.340004** to **0.231000**. This is a single-seed diagnostic tradeoff and does not change the final deployed model or Kaggle score.
+
 ## Supplied files
 
 All original files are preserved under `data/dataset3/`:
