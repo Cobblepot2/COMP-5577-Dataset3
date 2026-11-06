@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-07",
+  "figure": "docs/assets/training_source_curves.png",
+  "editable_source": "docs/assets/training_source_curves.svg",
+  "generator": "scripts/render_training_source_curves.cjs",
+  "source": "docs/results/public85/study_summary.json",
+  "reference": "docs/results/defense_pgd_augmented.json",
+  "curve_points": [
+    40,
+    40,
+    40
+  ],
+  "baseline": 0.8384964883441095,
+  "legend_and_reference_dash_pattern": "21 12.333",
+  "image_pixels": [
+    2250,
+    1021
+  ],
+  "dpi": 300,
+  "validation": {
+    "archived_values_retained": true,
+    "shared_svg_style_verified": true,
+    "local_word_changed_only_embedded_figure": true,
+    "word_rendered_pages_visually_checked": 7
+  },
+  "no_experiments_rerun": true
+}
