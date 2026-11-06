@@ -1,0 +1,121 @@
+{
+  "completed": [
+    {
+      "name": "candidate2_full",
+      "seconds": 107.63038873672485,
+      "command": [
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\ml-env\\Scripts\\python.exe",
+        "-m",
+        "dataset3.evaluate_defense",
+        "--suite",
+        "full",
+        "--checkpoint",
+        "checkpoints/public85_residual_source.pt",
+        "--ensemble-checkpoint",
+        "checkpoints/public85_hybrid_full37.pt",
+        "--ensemble-weight",
+        "0.5",
+        "--horizontal-flip",
+        "--output",
+        "runs/public85_final_candidate2_full",
+        "--transfer-cache",
+        "runs/improve_validation_cache"
+      ]
+    },
+    {
+      "name": "candidate2_reserved",
+      "seconds": 17.472095489501953,
+      "command": [
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\ml-env\\Scripts\\python.exe",
+        "scripts/evaluate_public85_checks.py",
+        "--mode",
+        "reserved",
+        "--checkpoint",
+        "checkpoints/public85_residual_source.pt",
+        "--ensemble-checkpoint",
+        "checkpoints/public85_hybrid_full37.pt",
+        "--ensemble-weight",
+        "0.5",
+        "--horizontal-flip",
+        "--output",
+        "runs/public85_final_candidate2_reserved",
+        "--transfer-cache",
+        "runs/public85_final_random50_cache"
+      ]
+    },
+    {
+      "name": "candidate2_stress",
+      "seconds": 97.93307733535767,
+      "command": [
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\ml-env\\Scripts\\python.exe",
+        "scripts/evaluate_public85_checks.py",
+        "--mode",
+        "stress",
+        "--checkpoint",
+        "checkpoints/public85_residual_source.pt",
+        "--ensemble-checkpoint",
+        "checkpoints/public85_hybrid_full37.pt",
+        "--ensemble-weight",
+        "0.5",
+        "--horizontal-flip",
+        "--output",
+        "runs/public85_final_candidate2_stress",
+        "--transfer-cache",
+        "runs/public85_final_random50_cache"
+      ]
+    },
+    {
+      "name": "candidate1_full",
+      "seconds": 30.361507177352905,
+      "command": [
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\ml-env\\Scripts\\python.exe",
+        "-m",
+        "dataset3.evaluate_defense",
+        "--suite",
+        "full",
+        "--checkpoint",
+        "checkpoints/public85_hybrid_full37.pt",
+        "--horizontal-flip",
+        "--output",
+        "runs/public85_final_candidate1_full",
+        "--transfer-cache",
+        "runs/improve_validation_cache"
+      ]
+    },
+    {
+      "name": "candidate1_reserved",
+      "seconds": 3.1973817348480225,
+      "command": [
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\ml-env\\Scripts\\python.exe",
+        "scripts/evaluate_public85_checks.py",
+        "--mode",
+        "reserved",
+        "--checkpoint",
+        "checkpoints/public85_hybrid_full37.pt",
+        "--horizontal-flip",
+        "--output",
+        "runs/public85_final_candidate1_reserved",
+        "--transfer-cache",
+        "runs/public85_final_random50_cache"
+      ]
+    },
+    {
+      "name": "candidate1_stress",
+      "seconds": 33.7139196395874,
+      "command": [
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\ml-env\\Scripts\\python.exe",
+        "scripts/evaluate_public85_checks.py",
+        "--mode",
+        "stress",
+        "--checkpoint",
+        "checkpoints/public85_hybrid_full37.pt",
+        "--horizontal-flip",
+        "--output",
+        "runs/public85_final_candidate1_stress",
+        "--transfer-cache",
+        "runs/public85_final_random50_cache"
+      ]
+    }
+  ],
+  "total_seconds": 290.3134331703186
+}

@@ -61,6 +61,8 @@ The evaluator requires the fixed 1,894-record validation split. It writes clean,
 
 Omit `--checkpoint` to evaluate the original supplied baseline with the same evaluator. Replace the checkpoint/output paths to compare other trained candidates.
 
+To audit a finalist against the unused random50 attack source, repeat the full evaluation with `--transfer-source-checkpoint runs/pgd_random_converged/best.pt` and a separate output directory. The source is loaded strictly, frozen, and left unwrapped even when the defense uses `--horizontal-flip`. The report's `transfer_source` records its actual checkpoint path/hash, initialization and epoch; custom-source caches use that checkpoint's identity rather than the provided model's hash. Omitting this flag keeps the original provided source.
+
 ## Test inference
 
 ```powershell

@@ -1,0 +1,15 @@
+{
+  "architecture": "small_resnet18",
+  "architecture_width": 32,
+  "initialization": "random",
+  "epochs": 80,
+  "batch_size": 128,
+  "learning_rate": 0.1,
+  "momentum": 0.9,
+  "weight_decay": 0.0005,
+  "scheduler": "cosine",
+  "clean_weight": 0.5,
+  "fgsm_probability": 0.5,
+  "augmentation": true,
+  "clean_floor": 0.857639
+}

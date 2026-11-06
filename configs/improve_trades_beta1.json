@@ -1,0 +1,25 @@
+{
+  "initialization": "provided",
+  "epochs": 40,
+  "batch_size": 128,
+  "learning_rate": 0.01,
+  "momentum": 0.9,
+  "weight_decay": 0.0005,
+  "scheduler": "cosine",
+  "min_learning_rate": 0.0,
+  "epsilon": 0.03137254901960784,
+  "step_size": 0.00784313725490196,
+  "steps": 7,
+  "random_start": true,
+  "clean_weight": 0.75,
+  "augmentation": true,
+  "clean_floor": 0.857639,
+  "validation_attack": {
+    "epsilon": 0.03137254901960784,
+    "step_size": 0.00784313725490196,
+    "steps": 10,
+    "restarts": 1
+  },
+  "mode": "trades",
+  "beta": 1.0
+}

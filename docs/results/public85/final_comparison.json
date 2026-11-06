@@ -1,0 +1,125 @@
+{
+  "scope": "Post-freeze in-sample security checks; full1894 and sampled200 explicitly separated",
+  "actual_public_scores": {
+    "candidate1": 0.81816,
+    "candidate2": 0.85725
+  },
+  "public_evidence": "User text replies; server submission IDs/time and final Select state unknown",
+  "pipeline_identity_note": "Inference and evaluation record different raw pipeline hashes because checkpoint paths are absolute versus repo-relative. Canonical absolute paths, file hashes, architectures, epochs, weights and all transform fields were checked equal; original hashes are preserved.",
+  "goal_verified": true,
+  "target": 0.85,
+  "candidates": {
+    "candidate1": {
+      "clean_in_sample": 0.9914508982755106,
+      "white_pgd20x3_all_attacked_f1": 0.3772722881639175,
+      "white_pgd20x3_mixed_f1": 0.6875153830512588,
+      "provided_pgd20x3_mixed_f1": 0.986036719635411,
+      "reserved_random50_pgd20x3_mixed_f1": 0.8889314163235061,
+      "sampled200_stress": {
+        "records": 200,
+        "ce20_accuracy": 0.375,
+        "ce50_accuracy": 0.36,
+        "margin50_accuracy": 0.35,
+        "new_ce50_failures_beyond_ce20": 3,
+        "recovered_ce20_failures_under_ce50": 0,
+        "shared_prefix_failure_retention_passed": true,
+        "margin_additional_failures_beyond_ce50": 4,
+        "ce50_additional_failures_beyond_margin": 2,
+        "accuracy_surviving_clean_ce50_and_margin": 0.34,
+        "interpretation": "Only the sampled200; finite adaptive stress, no certification or full1894 inference"
+      },
+      "inference_pipeline": {
+        "members": [
+          {
+            "checkpoint": "checkpoints\\public85_hybrid_full37.pt",
+            "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+            "architecture": "provided",
+            "architecture_width": 32,
+            "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+            "weight": 1.0,
+            "epoch": 37,
+            "initialization": "provided",
+            "final_refit": true,
+            "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+          }
+        ],
+        "member_aggregation": "single_model_logits",
+        "inference_transform": {
+          "name": "identity_horizontal_flip_probability_average",
+          "views": [
+            "identity",
+            "horizontal_flip"
+          ],
+          "aggregation": "arithmetic_mean_softmax_probabilities",
+          "attack_output": "log_mean_probabilities",
+          "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+        },
+        "transform_order": "single_model_then_optional_flip_average",
+        "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+        "pipeline_sha256": "fc72d0791b048f5393dbffa72e49117eda350bfc856f6394d19f5ae1a829bfa4"
+      }
+    },
+    "candidate2": {
+      "clean_in_sample": 0.9307727633292131,
+      "white_pgd20x3_all_attacked_f1": 0.052529910899206465,
+      "white_pgd20x3_mixed_f1": 0.4969691721318785,
+      "provided_pgd20x3_mixed_f1": 0.9230706158321619,
+      "reserved_random50_pgd20x3_mixed_f1": 0.8076385631669563,
+      "sampled200_stress": {
+        "records": 200,
+        "ce20_accuracy": 0.065,
+        "ce50_accuracy": 0.045,
+        "margin50_accuracy": 0.05,
+        "new_ce50_failures_beyond_ce20": 4,
+        "recovered_ce20_failures_under_ce50": 0,
+        "shared_prefix_failure_retention_passed": true,
+        "margin_additional_failures_beyond_ce50": 2,
+        "ce50_additional_failures_beyond_margin": 3,
+        "accuracy_surviving_clean_ce50_and_margin": 0.035,
+        "interpretation": "Only the sampled200; finite adaptive stress, no certification or full1894 inference"
+      },
+      "inference_pipeline": {
+        "members": [
+          {
+            "checkpoint": "checkpoints\\public85_residual_source.pt",
+            "checkpoint_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+            "architecture": "small_resnet18",
+            "architecture_width": 32,
+            "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+            "weight": 0.5,
+            "epoch": 69,
+            "initialization": "random",
+            "final_refit": false,
+            "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+          },
+          {
+            "checkpoint": "checkpoints\\public85_hybrid_full37.pt",
+            "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+            "architecture": "provided",
+            "architecture_width": 32,
+            "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+            "weight": 0.5,
+            "epoch": 37,
+            "initialization": "provided",
+            "final_refit": true,
+            "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+          }
+        ],
+        "member_aggregation": "weighted_mean_softmax_probabilities",
+        "inference_transform": {
+          "name": "identity_horizontal_flip_probability_average",
+          "views": [
+            "identity",
+            "horizontal_flip"
+          ],
+          "aggregation": "arithmetic_mean_softmax_probabilities",
+          "attack_output": "log_mean_probabilities",
+          "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+        },
+        "transform_order": "member_probability_average_then_identity_flip_average",
+        "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+        "pipeline_sha256": "635ece7c57254d833ab21a8bc57118e9fbdd7c845af744441ebc8266ba6c4a41"
+      }
+    }
+  }
+}

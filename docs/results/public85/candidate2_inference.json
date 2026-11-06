@@ -1,0 +1,339 @@
+{
+  "python": "3.12.13",
+  "torch": "2.9.1+cu128",
+  "numpy": "2.2.6",
+  "cuda_runtime": "12.8",
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "config": {
+    "seed": 5577,
+    "validation_fraction": 0.2,
+    "data_dir": "data/dataset3",
+    "split_dir": "splits",
+    "num_classes": 10,
+    "image_size": 64,
+    "input_range": [
+      0.0,
+      1.0
+    ],
+    "epsilon": 0.03137254901960784,
+    "batch_size": 64,
+    "num_workers": 0
+  },
+  "sha256": {
+    "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+    "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5"
+  },
+  "scope": "Unlabeled 3925-image test inference; no test accuracy or Kaggle score is inferred",
+  "checkpoint": {
+    "epoch": 69,
+    "training_config": {
+      "architecture": "small_resnet18",
+      "architecture_width": 32,
+      "initialization": "random",
+      "epochs": 80,
+      "batch_size": 128,
+      "learning_rate": 0.1,
+      "momentum": 0.9,
+      "weight_decay": 0.0005,
+      "scheduler": "cosine",
+      "clean_weight": 0.5,
+      "fgsm_probability": 0.5,
+      "augmentation": true,
+      "clean_floor": 0.857639,
+      "final_refit": false
+    },
+    "config": {
+      "seed": 5577,
+      "validation_fraction": 0.2,
+      "data_dir": "data/dataset3",
+      "split_dir": "splits",
+      "num_classes": 10,
+      "image_size": 64,
+      "input_range": [
+        0.0,
+        1.0
+      ],
+      "epsilon": 0.03137254901960784,
+      "batch_size": 64,
+      "num_workers": 0
+    },
+    "provenance": {
+      "python": "3.12.13",
+      "torch": "2.9.1+cu128",
+      "numpy": "2.2.6",
+      "cuda_runtime": "12.8",
+      "gpu": "NVIDIA GeForce RTX 5070 Ti",
+      "config": {
+        "seed": 5577,
+        "validation_fraction": 0.2,
+        "data_dir": "data/dataset3",
+        "split_dir": "splits",
+        "num_classes": 10,
+        "image_size": 64,
+        "input_range": [
+          0.0,
+          1.0
+        ],
+        "epsilon": 0.03137254901960784,
+        "batch_size": 64,
+        "num_workers": 0
+      },
+      "sha256": {
+        "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+        "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+        "splits\\train.csv": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+        "configs\\experiment.json": "fc89de8605c660cfe1e13af708ebcb189a36e18ae790766f5ad252975f53a99c",
+        "configs\\public85_residual_source.json": "5023306a2bceb29b619fd288e0d1e9be87ad313a246b9f71ed43a8b270fc36b1",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\cached_source_training.py": "47e70eb365e2afde6d9d9dbabeae3e34cf325a39a3c5a4f8468dcd8a15ceb8ca",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\residual.py": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\attacks.py": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\training.py": "daaab072d20381ff050a7e4c5c83dcf7360d1c61fac59b537630e763587ad8fc",
+        "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\improve_training.py": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+        "data\\dataset3\\dataset3_model.py": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833"
+      },
+      "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection",
+      "architecture": "small_resnet18",
+      "architecture_width": 32,
+      "final_refit": false,
+      "training_attack_identities": {
+        "fgsm": {
+          "training_csv_sha256": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+          "training_pixels_sha256": "fe0ff9dab90956ada86136a9a5e595764388054a1111407ff48d3153bfa83222",
+          "source_checkpoint_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+          "source_architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+          "seed": 5577,
+          "batch_size": 64,
+          "torch": "2.9.1+cu128",
+          "records": 7575,
+          "settings": {
+            "method": "fgsm",
+            "epsilon": 0.03137254901960784
+          }
+        },
+        "pgd": {
+          "training_csv_sha256": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+          "training_pixels_sha256": "fe0ff9dab90956ada86136a9a5e595764388054a1111407ff48d3153bfa83222",
+          "source_checkpoint_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+          "source_architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+          "seed": 5577,
+          "batch_size": 64,
+          "torch": "2.9.1+cu128",
+          "records": 7575,
+          "settings": {
+            "method": "pgd",
+            "epsilon": 0.03137254901960784,
+            "step_size": 0.00784313725490196,
+            "steps": 10,
+            "restarts": 1
+          }
+        }
+      },
+      "validation_attack_identities": {
+        "fgsm8": {
+          "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+          "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+          "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+          "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+          "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+          "seed": 5577,
+          "batch_size": 64,
+          "records": 1894,
+          "input_range": [
+            0,
+            1
+          ],
+          "torch": "2.9.1+cu128",
+          "settings": {
+            "method": "fgsm",
+            "epsilon": 0.03137254901960784
+          }
+        },
+        "pgd20x3": {
+          "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+          "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+          "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+          "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+          "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+          "seed": 5577,
+          "batch_size": 64,
+          "records": 1894,
+          "input_range": [
+            0,
+            1
+          ],
+          "torch": "2.9.1+cu128",
+          "settings": {
+            "method": "pgd",
+            "epsilon": 0.03137254901960784,
+            "step_size": 0.00784313725490196,
+            "steps": 20,
+            "restarts": 3
+          }
+        }
+      }
+    },
+    "best_selection": {
+      "eligible": false,
+      "clean_floor": 0.857639,
+      "clean_macro_f1": 0.8471981512653715,
+      "worst_source_mixed_macro_f1": 0.8342094787811167,
+      "own_pgd10_mixed_macro_f1": null,
+      "rank": [
+        0,
+        0.8342094787811167,
+        0.8471981512653715
+      ],
+      "epoch": 69
+    },
+    "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_residual_source.pt",
+    "checkpoint_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+    "architecture": "small_resnet18",
+    "architecture_width": 32,
+    "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+    "inference_transform": {
+      "name": "identity_horizontal_flip_probability_average",
+      "views": [
+        "identity",
+        "horizontal_flip"
+      ],
+      "aggregation": "arithmetic_mean_softmax_probabilities",
+      "attack_output": "log_mean_probabilities",
+      "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+    },
+    "inference_pipeline": {
+      "members": [
+        {
+          "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_residual_source.pt",
+          "checkpoint_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+          "architecture": "small_resnet18",
+          "architecture_width": 32,
+          "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+          "weight": 0.5,
+          "epoch": 69,
+          "initialization": "random",
+          "final_refit": false,
+          "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+        },
+        {
+          "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_hybrid_full37.pt",
+          "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+          "architecture": "provided",
+          "architecture_width": 32,
+          "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "weight": 0.5,
+          "epoch": 37,
+          "initialization": "provided",
+          "final_refit": true,
+          "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+        }
+      ],
+      "member_aggregation": "weighted_mean_softmax_probabilities",
+      "inference_transform": {
+        "name": "identity_horizontal_flip_probability_average",
+        "views": [
+          "identity",
+          "horizontal_flip"
+        ],
+        "aggregation": "arithmetic_mean_softmax_probabilities",
+        "attack_output": "log_mean_probabilities",
+        "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+      },
+      "transform_order": "member_probability_average_then_identity_flip_average",
+      "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+      "pipeline_sha256": "9d501605c6a1702978ba64203d238287cff3ba9a06a7356a3ed3c46bacaccf7d"
+    }
+  },
+  "inference_transform": {
+    "name": "identity_horizontal_flip_probability_average",
+    "views": [
+      "identity",
+      "horizontal_flip"
+    ],
+    "aggregation": "arithmetic_mean_softmax_probabilities",
+    "attack_output": "log_mean_probabilities",
+    "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+  },
+  "inference_pipeline": {
+    "members": [
+      {
+        "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_residual_source.pt",
+        "checkpoint_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+        "architecture": "small_resnet18",
+        "architecture_width": 32,
+        "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+        "weight": 0.5,
+        "epoch": 69,
+        "initialization": "random",
+        "final_refit": false,
+        "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+      },
+      {
+        "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_hybrid_full37.pt",
+        "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+        "architecture": "provided",
+        "architecture_width": 32,
+        "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+        "weight": 0.5,
+        "epoch": 37,
+        "initialization": "provided",
+        "final_refit": true,
+        "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+      }
+    ],
+    "member_aggregation": "weighted_mean_softmax_probabilities",
+    "inference_transform": {
+      "name": "identity_horizontal_flip_probability_average",
+      "views": [
+        "identity",
+        "horizontal_flip"
+      ],
+      "aggregation": "arithmetic_mean_softmax_probabilities",
+      "attack_output": "log_mean_probabilities",
+      "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+    },
+    "transform_order": "member_probability_average_then_identity_flip_average",
+    "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+    "pipeline_sha256": "9d501605c6a1702978ba64203d238287cff3ba9a06a7356a3ed3c46bacaccf7d"
+  },
+  "records": 3925,
+  "output": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\runs\\public85_inference_residual_hybrid50_flip\\submission.csv",
+  "submission_sha256": "180c2302fc163c247d5e7b2e7e36be46dfc80ccab446ecb385afd021f4b750c4",
+  "test_csv_sha256": "598d3a8721d8313a4fe001a75022b8fa54abe4490894accde538c5024dbd96a8",
+  "sample_submission_sha256": "72bdf9427c8f3209950caf4fa4238ed130efbd4b1f142f6bb04863d2f456feee",
+  "label_counts": [
+    399,
+    396,
+    372,
+    397,
+    404,
+    398,
+    409,
+    388,
+    386,
+    376
+  ],
+  "timing": {
+    "seconds": 1.0492810000432655,
+    "images_per_second": 3740.6566971461016,
+    "peak_allocated_mib": 252.2216796875,
+    "peak_reserved_mib": 332.0,
+    "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+  },
+  "repeat_timing": {
+    "seconds": 1.0312594999559224,
+    "images_per_second": 3806.0255446546294,
+    "peak_allocated_mib": 252.2216796875,
+    "peak_reserved_mib": 332.0,
+    "scope": "Two warm-up batches excluded; includes loader iteration, normalization to [0,1], host/device copies and prediction; excludes initial image decode and metric/file writing"
+  },
+  "deterministic_repeat": {
+    "full_passes": 2,
+    "predictions_equal": true,
+    "logits_bitwise_equal": true
+  },
+  "submitted_to_kaggle": false
+}

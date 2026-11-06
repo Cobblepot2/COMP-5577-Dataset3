@@ -1,0 +1,4336 @@
+{
+  "target_public_score": 0.85,
+  "actual_new_public_score": 0.85725,
+  "goal_verified": true,
+  "candidate": "residual_hybrid50_flip",
+  "residual_selected_epoch": 69,
+  "residual_training_records": 7575,
+  "checkpoint": "public85_residual_source.pt",
+  "checkpoint_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+  "csv": "submission_public85_residual_hybrid50_flip.csv",
+  "csv_sha256": "180c2302fc163c247d5e7b2e7e36be46dfc80ccab446ecb385afd021f4b750c4",
+  "records": 3925,
+  "pipeline": {
+    "members": [
+      {
+        "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_residual_source.pt",
+        "checkpoint_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+        "architecture": "small_resnet18",
+        "architecture_width": 32,
+        "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+        "weight": 0.5,
+        "epoch": 69,
+        "initialization": "random",
+        "final_refit": false,
+        "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+      },
+      {
+        "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_hybrid_full37.pt",
+        "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+        "architecture": "provided",
+        "architecture_width": 32,
+        "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+        "weight": 0.5,
+        "epoch": 37,
+        "initialization": "provided",
+        "final_refit": true,
+        "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+      }
+    ],
+    "member_aggregation": "weighted_mean_softmax_probabilities",
+    "inference_transform": {
+      "name": "identity_horizontal_flip_probability_average",
+      "views": [
+        "identity",
+        "horizontal_flip"
+      ],
+      "aggregation": "arithmetic_mean_softmax_probabilities",
+      "attack_output": "log_mean_probabilities",
+      "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+    },
+    "transform_order": "member_probability_average_then_identity_flip_average",
+    "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+    "pipeline_sha256": "9d501605c6a1702978ba64203d238287cff3ba9a06a7356a3ed3c46bacaccf7d"
+  },
+  "deterministic_repeat": {
+    "full_passes": 2,
+    "predictions_equal": true,
+    "logits_bitwise_equal": true
+  },
+  "selection_screen": {
+    "purpose": "Predeclared two-candidate local screen; no ensemble-weight tuning or automatic final choice",
+    "scope": "Split-trained candidates; validation guided selection and the provided attack teacher saw validation IDs. Diagnostic, not independent held-out or Kaggle performance.",
+    "criterion": "Prefer cleanF1>=0.857639, then maximize minimum original-source FGSM8/PGD20x3 float mixed F1, cleanF1 tiebreak; reserved-random50 audit still required",
+    "clean_floor": 0.857639,
+    "fixed_ensemble_weight": 0.5,
+    "horizontal_flip_for_both": true,
+    "records": 1894,
+    "mixed_attacked_records": 947,
+    "mixed_mask_seed": 5578,
+    "mixed_mask_sha256": "64d2304ff025a400973ab1d2003a7a5948a395a96cc3f1612088a997da6e1277",
+    "script_sha256": "32d184532616893bbd0fca7a6f09eef153bab1d947fad8d459f70d6137eb2917",
+    "source_cache": {
+      "fgsm8": {
+        "path": "runs\\improve_validation_cache\\6403f3575a480b2fdf8a04277911e48e47db608a04caa65972239d1d6d00bd1f.pt",
+        "identity": {
+          "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+          "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+          "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+          "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+          "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+          "seed": 5577,
+          "batch_size": 64,
+          "records": 1894,
+          "input_range": [
+            0,
+            1
+          ],
+          "torch": "2.9.1+cu128",
+          "settings": {
+            "method": "fgsm",
+            "epsilon": 0.03137254901960784
+          }
+        },
+        "reused": true,
+        "payload_sha256": "c4e992ea1de759297a939e9483fac45382f4c661a2aba7c6e4635f3e2386cf35"
+      },
+      "pgd20x3": {
+        "path": "runs\\improve_validation_cache\\94d8c2b06f18fd6eac36fc358a1b5f55b3eb9fa78a80b41846a51e0653e719cf.pt",
+        "identity": {
+          "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+          "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+          "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+          "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+          "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+          "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+          "seed": 5577,
+          "batch_size": 64,
+          "records": 1894,
+          "input_range": [
+            0,
+            1
+          ],
+          "torch": "2.9.1+cu128",
+          "settings": {
+            "method": "pgd",
+            "epsilon": 0.03137254901960784,
+            "step_size": 0.00784313725490196,
+            "steps": 20,
+            "restarts": 3
+          }
+        },
+        "reused": true,
+        "payload_sha256": "05910ff5ec115da369b3301b62036c6f4ce968a05cd2d1ed34daaa2b0e946437"
+      }
+    },
+    "source_attack_bounds": {
+      "fgsm8": {
+        "observed_linf": 0.03137257695198059,
+        "observed_quantized_linf": 0.03137257695198059,
+        "observed_pixel_range": [
+          0.0,
+          1.0
+        ]
+      },
+      "pgd20x3": {
+        "observed_linf": 0.03137257695198059,
+        "observed_quantized_linf": 0.03137257695198059,
+        "observed_pixel_range": [
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "test_inference_performed": false,
+    "weights_or_transforms_swept": false,
+    "reserved_random50_audit_required": true,
+    "candidates": [
+      {
+        "name": "residual_alone_flip",
+        "checkpoint": {
+          "epoch": 69,
+          "training_config": {
+            "architecture": "small_resnet18",
+            "architecture_width": 32,
+            "initialization": "random",
+            "epochs": 80,
+            "batch_size": 128,
+            "learning_rate": 0.1,
+            "momentum": 0.9,
+            "weight_decay": 0.0005,
+            "scheduler": "cosine",
+            "clean_weight": 0.5,
+            "fgsm_probability": 0.5,
+            "augmentation": true,
+            "clean_floor": 0.857639,
+            "final_refit": false
+          },
+          "config": {
+            "seed": 5577,
+            "validation_fraction": 0.2,
+            "data_dir": "data/dataset3",
+            "split_dir": "splits",
+            "num_classes": 10,
+            "image_size": 64,
+            "input_range": [
+              0.0,
+              1.0
+            ],
+            "epsilon": 0.03137254901960784,
+            "batch_size": 64,
+            "num_workers": 0
+          },
+          "provenance": {
+            "python": "3.12.13",
+            "torch": "2.9.1+cu128",
+            "numpy": "2.2.6",
+            "cuda_runtime": "12.8",
+            "gpu": "NVIDIA GeForce RTX 5070 Ti",
+            "config": {
+              "seed": 5577,
+              "validation_fraction": 0.2,
+              "data_dir": "data/dataset3",
+              "split_dir": "splits",
+              "num_classes": 10,
+              "image_size": 64,
+              "input_range": [
+                0.0,
+                1.0
+              ],
+              "epsilon": 0.03137254901960784,
+              "batch_size": 64,
+              "num_workers": 0
+            },
+            "sha256": {
+              "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+              "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+              "splits\\train.csv": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+              "configs\\experiment.json": "fc89de8605c660cfe1e13af708ebcb189a36e18ae790766f5ad252975f53a99c",
+              "configs\\public85_residual_source.json": "5023306a2bceb29b619fd288e0d1e9be87ad313a246b9f71ed43a8b270fc36b1",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\cached_source_training.py": "47e70eb365e2afde6d9d9dbabeae3e34cf325a39a3c5a4f8468dcd8a15ceb8ca",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\residual.py": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\attacks.py": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\training.py": "daaab072d20381ff050a7e4c5c83dcf7360d1c61fac59b537630e763587ad8fc",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\improve_training.py": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+              "data\\dataset3\\dataset3_model.py": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833"
+            },
+            "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection",
+            "architecture": "small_resnet18",
+            "architecture_width": 32,
+            "final_refit": false,
+            "training_attack_identities": {
+              "fgsm": {
+                "training_csv_sha256": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+                "training_pixels_sha256": "fe0ff9dab90956ada86136a9a5e595764388054a1111407ff48d3153bfa83222",
+                "source_checkpoint_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "source_architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "seed": 5577,
+                "batch_size": 64,
+                "torch": "2.9.1+cu128",
+                "records": 7575,
+                "settings": {
+                  "method": "fgsm",
+                  "epsilon": 0.03137254901960784
+                }
+              },
+              "pgd": {
+                "training_csv_sha256": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+                "training_pixels_sha256": "fe0ff9dab90956ada86136a9a5e595764388054a1111407ff48d3153bfa83222",
+                "source_checkpoint_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "source_architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "seed": 5577,
+                "batch_size": 64,
+                "torch": "2.9.1+cu128",
+                "records": 7575,
+                "settings": {
+                  "method": "pgd",
+                  "epsilon": 0.03137254901960784,
+                  "step_size": 0.00784313725490196,
+                  "steps": 10,
+                  "restarts": 1
+                }
+              }
+            },
+            "validation_attack_identities": {
+              "fgsm8": {
+                "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+                "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+                "seed": 5577,
+                "batch_size": 64,
+                "records": 1894,
+                "input_range": [
+                  0,
+                  1
+                ],
+                "torch": "2.9.1+cu128",
+                "settings": {
+                  "method": "fgsm",
+                  "epsilon": 0.03137254901960784
+                }
+              },
+              "pgd20x3": {
+                "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+                "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+                "seed": 5577,
+                "batch_size": 64,
+                "records": 1894,
+                "input_range": [
+                  0,
+                  1
+                ],
+                "torch": "2.9.1+cu128",
+                "settings": {
+                  "method": "pgd",
+                  "epsilon": 0.03137254901960784,
+                  "step_size": 0.00784313725490196,
+                  "steps": 20,
+                  "restarts": 3
+                }
+              }
+            }
+          },
+          "best_selection": {
+            "eligible": false,
+            "clean_floor": 0.857639,
+            "clean_macro_f1": 0.8471981512653715,
+            "worst_source_mixed_macro_f1": 0.8342094787811167,
+            "own_pgd10_mixed_macro_f1": null,
+            "rank": [
+              0,
+              0.8342094787811167,
+              0.8471981512653715
+            ],
+            "epoch": 69
+          },
+          "checkpoint": "runs\\public85_residual_source\\best.pt",
+          "checkpoint_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+          "architecture": "small_resnet18",
+          "architecture_width": 32,
+          "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+          "inference_transform": {
+            "name": "identity_horizontal_flip_probability_average",
+            "views": [
+              "identity",
+              "horizontal_flip"
+            ],
+            "aggregation": "arithmetic_mean_softmax_probabilities",
+            "attack_output": "log_mean_probabilities",
+            "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+          },
+          "inference_pipeline": {
+            "members": [
+              {
+                "checkpoint": "runs\\public85_residual_source\\best.pt",
+                "checkpoint_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+                "architecture": "small_resnet18",
+                "architecture_width": 32,
+                "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+                "weight": 1.0,
+                "epoch": 69,
+                "initialization": "random",
+                "final_refit": false,
+                "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+              }
+            ],
+            "member_aggregation": "single_model_logits",
+            "inference_transform": {
+              "name": "identity_horizontal_flip_probability_average",
+              "views": [
+                "identity",
+                "horizontal_flip"
+              ],
+              "aggregation": "arithmetic_mean_softmax_probabilities",
+              "attack_output": "log_mean_probabilities",
+              "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+            },
+            "transform_order": "single_model_then_optional_flip_average",
+            "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+            "pipeline_sha256": "b52dbcb50b978a6e5504c0ae60443efff3a257ed95f5b2e8c88891377e41cb14"
+          }
+        },
+        "inference_pipeline": {
+          "members": [
+            {
+              "checkpoint": "runs\\public85_residual_source\\best.pt",
+              "checkpoint_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+              "architecture": "small_resnet18",
+              "architecture_width": 32,
+              "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+              "weight": 1.0,
+              "epoch": 69,
+              "initialization": "random",
+              "final_refit": false,
+              "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+            }
+          ],
+          "member_aggregation": "single_model_logits",
+          "inference_transform": {
+            "name": "identity_horizontal_flip_probability_average",
+            "views": [
+              "identity",
+              "horizontal_flip"
+            ],
+            "aggregation": "arithmetic_mean_softmax_probabilities",
+            "attack_output": "log_mean_probabilities",
+            "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+          },
+          "transform_order": "single_model_then_optional_flip_average",
+          "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+          "pipeline_sha256": "b52dbcb50b978a6e5504c0ae60443efff3a257ed95f5b2e8c88891377e41cb14"
+        },
+        "clean": {
+          "records": 1894,
+          "accuracy": 0.8553326293558606,
+          "macro_f1": 0.8545203661242032,
+          "confusion_matrix_rows_true_columns_predicted": [
+            [
+              173,
+              3,
+              1,
+              5,
+              1,
+              4,
+              1,
+              0,
+              3,
+              2
+            ],
+            [
+              1,
+              168,
+              2,
+              7,
+              1,
+              5,
+              2,
+              1,
+              4,
+              0
+            ],
+            [
+              2,
+              0,
+              172,
+              7,
+              1,
+              9,
+              3,
+              5,
+              0,
+              0
+            ],
+            [
+              8,
+              7,
+              1,
+              126,
+              2,
+              13,
+              7,
+              5,
+              0,
+              3
+            ],
+            [
+              0,
+              0,
+              2,
+              9,
+              160,
+              4,
+              5,
+              5,
+              2,
+              1
+            ],
+            [
+              1,
+              2,
+              0,
+              8,
+              1,
+              171,
+              0,
+              4,
+              2,
+              2
+            ],
+            [
+              3,
+              3,
+              2,
+              7,
+              6,
+              1,
+              160,
+              6,
+              1,
+              3
+            ],
+            [
+              1,
+              0,
+              7,
+              4,
+              9,
+              4,
+              4,
+              155,
+              0,
+              2
+            ],
+            [
+              1,
+              2,
+              0,
+              7,
+              2,
+              0,
+              4,
+              1,
+              169,
+              4
+            ],
+            [
+              1,
+              1,
+              1,
+              6,
+              4,
+              2,
+              6,
+              2,
+              3,
+              166
+            ]
+          ],
+          "per_class": [
+            {
+              "label": 0,
+              "support": 193,
+              "precision": 0.9057591623036649,
+              "recall": 0.8963730569948186,
+              "f1": 0.9010416666666666
+            },
+            {
+              "label": 1,
+              "support": 191,
+              "precision": 0.9032258064516129,
+              "recall": 0.8795811518324608,
+              "f1": 0.8912466843501327
+            },
+            {
+              "label": 2,
+              "support": 199,
+              "precision": 0.9148936170212766,
+              "recall": 0.864321608040201,
+              "f1": 0.8888888888888888
+            },
+            {
+              "label": 3,
+              "support": 172,
+              "precision": 0.6774193548387096,
+              "recall": 0.7325581395348837,
+              "f1": 0.7039106145251397
+            },
+            {
+              "label": 4,
+              "support": 188,
+              "precision": 0.8556149732620321,
+              "recall": 0.851063829787234,
+              "f1": 0.8533333333333334
+            },
+            {
+              "label": 5,
+              "support": 191,
+              "precision": 0.8028169014084507,
+              "recall": 0.8952879581151832,
+              "f1": 0.8465346534653465
+            },
+            {
+              "label": 6,
+              "support": 192,
+              "precision": 0.8333333333333334,
+              "recall": 0.8333333333333334,
+              "f1": 0.8333333333333334
+            },
+            {
+              "label": 7,
+              "support": 186,
+              "precision": 0.842391304347826,
+              "recall": 0.8333333333333334,
+              "f1": 0.8378378378378378
+            },
+            {
+              "label": 8,
+              "support": 190,
+              "precision": 0.9184782608695652,
+              "recall": 0.8894736842105263,
+              "f1": 0.9037433155080213
+            },
+            {
+              "label": 9,
+              "support": 192,
+              "precision": 0.907103825136612,
+              "recall": 0.8645833333333334,
+              "f1": 0.8853333333333333
+            }
+          ]
+        },
+        "attacks": {
+          "fgsm8": {
+            "float_metrics": {
+              "records": 1894,
+              "accuracy": 0.8262935586061246,
+              "macro_f1": 0.8258146170179484,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  170,
+                  3,
+                  1,
+                  6,
+                  1,
+                  4,
+                  1,
+                  0,
+                  5,
+                  2
+                ],
+                [
+                  1,
+                  160,
+                  2,
+                  12,
+                  1,
+                  8,
+                  2,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  166,
+                  8,
+                  1,
+                  10,
+                  3,
+                  6,
+                  0,
+                  3
+                ],
+                [
+                  8,
+                  8,
+                  2,
+                  122,
+                  2,
+                  13,
+                  7,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  2,
+                  10,
+                  153,
+                  5,
+                  6,
+                  5,
+                  2,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  1,
+                  12,
+                  1,
+                  165,
+                  1,
+                  4,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  7,
+                  2,
+                  155,
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  8,
+                  7,
+                  9,
+                  4,
+                  9,
+                  145,
+                  0,
+                  2
+                ],
+                [
+                  3,
+                  2,
+                  1,
+                  6,
+                  2,
+                  0,
+                  4,
+                  0,
+                  166,
+                  6
+                ],
+                [
+                  1,
+                  1,
+                  2,
+                  6,
+                  5,
+                  1,
+                  6,
+                  2,
+                  5,
+                  163
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.8994708994708994,
+                  "recall": 0.8808290155440415,
+                  "f1": 0.8900523560209425
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8791208791208791,
+                  "recall": 0.837696335078534,
+                  "f1": 0.8579088471849866
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.8877005347593583,
+                  "recall": 0.8341708542713567,
+                  "f1": 0.8601036269430051
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6192893401015228,
+                  "recall": 0.7093023255813954,
+                  "f1": 0.6612466124661247
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8406593406593407,
+                  "recall": 0.8138297872340425,
+                  "f1": 0.827027027027027
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.7783018867924528,
+                  "recall": 0.8638743455497382,
+                  "f1": 0.8188585607940446
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.7989690721649485,
+                  "recall": 0.8072916666666666,
+                  "f1": 0.8031088082901554
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8146067415730337,
+                  "recall": 0.7795698924731183,
+                  "f1": 0.7967032967032966
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.8924731182795699,
+                  "recall": 0.8736842105263158,
+                  "f1": 0.8829787234042553
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8716577540106952,
+                  "recall": 0.8489583333333334,
+                  "f1": 0.8601583113456465
+                }
+              ]
+            },
+            "quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8262935586061246,
+              "macro_f1": 0.8258146170179484,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  170,
+                  3,
+                  1,
+                  6,
+                  1,
+                  4,
+                  1,
+                  0,
+                  5,
+                  2
+                ],
+                [
+                  1,
+                  160,
+                  2,
+                  12,
+                  1,
+                  8,
+                  2,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  166,
+                  8,
+                  1,
+                  10,
+                  3,
+                  6,
+                  0,
+                  3
+                ],
+                [
+                  8,
+                  8,
+                  2,
+                  122,
+                  2,
+                  13,
+                  7,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  2,
+                  10,
+                  153,
+                  5,
+                  6,
+                  5,
+                  2,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  1,
+                  12,
+                  1,
+                  165,
+                  1,
+                  4,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  7,
+                  2,
+                  155,
+                  9,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  8,
+                  7,
+                  9,
+                  4,
+                  9,
+                  145,
+                  0,
+                  2
+                ],
+                [
+                  3,
+                  2,
+                  1,
+                  6,
+                  2,
+                  0,
+                  4,
+                  0,
+                  166,
+                  6
+                ],
+                [
+                  1,
+                  1,
+                  2,
+                  6,
+                  5,
+                  1,
+                  6,
+                  2,
+                  5,
+                  163
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.8994708994708994,
+                  "recall": 0.8808290155440415,
+                  "f1": 0.8900523560209425
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8791208791208791,
+                  "recall": 0.837696335078534,
+                  "f1": 0.8579088471849866
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.8877005347593583,
+                  "recall": 0.8341708542713567,
+                  "f1": 0.8601036269430051
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6192893401015228,
+                  "recall": 0.7093023255813954,
+                  "f1": 0.6612466124661247
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8406593406593407,
+                  "recall": 0.8138297872340425,
+                  "f1": 0.827027027027027
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.7783018867924528,
+                  "recall": 0.8638743455497382,
+                  "f1": 0.8188585607940446
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.7989690721649485,
+                  "recall": 0.8072916666666666,
+                  "f1": 0.8031088082901554
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8146067415730337,
+                  "recall": 0.7795698924731183,
+                  "f1": 0.7967032967032966
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.8924731182795699,
+                  "recall": 0.8736842105263158,
+                  "f1": 0.8829787234042553
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8716577540106952,
+                  "recall": 0.8489583333333334,
+                  "f1": 0.8601583113456465
+                }
+              ]
+            },
+            "mixed_50pct_metrics": {
+              "records": 1894,
+              "accuracy": 0.8426610348468849,
+              "macro_f1": 0.8419231657591082,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  171,
+                  3,
+                  1,
+                  5,
+                  1,
+                  4,
+                  1,
+                  0,
+                  5,
+                  2
+                ],
+                [
+                  1,
+                  165,
+                  2,
+                  10,
+                  1,
+                  5,
+                  2,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  168,
+                  9,
+                  1,
+                  8,
+                  3,
+                  6,
+                  0,
+                  2
+                ],
+                [
+                  8,
+                  8,
+                  1,
+                  122,
+                  2,
+                  14,
+                  7,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  0,
+                  1,
+                  2,
+                  9,
+                  159,
+                  4,
+                  5,
+                  5,
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  3,
+                  0,
+                  9,
+                  1,
+                  170,
+                  0,
+                  3,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  6,
+                  2,
+                  158,
+                  7,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  0,
+                  7,
+                  6,
+                  9,
+                  4,
+                  6,
+                  151,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  2,
+                  0,
+                  7,
+                  2,
+                  0,
+                  4,
+                  1,
+                  167,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  6,
+                  5,
+                  2,
+                  6,
+                  2,
+                  3,
+                  165
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9047619047619048,
+                  "recall": 0.8860103626943006,
+                  "f1": 0.8952879581151832
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8870967741935484,
+                  "recall": 0.8638743455497382,
+                  "f1": 0.8753315649867374
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9130434782608695,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8772845953002611
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6387434554973822,
+                  "recall": 0.7093023255813954,
+                  "f1": 0.6721763085399449
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8502673796791443,
+                  "recall": 0.8457446808510638,
+                  "f1": 0.848
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.7981220657276995,
+                  "recall": 0.8900523560209425,
+                  "f1": 0.8415841584158416
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8229166666666666,
+                  "recall": 0.8229166666666666,
+                  "f1": 0.8229166666666666
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8296703296703297,
+                  "recall": 0.8118279569892473,
+                  "f1": 0.8206521739130435
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9027027027027027,
+                  "recall": 0.8789473684210526,
+                  "f1": 0.8906666666666667
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8918918918918919,
+                  "recall": 0.859375,
+                  "f1": 0.8753315649867374
+                }
+              ]
+            },
+            "mixed_50pct_quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8426610348468849,
+              "macro_f1": 0.8419231657591082,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  171,
+                  3,
+                  1,
+                  5,
+                  1,
+                  4,
+                  1,
+                  0,
+                  5,
+                  2
+                ],
+                [
+                  1,
+                  165,
+                  2,
+                  10,
+                  1,
+                  5,
+                  2,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  168,
+                  9,
+                  1,
+                  8,
+                  3,
+                  6,
+                  0,
+                  2
+                ],
+                [
+                  8,
+                  8,
+                  1,
+                  122,
+                  2,
+                  14,
+                  7,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  0,
+                  1,
+                  2,
+                  9,
+                  159,
+                  4,
+                  5,
+                  5,
+                  2,
+                  1
+                ],
+                [
+                  1,
+                  3,
+                  0,
+                  9,
+                  1,
+                  170,
+                  0,
+                  3,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  6,
+                  2,
+                  158,
+                  7,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  0,
+                  7,
+                  6,
+                  9,
+                  4,
+                  6,
+                  151,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  2,
+                  0,
+                  7,
+                  2,
+                  0,
+                  4,
+                  1,
+                  167,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  6,
+                  5,
+                  2,
+                  6,
+                  2,
+                  3,
+                  165
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9047619047619048,
+                  "recall": 0.8860103626943006,
+                  "f1": 0.8952879581151832
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8870967741935484,
+                  "recall": 0.8638743455497382,
+                  "f1": 0.8753315649867374
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9130434782608695,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8772845953002611
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6387434554973822,
+                  "recall": 0.7093023255813954,
+                  "f1": 0.6721763085399449
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8502673796791443,
+                  "recall": 0.8457446808510638,
+                  "f1": 0.848
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.7981220657276995,
+                  "recall": 0.8900523560209425,
+                  "f1": 0.8415841584158416
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8229166666666666,
+                  "recall": 0.8229166666666666,
+                  "f1": 0.8229166666666666
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8296703296703297,
+                  "recall": 0.8118279569892473,
+                  "f1": 0.8206521739130435
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9027027027027027,
+                  "recall": 0.8789473684210526,
+                  "f1": 0.8906666666666667
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8918918918918919,
+                  "recall": 0.859375,
+                  "f1": 0.8753315649867374
+                }
+              ]
+            },
+            "attack_successes_on_initially_correct": 61,
+            "attack_success_rate_on_initially_correct": 0.037654320987654324,
+            "quantized_attack_successes_on_initially_correct": 61,
+            "quantized_attack_success_rate_on_initially_correct": 0.037654320987654324
+          },
+          "pgd20x3": {
+            "float_metrics": {
+              "records": 1894,
+              "accuracy": 0.8389651531151003,
+              "macro_f1": 0.8387778258697336,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  168,
+                  4,
+                  1,
+                  10,
+                  1,
+                  2,
+                  1,
+                  0,
+                  3,
+                  3
+                ],
+                [
+                  1,
+                  167,
+                  2,
+                  10,
+                  1,
+                  4,
+                  1,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  168,
+                  8,
+                  1,
+                  9,
+                  4,
+                  6,
+                  0,
+                  2
+                ],
+                [
+                  7,
+                  11,
+                  1,
+                  125,
+                  2,
+                  11,
+                  7,
+                  5,
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  9,
+                  158,
+                  4,
+                  5,
+                  5,
+                  1,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  1,
+                  12,
+                  1,
+                  164,
+                  0,
+                  5,
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  10,
+                  6,
+                  1,
+                  158,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  9,
+                  8,
+                  9,
+                  3,
+                  4,
+                  149,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  2,
+                  0,
+                  6,
+                  2,
+                  0,
+                  5,
+                  0,
+                  168,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  6,
+                  6,
+                  2,
+                  6,
+                  1,
+                  4,
+                  164
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9130434782608695,
+                  "recall": 0.8704663212435233,
+                  "f1": 0.8912466843501327
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8652849740932642,
+                  "recall": 0.8743455497382199,
+                  "f1": 0.8697916666666666
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9032258064516129,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8727272727272727
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6127450980392157,
+                  "recall": 0.7267441860465116,
+                  "f1": 0.6648936170212766
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8449197860962567,
+                  "recall": 0.8404255319148937,
+                  "f1": 0.8426666666666667
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.82,
+                  "recall": 0.8586387434554974,
+                  "f1": 0.8388746803069054
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8272251308900523,
+                  "recall": 0.8229166666666666,
+                  "f1": 0.825065274151436
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8370786516853933,
+                  "recall": 0.8010752688172043,
+                  "f1": 0.8186813186813187
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9130434782608695,
+                  "recall": 0.8842105263157894,
+                  "f1": 0.8983957219251337
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8770053475935828,
+                  "recall": 0.8541666666666666,
+                  "f1": 0.8654353562005277
+                }
+              ]
+            },
+            "quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8389651531151003,
+              "macro_f1": 0.8387778258697336,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  168,
+                  4,
+                  1,
+                  10,
+                  1,
+                  2,
+                  1,
+                  0,
+                  3,
+                  3
+                ],
+                [
+                  1,
+                  167,
+                  2,
+                  10,
+                  1,
+                  4,
+                  1,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  168,
+                  8,
+                  1,
+                  9,
+                  4,
+                  6,
+                  0,
+                  2
+                ],
+                [
+                  7,
+                  11,
+                  1,
+                  125,
+                  2,
+                  11,
+                  7,
+                  5,
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  9,
+                  158,
+                  4,
+                  5,
+                  5,
+                  1,
+                  3
+                ],
+                [
+                  0,
+                  3,
+                  1,
+                  12,
+                  1,
+                  164,
+                  0,
+                  5,
+                  3,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  10,
+                  6,
+                  1,
+                  158,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  1,
+                  9,
+                  8,
+                  9,
+                  3,
+                  4,
+                  149,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  2,
+                  0,
+                  6,
+                  2,
+                  0,
+                  5,
+                  0,
+                  168,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  6,
+                  6,
+                  2,
+                  6,
+                  1,
+                  4,
+                  164
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9130434782608695,
+                  "recall": 0.8704663212435233,
+                  "f1": 0.8912466843501327
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8652849740932642,
+                  "recall": 0.8743455497382199,
+                  "f1": 0.8697916666666666
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9032258064516129,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8727272727272727
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6127450980392157,
+                  "recall": 0.7267441860465116,
+                  "f1": 0.6648936170212766
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8449197860962567,
+                  "recall": 0.8404255319148937,
+                  "f1": 0.8426666666666667
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.82,
+                  "recall": 0.8586387434554974,
+                  "f1": 0.8388746803069054
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8272251308900523,
+                  "recall": 0.8229166666666666,
+                  "f1": 0.825065274151436
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8370786516853933,
+                  "recall": 0.8010752688172043,
+                  "f1": 0.8186813186813187
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9130434782608695,
+                  "recall": 0.8842105263157894,
+                  "f1": 0.8983957219251337
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8770053475935828,
+                  "recall": 0.8541666666666666,
+                  "f1": 0.8654353562005277
+                }
+              ]
+            },
+            "mixed_50pct_metrics": {
+              "records": 1894,
+              "accuracy": 0.8468848996832101,
+              "macro_f1": 0.8462313706999612,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  172,
+                  3,
+                  1,
+                  7,
+                  1,
+                  3,
+                  1,
+                  0,
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  168,
+                  2,
+                  8,
+                  1,
+                  4,
+                  2,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  168,
+                  10,
+                  1,
+                  8,
+                  3,
+                  6,
+                  0,
+                  1
+                ],
+                [
+                  7,
+                  11,
+                  1,
+                  123,
+                  2,
+                  13,
+                  7,
+                  5,
+                  0,
+                  3
+                ],
+                [
+                  0,
+                  1,
+                  2,
+                  9,
+                  158,
+                  4,
+                  5,
+                  5,
+                  2,
+                  2
+                ],
+                [
+                  1,
+                  2,
+                  1,
+                  9,
+                  1,
+                  169,
+                  0,
+                  4,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  6,
+                  1,
+                  160,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  0,
+                  8,
+                  7,
+                  9,
+                  3,
+                  4,
+                  152,
+                  0,
+                  2
+                ],
+                [
+                  1,
+                  2,
+                  0,
+                  7,
+                  2,
+                  0,
+                  4,
+                  1,
+                  169,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  6,
+                  6,
+                  2,
+                  6,
+                  1,
+                  3,
+                  165
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9148936170212766,
+                  "recall": 0.8911917098445595,
+                  "f1": 0.9028871391076115
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8795811518324608,
+                  "recall": 0.8795811518324608,
+                  "f1": 0.8795811518324608
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9032258064516129,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8727272727272727
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.634020618556701,
+                  "recall": 0.7151162790697675,
+                  "f1": 0.6721311475409836
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8449197860962567,
+                  "recall": 0.8404255319148937,
+                  "f1": 0.8426666666666667
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8164251207729468,
+                  "recall": 0.8848167539267016,
+                  "f1": 0.8492462311557789
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8333333333333334,
+                  "recall": 0.8333333333333334,
+                  "f1": 0.8333333333333334
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8397790055248618,
+                  "recall": 0.8172043010752689,
+                  "f1": 0.8283378746594006
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9184782608695652,
+                  "recall": 0.8894736842105263,
+                  "f1": 0.9037433155080213
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8967391304347826,
+                  "recall": 0.859375,
+                  "f1": 0.8776595744680851
+                }
+              ]
+            },
+            "mixed_50pct_quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8468848996832101,
+              "macro_f1": 0.8462313706999612,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  172,
+                  3,
+                  1,
+                  7,
+                  1,
+                  3,
+                  1,
+                  0,
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  168,
+                  2,
+                  8,
+                  1,
+                  4,
+                  2,
+                  1,
+                  4,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  168,
+                  10,
+                  1,
+                  8,
+                  3,
+                  6,
+                  0,
+                  1
+                ],
+                [
+                  7,
+                  11,
+                  1,
+                  123,
+                  2,
+                  13,
+                  7,
+                  5,
+                  0,
+                  3
+                ],
+                [
+                  0,
+                  1,
+                  2,
+                  9,
+                  158,
+                  4,
+                  5,
+                  5,
+                  2,
+                  2
+                ],
+                [
+                  1,
+                  2,
+                  1,
+                  9,
+                  1,
+                  169,
+                  0,
+                  4,
+                  2,
+                  2
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  6,
+                  1,
+                  160,
+                  6,
+                  1,
+                  3
+                ],
+                [
+                  1,
+                  0,
+                  8,
+                  7,
+                  9,
+                  3,
+                  4,
+                  152,
+                  0,
+                  2
+                ],
+                [
+                  1,
+                  2,
+                  0,
+                  7,
+                  2,
+                  0,
+                  4,
+                  1,
+                  169,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  6,
+                  6,
+                  2,
+                  6,
+                  1,
+                  3,
+                  165
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9148936170212766,
+                  "recall": 0.8911917098445595,
+                  "f1": 0.9028871391076115
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8795811518324608,
+                  "recall": 0.8795811518324608,
+                  "f1": 0.8795811518324608
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9032258064516129,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8727272727272727
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.634020618556701,
+                  "recall": 0.7151162790697675,
+                  "f1": 0.6721311475409836
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8449197860962567,
+                  "recall": 0.8404255319148937,
+                  "f1": 0.8426666666666667
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8164251207729468,
+                  "recall": 0.8848167539267016,
+                  "f1": 0.8492462311557789
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8333333333333334,
+                  "recall": 0.8333333333333334,
+                  "f1": 0.8333333333333334
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8397790055248618,
+                  "recall": 0.8172043010752689,
+                  "f1": 0.8283378746594006
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9184782608695652,
+                  "recall": 0.8894736842105263,
+                  "f1": 0.9037433155080213
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8967391304347826,
+                  "recall": 0.859375,
+                  "f1": 0.8776595744680851
+                }
+              ]
+            },
+            "attack_successes_on_initially_correct": 42,
+            "attack_success_rate_on_initially_correct": 0.025925925925925925,
+            "quantized_attack_successes_on_initially_correct": 42,
+            "quantized_attack_success_rate_on_initially_correct": 0.025925925925925925
+          }
+        },
+        "worst_source_mixed_macro_f1": 0.8419231657591082,
+        "worst_source_8bit_mixed_macro_f1": 0.8419231657591082,
+        "clean_eligible": false,
+        "ranking": [
+          0,
+          0.8419231657591082,
+          0.8545203661242032
+        ],
+        "float_vs_uint8_prediction_changes": {
+          "fgsm8": 0,
+          "pgd20x3": 0
+        },
+        "predictions": {
+          "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\improvement_probe\\residual_screen\\260165ca3a48ce28b90965a500b19273f27f0c3cb8cc81babb938303edcb38ee_predictions.npz",
+          "sha256": "bf51f5ca10370df8c74249a5c2c64124553cf08c2e38c76e797c4eac94fca56f",
+          "reused": false
+        },
+        "timing": {
+          "seconds": 1.7547662999713793,
+          "peak_allocated_mib": 247.71630859375,
+          "peak_reserved_mib": 378.0,
+          "scope": "Warm-up excluded; five fixed-condition transfers and complete deployed-predictor inference included; data/cache loading and file writing excluded",
+          "current_inference_performed": true
+        }
+      },
+      {
+        "name": "residual_hybrid37_equal_flip",
+        "checkpoint": {
+          "epoch": 69,
+          "training_config": {
+            "architecture": "small_resnet18",
+            "architecture_width": 32,
+            "initialization": "random",
+            "epochs": 80,
+            "batch_size": 128,
+            "learning_rate": 0.1,
+            "momentum": 0.9,
+            "weight_decay": 0.0005,
+            "scheduler": "cosine",
+            "clean_weight": 0.5,
+            "fgsm_probability": 0.5,
+            "augmentation": true,
+            "clean_floor": 0.857639,
+            "final_refit": false
+          },
+          "config": {
+            "seed": 5577,
+            "validation_fraction": 0.2,
+            "data_dir": "data/dataset3",
+            "split_dir": "splits",
+            "num_classes": 10,
+            "image_size": 64,
+            "input_range": [
+              0.0,
+              1.0
+            ],
+            "epsilon": 0.03137254901960784,
+            "batch_size": 64,
+            "num_workers": 0
+          },
+          "provenance": {
+            "python": "3.12.13",
+            "torch": "2.9.1+cu128",
+            "numpy": "2.2.6",
+            "cuda_runtime": "12.8",
+            "gpu": "NVIDIA GeForce RTX 5070 Ti",
+            "config": {
+              "seed": 5577,
+              "validation_fraction": 0.2,
+              "data_dir": "data/dataset3",
+              "split_dir": "splits",
+              "num_classes": 10,
+              "image_size": 64,
+              "input_range": [
+                0.0,
+                1.0
+              ],
+              "epsilon": 0.03137254901960784,
+              "batch_size": 64,
+              "num_workers": 0
+            },
+            "sha256": {
+              "data/dataset3/provided_model.pt": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+              "splits/validation.csv": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+              "splits\\train.csv": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+              "configs\\experiment.json": "fc89de8605c660cfe1e13af708ebcb189a36e18ae790766f5ad252975f53a99c",
+              "configs\\public85_residual_source.json": "5023306a2bceb29b619fd288e0d1e9be87ad313a246b9f71ed43a8b270fc36b1",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\cached_source_training.py": "47e70eb365e2afde6d9d9dbabeae3e34cf325a39a3c5a4f8468dcd8a15ceb8ca",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\residual.py": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\attacks.py": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\training.py": "daaab072d20381ff050a7e4c5c83dcf7360d1c61fac59b537630e763587ad8fc",
+              "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\dataset3\\improve_training.py": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+              "data\\dataset3\\dataset3_model.py": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833"
+            },
+            "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection",
+            "architecture": "small_resnet18",
+            "architecture_width": 32,
+            "final_refit": false,
+            "training_attack_identities": {
+              "fgsm": {
+                "training_csv_sha256": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+                "training_pixels_sha256": "fe0ff9dab90956ada86136a9a5e595764388054a1111407ff48d3153bfa83222",
+                "source_checkpoint_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "source_architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "seed": 5577,
+                "batch_size": 64,
+                "torch": "2.9.1+cu128",
+                "records": 7575,
+                "settings": {
+                  "method": "fgsm",
+                  "epsilon": 0.03137254901960784
+                }
+              },
+              "pgd": {
+                "training_csv_sha256": "68452ae0fa1b5ea42a2d988bc4c0314867e9480cf34d9b65ed5e9b6fc408e70a",
+                "training_pixels_sha256": "fe0ff9dab90956ada86136a9a5e595764388054a1111407ff48d3153bfa83222",
+                "source_checkpoint_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "source_architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "seed": 5577,
+                "batch_size": 64,
+                "torch": "2.9.1+cu128",
+                "records": 7575,
+                "settings": {
+                  "method": "pgd",
+                  "epsilon": 0.03137254901960784,
+                  "step_size": 0.00784313725490196,
+                  "steps": 10,
+                  "restarts": 1
+                }
+              }
+            },
+            "validation_attack_identities": {
+              "fgsm8": {
+                "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+                "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+                "seed": 5577,
+                "batch_size": 64,
+                "records": 1894,
+                "input_range": [
+                  0,
+                  1
+                ],
+                "torch": "2.9.1+cu128",
+                "settings": {
+                  "method": "fgsm",
+                  "epsilon": 0.03137254901960784
+                }
+              },
+              "pgd20x3": {
+                "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+                "architecture_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+                "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+                "attack_code_sha256": "19f0e77aa073234d2a2e3e5ec7c18342079f4404d8954ac09979360c5c3a2944",
+                "cache_code_sha256": "f1d1c39442d98bde1f4642ce48213a9bd6d5c5dd4a335e51e5de8cca077f87bb",
+                "seed": 5577,
+                "batch_size": 64,
+                "records": 1894,
+                "input_range": [
+                  0,
+                  1
+                ],
+                "torch": "2.9.1+cu128",
+                "settings": {
+                  "method": "pgd",
+                  "epsilon": 0.03137254901960784,
+                  "step_size": 0.00784313725490196,
+                  "steps": 20,
+                  "restarts": 3
+                }
+              }
+            }
+          },
+          "best_selection": {
+            "eligible": false,
+            "clean_floor": 0.857639,
+            "clean_macro_f1": 0.8471981512653715,
+            "worst_source_mixed_macro_f1": 0.8342094787811167,
+            "own_pgd10_mixed_macro_f1": null,
+            "rank": [
+              0,
+              0.8342094787811167,
+              0.8471981512653715
+            ],
+            "epoch": 69
+          },
+          "checkpoint": "runs\\public85_residual_source\\best.pt",
+          "checkpoint_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+          "architecture": "small_resnet18",
+          "architecture_width": 32,
+          "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+          "inference_transform": {
+            "name": "identity_horizontal_flip_probability_average",
+            "views": [
+              "identity",
+              "horizontal_flip"
+            ],
+            "aggregation": "arithmetic_mean_softmax_probabilities",
+            "attack_output": "log_mean_probabilities",
+            "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+          },
+          "inference_pipeline": {
+            "members": [
+              {
+                "checkpoint": "runs\\public85_residual_source\\best.pt",
+                "checkpoint_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+                "architecture": "small_resnet18",
+                "architecture_width": 32,
+                "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+                "weight": 0.5,
+                "epoch": 69,
+                "initialization": "random",
+                "final_refit": false,
+                "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+              },
+              {
+                "checkpoint": "runs\\improve_hybrid\\best.pt",
+                "checkpoint_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+                "architecture": "provided",
+                "architecture_width": 32,
+                "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+                "weight": 0.5,
+                "epoch": 37,
+                "initialization": "provided",
+                "final_refit": false,
+                "scope": "Supplied-weight descendant: fixed validation is diagnostic and used for model selection"
+              }
+            ],
+            "member_aggregation": "weighted_mean_softmax_probabilities",
+            "inference_transform": {
+              "name": "identity_horizontal_flip_probability_average",
+              "views": [
+                "identity",
+                "horizontal_flip"
+              ],
+              "aggregation": "arithmetic_mean_softmax_probabilities",
+              "attack_output": "log_mean_probabilities",
+              "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+            },
+            "transform_order": "member_probability_average_then_identity_flip_average",
+            "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+            "pipeline_sha256": "167e238be34449ab47e7f3a7532933661b4c282692556d28627a8889e21a3b7c"
+          }
+        },
+        "inference_pipeline": {
+          "members": [
+            {
+              "checkpoint": "runs\\public85_residual_source\\best.pt",
+              "checkpoint_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+              "architecture": "small_resnet18",
+              "architecture_width": 32,
+              "architecture_code_sha256": "d0ec6335144cd678041c93f75c89c15707e5a2ae72c7c817e2b0e699610f9d0d",
+              "weight": 0.5,
+              "epoch": 69,
+              "initialization": "random",
+              "final_refit": false,
+              "scope": "Student gradient updates exclude validation IDs, but the supplied attack teacher originally saw all training IDs including validation; local validation is diagnostic and used for selection"
+            },
+            {
+              "checkpoint": "runs\\improve_hybrid\\best.pt",
+              "checkpoint_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+              "architecture": "provided",
+              "architecture_width": 32,
+              "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+              "weight": 0.5,
+              "epoch": 37,
+              "initialization": "provided",
+              "final_refit": false,
+              "scope": "Supplied-weight descendant: fixed validation is diagnostic and used for model selection"
+            }
+          ],
+          "member_aggregation": "weighted_mean_softmax_probabilities",
+          "inference_transform": {
+            "name": "identity_horizontal_flip_probability_average",
+            "views": [
+              "identity",
+              "horizontal_flip"
+            ],
+            "aggregation": "arithmetic_mean_softmax_probabilities",
+            "attack_output": "log_mean_probabilities",
+            "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+          },
+          "transform_order": "member_probability_average_then_identity_flip_average",
+          "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+          "pipeline_sha256": "167e238be34449ab47e7f3a7532933661b4c282692556d28627a8889e21a3b7c"
+        },
+        "clean": {
+          "records": 1894,
+          "accuracy": 0.8817317845828934,
+          "macro_f1": 0.8806503850641654,
+          "confusion_matrix_rows_true_columns_predicted": [
+            [
+              175,
+              3,
+              1,
+              5,
+              1,
+              3,
+              0,
+              0,
+              3,
+              2
+            ],
+            [
+              1,
+              176,
+              2,
+              1,
+              2,
+              4,
+              2,
+              0,
+              3,
+              0
+            ],
+            [
+              0,
+              0,
+              178,
+              6,
+              1,
+              7,
+              3,
+              4,
+              0,
+              0
+            ],
+            [
+              5,
+              9,
+              1,
+              133,
+              2,
+              10,
+              6,
+              4,
+              0,
+              2
+            ],
+            [
+              2,
+              0,
+              1,
+              5,
+              163,
+              6,
+              4,
+              6,
+              0,
+              1
+            ],
+            [
+              1,
+              1,
+              1,
+              6,
+              1,
+              177,
+              0,
+              2,
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              2,
+              7,
+              5,
+              0,
+              166,
+              4,
+              2,
+              3
+            ],
+            [
+              1,
+              1,
+              5,
+              4,
+              7,
+              3,
+              2,
+              160,
+              0,
+              3
+            ],
+            [
+              1,
+              2,
+              0,
+              5,
+              3,
+              0,
+              3,
+              0,
+              171,
+              5
+            ],
+            [
+              1,
+              0,
+              1,
+              4,
+              3,
+              2,
+              5,
+              2,
+              3,
+              171
+            ]
+          ],
+          "per_class": [
+            {
+              "label": 0,
+              "support": 193,
+              "precision": 0.9308510638297872,
+              "recall": 0.9067357512953368,
+              "f1": 0.9186351706036745
+            },
+            {
+              "label": 1,
+              "support": 191,
+              "precision": 0.9072164948453608,
+              "recall": 0.9214659685863874,
+              "f1": 0.9142857142857143
+            },
+            {
+              "label": 2,
+              "support": 199,
+              "precision": 0.9270833333333334,
+              "recall": 0.8944723618090452,
+              "f1": 0.9104859335038363
+            },
+            {
+              "label": 3,
+              "support": 172,
+              "precision": 0.7556818181818182,
+              "recall": 0.7732558139534884,
+              "f1": 0.764367816091954
+            },
+            {
+              "label": 4,
+              "support": 188,
+              "precision": 0.8670212765957447,
+              "recall": 0.8670212765957447,
+              "f1": 0.8670212765957447
+            },
+            {
+              "label": 5,
+              "support": 191,
+              "precision": 0.8349056603773585,
+              "recall": 0.9267015706806283,
+              "f1": 0.8784119106699751
+            },
+            {
+              "label": 6,
+              "support": 192,
+              "precision": 0.8691099476439791,
+              "recall": 0.8645833333333334,
+              "f1": 0.8668407310704961
+            },
+            {
+              "label": 7,
+              "support": 186,
+              "precision": 0.8791208791208791,
+              "recall": 0.8602150537634409,
+              "f1": 0.8695652173913043
+            },
+            {
+              "label": 8,
+              "support": 190,
+              "precision": 0.9344262295081968,
+              "recall": 0.9,
+              "f1": 0.9168900804289544
+            },
+            {
+              "label": 9,
+              "support": 192,
+              "precision": 0.9095744680851063,
+              "recall": 0.890625,
+              "f1": 0.9
+            }
+          ]
+        },
+        "attacks": {
+          "fgsm8": {
+            "float_metrics": {
+              "records": 1894,
+              "accuracy": 0.8437170010559663,
+              "macro_f1": 0.8431161544285951,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  173,
+                  3,
+                  1,
+                  6,
+                  1,
+                  4,
+                  0,
+                  1,
+                  3,
+                  1
+                ],
+                [
+                  1,
+                  167,
+                  2,
+                  7,
+                  2,
+                  6,
+                  2,
+                  1,
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  168,
+                  9,
+                  1,
+                  8,
+                  3,
+                  5,
+                  2,
+                  1
+                ],
+                [
+                  5,
+                  11,
+                  1,
+                  128,
+                  2,
+                  13,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  2,
+                  6,
+                  153,
+                  8,
+                  6,
+                  6,
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  1,
+                  0,
+                  11,
+                  1,
+                  168,
+                  0,
+                  4,
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  7,
+                  2,
+                  156,
+                  7,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  5,
+                  4,
+                  9,
+                  3,
+                  6,
+                  154,
+                  0,
+                  3
+                ],
+                [
+                  3,
+                  2,
+                  1,
+                  7,
+                  3,
+                  1,
+                  4,
+                  0,
+                  164,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  4,
+                  4,
+                  2,
+                  6,
+                  2,
+                  4,
+                  167
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.8963730569948186,
+                  "recall": 0.8963730569948186,
+                  "f1": 0.8963730569948186
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8835978835978836,
+                  "recall": 0.8743455497382199,
+                  "f1": 0.8789473684210526
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9180327868852459,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8795811518324608
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6736842105263158,
+                  "recall": 0.7441860465116279,
+                  "f1": 0.7071823204419889
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8360655737704918,
+                  "recall": 0.8138297872340425,
+                  "f1": 0.8247978436657682
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.7813953488372093,
+                  "recall": 0.8795811518324608,
+                  "f1": 0.8275862068965517
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8253968253968254,
+                  "recall": 0.8125,
+                  "f1": 0.8188976377952756
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8369565217391305,
+                  "recall": 0.8279569892473119,
+                  "f1": 0.8324324324324325
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9060773480662984,
+                  "recall": 0.8631578947368421,
+                  "f1": 0.8840970350404312
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.893048128342246,
+                  "recall": 0.8697916666666666,
+                  "f1": 0.8812664907651715
+                }
+              ]
+            },
+            "quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8437170010559663,
+              "macro_f1": 0.8431161544285951,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  173,
+                  3,
+                  1,
+                  6,
+                  1,
+                  4,
+                  0,
+                  1,
+                  3,
+                  1
+                ],
+                [
+                  1,
+                  167,
+                  2,
+                  7,
+                  2,
+                  6,
+                  2,
+                  1,
+                  3,
+                  0
+                ],
+                [
+                  2,
+                  0,
+                  168,
+                  9,
+                  1,
+                  8,
+                  3,
+                  5,
+                  2,
+                  1
+                ],
+                [
+                  5,
+                  11,
+                  1,
+                  128,
+                  2,
+                  13,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  2,
+                  6,
+                  153,
+                  8,
+                  6,
+                  6,
+                  2,
+                  3
+                ],
+                [
+                  3,
+                  1,
+                  0,
+                  11,
+                  1,
+                  168,
+                  0,
+                  4,
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  3,
+                  2,
+                  8,
+                  7,
+                  2,
+                  156,
+                  7,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  5,
+                  4,
+                  9,
+                  3,
+                  6,
+                  154,
+                  0,
+                  3
+                ],
+                [
+                  3,
+                  2,
+                  1,
+                  7,
+                  3,
+                  1,
+                  4,
+                  0,
+                  164,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  4,
+                  4,
+                  2,
+                  6,
+                  2,
+                  4,
+                  167
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.8963730569948186,
+                  "recall": 0.8963730569948186,
+                  "f1": 0.8963730569948186
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8835978835978836,
+                  "recall": 0.8743455497382199,
+                  "f1": 0.8789473684210526
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9180327868852459,
+                  "recall": 0.8442211055276382,
+                  "f1": 0.8795811518324608
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6736842105263158,
+                  "recall": 0.7441860465116279,
+                  "f1": 0.7071823204419889
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8360655737704918,
+                  "recall": 0.8138297872340425,
+                  "f1": 0.8247978436657682
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.7813953488372093,
+                  "recall": 0.8795811518324608,
+                  "f1": 0.8275862068965517
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8253968253968254,
+                  "recall": 0.8125,
+                  "f1": 0.8188976377952756
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8369565217391305,
+                  "recall": 0.8279569892473119,
+                  "f1": 0.8324324324324325
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9060773480662984,
+                  "recall": 0.8631578947368421,
+                  "f1": 0.8840970350404312
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.893048128342246,
+                  "recall": 0.8697916666666666,
+                  "f1": 0.8812664907651715
+                }
+              ]
+            },
+            "mixed_50pct_metrics": {
+              "records": 1894,
+              "accuracy": 0.8637803590285111,
+              "macro_f1": 0.863014805703559,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  174,
+                  3,
+                  1,
+                  5,
+                  1,
+                  4,
+                  0,
+                  0,
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  169,
+                  2,
+                  7,
+                  2,
+                  5,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  173,
+                  8,
+                  1,
+                  7,
+                  3,
+                  5,
+                  0,
+                  1
+                ],
+                [
+                  5,
+                  10,
+                  1,
+                  131,
+                  2,
+                  11,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  1,
+                  5,
+                  160,
+                  7,
+                  5,
+                  6,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  1,
+                  0,
+                  6,
+                  1,
+                  175,
+                  0,
+                  3,
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  8,
+                  5,
+                  2,
+                  162,
+                  4,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  5,
+                  4,
+                  8,
+                  3,
+                  4,
+                  157,
+                  0,
+                  3
+                ],
+                [
+                  3,
+                  2,
+                  1,
+                  7,
+                  3,
+                  1,
+                  3,
+                  0,
+                  165,
+                  5
+                ],
+                [
+                  1,
+                  0,
+                  1,
+                  4,
+                  4,
+                  2,
+                  5,
+                  2,
+                  3,
+                  170
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.90625,
+                  "recall": 0.9015544041450777,
+                  "f1": 0.9038961038961039
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.898936170212766,
+                  "recall": 0.8848167539267016,
+                  "f1": 0.8918205804749341
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9251336898395722,
+                  "recall": 0.8693467336683417,
+                  "f1": 0.8963730569948186
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.7081081081081081,
+                  "recall": 0.7616279069767442,
+                  "f1": 0.7338935574229691
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8556149732620321,
+                  "recall": 0.851063829787234,
+                  "f1": 0.8533333333333334
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8064516129032258,
+                  "recall": 0.9162303664921466,
+                  "f1": 0.8578431372549019
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8526315789473684,
+                  "recall": 0.84375,
+                  "f1": 0.8481675392670157
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8674033149171271,
+                  "recall": 0.8440860215053764,
+                  "f1": 0.8555858310626703
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9322033898305084,
+                  "recall": 0.868421052631579,
+                  "f1": 0.8991825613079019
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8947368421052632,
+                  "recall": 0.8854166666666666,
+                  "f1": 0.8900523560209425
+                }
+              ]
+            },
+            "mixed_50pct_quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8637803590285111,
+              "macro_f1": 0.863014805703559,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  174,
+                  3,
+                  1,
+                  5,
+                  1,
+                  4,
+                  0,
+                  0,
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  169,
+                  2,
+                  7,
+                  2,
+                  5,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  173,
+                  8,
+                  1,
+                  7,
+                  3,
+                  5,
+                  0,
+                  1
+                ],
+                [
+                  5,
+                  10,
+                  1,
+                  131,
+                  2,
+                  11,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  1,
+                  5,
+                  160,
+                  7,
+                  5,
+                  6,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  1,
+                  0,
+                  6,
+                  1,
+                  175,
+                  0,
+                  3,
+                  2,
+                  1
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  8,
+                  5,
+                  2,
+                  162,
+                  4,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  5,
+                  4,
+                  8,
+                  3,
+                  4,
+                  157,
+                  0,
+                  3
+                ],
+                [
+                  3,
+                  2,
+                  1,
+                  7,
+                  3,
+                  1,
+                  3,
+                  0,
+                  165,
+                  5
+                ],
+                [
+                  1,
+                  0,
+                  1,
+                  4,
+                  4,
+                  2,
+                  5,
+                  2,
+                  3,
+                  170
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.90625,
+                  "recall": 0.9015544041450777,
+                  "f1": 0.9038961038961039
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.898936170212766,
+                  "recall": 0.8848167539267016,
+                  "f1": 0.8918205804749341
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9251336898395722,
+                  "recall": 0.8693467336683417,
+                  "f1": 0.8963730569948186
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.7081081081081081,
+                  "recall": 0.7616279069767442,
+                  "f1": 0.7338935574229691
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8556149732620321,
+                  "recall": 0.851063829787234,
+                  "f1": 0.8533333333333334
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8064516129032258,
+                  "recall": 0.9162303664921466,
+                  "f1": 0.8578431372549019
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8526315789473684,
+                  "recall": 0.84375,
+                  "f1": 0.8481675392670157
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8674033149171271,
+                  "recall": 0.8440860215053764,
+                  "f1": 0.8555858310626703
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9322033898305084,
+                  "recall": 0.868421052631579,
+                  "f1": 0.8991825613079019
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8947368421052632,
+                  "recall": 0.8854166666666666,
+                  "f1": 0.8900523560209425
+                }
+              ]
+            },
+            "attack_successes_on_initially_correct": 75,
+            "attack_success_rate_on_initially_correct": 0.04491017964071856,
+            "quantized_attack_successes_on_initially_correct": 75,
+            "quantized_attack_success_rate_on_initially_correct": 0.04491017964071856
+          },
+          "pgd20x3": {
+            "float_metrics": {
+              "records": 1894,
+              "accuracy": 0.8585005279831045,
+              "macro_f1": 0.8578085002999536,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  172,
+                  3,
+                  1,
+                  7,
+                  1,
+                  3,
+                  0,
+                  0,
+                  3,
+                  3
+                ],
+                [
+                  1,
+                  172,
+                  2,
+                  4,
+                  2,
+                  5,
+                  1,
+                  1,
+                  3,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  173,
+                  8,
+                  1,
+                  6,
+                  3,
+                  5,
+                  1,
+                  1
+                ],
+                [
+                  4,
+                  13,
+                  1,
+                  129,
+                  2,
+                  11,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  1,
+                  8,
+                  159,
+                  5,
+                  4,
+                  6,
+                  1,
+                  2
+                ],
+                [
+                  2,
+                  1,
+                  1,
+                  13,
+                  2,
+                  166,
+                  0,
+                  4,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  4,
+                  2,
+                  8,
+                  6,
+                  0,
+                  160,
+                  5,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  4,
+                  5,
+                  8,
+                  3,
+                  5,
+                  156,
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  0,
+                  6,
+                  3,
+                  1,
+                  3,
+                  0,
+                  169,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  4,
+                  4,
+                  1,
+                  5,
+                  1,
+                  4,
+                  170
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9197860962566845,
+                  "recall": 0.8911917098445595,
+                  "f1": 0.9052631578947369
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8730964467005076,
+                  "recall": 0.900523560209424,
+                  "f1": 0.8865979381443299
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9301075268817204,
+                  "recall": 0.8693467336683417,
+                  "f1": 0.8987012987012987
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.671875,
+                  "recall": 0.75,
+                  "f1": 0.7087912087912088
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8457446808510638,
+                  "recall": 0.8457446808510638,
+                  "f1": 0.8457446808510638
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8258706467661692,
+                  "recall": 0.8691099476439791,
+                  "f1": 0.8469387755102041
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8556149732620321,
+                  "recall": 0.8333333333333334,
+                  "f1": 0.8443271767810027
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8571428571428571,
+                  "recall": 0.8387096774193549,
+                  "f1": 0.8478260869565217
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9234972677595629,
+                  "recall": 0.8894736842105263,
+                  "f1": 0.9061662198391421
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8900523560209425,
+                  "recall": 0.8854166666666666,
+                  "f1": 0.8877284595300261
+                }
+              ]
+            },
+            "quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8579725448785639,
+              "macro_f1": 0.8572320771194251,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  172,
+                  3,
+                  1,
+                  7,
+                  1,
+                  3,
+                  0,
+                  0,
+                  3,
+                  3
+                ],
+                [
+                  1,
+                  172,
+                  2,
+                  4,
+                  2,
+                  5,
+                  1,
+                  1,
+                  3,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  173,
+                  8,
+                  1,
+                  6,
+                  3,
+                  5,
+                  1,
+                  1
+                ],
+                [
+                  5,
+                  13,
+                  1,
+                  128,
+                  2,
+                  11,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  1,
+                  8,
+                  159,
+                  6,
+                  4,
+                  6,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  1,
+                  1,
+                  13,
+                  2,
+                  166,
+                  0,
+                  4,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  4,
+                  2,
+                  8,
+                  6,
+                  0,
+                  160,
+                  5,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  4,
+                  5,
+                  8,
+                  3,
+                  5,
+                  156,
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  0,
+                  6,
+                  3,
+                  1,
+                  3,
+                  0,
+                  169,
+                  5
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  4,
+                  4,
+                  1,
+                  5,
+                  1,
+                  4,
+                  170
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9148936170212766,
+                  "recall": 0.8911917098445595,
+                  "f1": 0.9028871391076115
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8730964467005076,
+                  "recall": 0.900523560209424,
+                  "f1": 0.8865979381443299
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.9301075268817204,
+                  "recall": 0.8693467336683417,
+                  "f1": 0.8987012987012987
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.6701570680628273,
+                  "recall": 0.7441860465116279,
+                  "f1": 0.7052341597796143
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8457446808510638,
+                  "recall": 0.8457446808510638,
+                  "f1": 0.8457446808510638
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8217821782178217,
+                  "recall": 0.8691099476439791,
+                  "f1": 0.8447837150127226
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8556149732620321,
+                  "recall": 0.8333333333333334,
+                  "f1": 0.8443271767810027
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8571428571428571,
+                  "recall": 0.8387096774193549,
+                  "f1": 0.8478260869565217
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9234972677595629,
+                  "recall": 0.8894736842105263,
+                  "f1": 0.9061662198391421
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.8947368421052632,
+                  "recall": 0.8854166666666666,
+                  "f1": 0.8900523560209425
+                }
+              ]
+            },
+            "mixed_50pct_metrics": {
+              "records": 1894,
+              "accuracy": 0.8722280887011615,
+              "macro_f1": 0.8712610355123018,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  174,
+                  3,
+                  1,
+                  6,
+                  1,
+                  3,
+                  0,
+                  0,
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  173,
+                  2,
+                  3,
+                  2,
+                  5,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  174,
+                  8,
+                  1,
+                  6,
+                  3,
+                  5,
+                  0,
+                  1
+                ],
+                [
+                  4,
+                  12,
+                  1,
+                  130,
+                  2,
+                  11,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  1,
+                  7,
+                  162,
+                  5,
+                  4,
+                  6,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  7,
+                  1,
+                  175,
+                  0,
+                  3,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  7,
+                  5,
+                  0,
+                  165,
+                  4,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  4,
+                  5,
+                  8,
+                  3,
+                  3,
+                  158,
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  0,
+                  6,
+                  3,
+                  1,
+                  3,
+                  0,
+                  169,
+                  5
+                ],
+                [
+                  1,
+                  0,
+                  1,
+                  4,
+                  4,
+                  1,
+                  5,
+                  1,
+                  3,
+                  172
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.925531914893617,
+                  "recall": 0.9015544041450777,
+                  "f1": 0.9133858267716536
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8917525773195877,
+                  "recall": 0.9057591623036649,
+                  "f1": 0.8987012987012987
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.93048128342246,
+                  "recall": 0.8743718592964824,
+                  "f1": 0.9015544041450777
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.7103825136612022,
+                  "recall": 0.7558139534883721,
+                  "f1": 0.7323943661971831
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8571428571428571,
+                  "recall": 0.8617021276595744,
+                  "f1": 0.8594164456233422
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8333333333333334,
+                  "recall": 0.9162303664921466,
+                  "f1": 0.8728179551122195
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8638743455497382,
+                  "recall": 0.859375,
+                  "f1": 0.8616187989556136
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8729281767955801,
+                  "recall": 0.8494623655913979,
+                  "f1": 0.8610354223433242
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9388888888888889,
+                  "recall": 0.8894736842105263,
+                  "f1": 0.9135135135135135
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.900523560209424,
+                  "recall": 0.8958333333333334,
+                  "f1": 0.8981723237597912
+                }
+              ]
+            },
+            "mixed_50pct_quantized_8bit_metrics": {
+              "records": 1894,
+              "accuracy": 0.8717001055966209,
+              "macro_f1": 0.870663848587412,
+              "confusion_matrix_rows_true_columns_predicted": [
+                [
+                  174,
+                  3,
+                  1,
+                  6,
+                  1,
+                  3,
+                  0,
+                  0,
+                  3,
+                  2
+                ],
+                [
+                  1,
+                  173,
+                  2,
+                  3,
+                  2,
+                  5,
+                  2,
+                  0,
+                  3,
+                  0
+                ],
+                [
+                  1,
+                  0,
+                  174,
+                  8,
+                  1,
+                  6,
+                  3,
+                  5,
+                  0,
+                  1
+                ],
+                [
+                  5,
+                  12,
+                  1,
+                  129,
+                  2,
+                  11,
+                  6,
+                  4,
+                  0,
+                  2
+                ],
+                [
+                  2,
+                  0,
+                  1,
+                  7,
+                  162,
+                  5,
+                  4,
+                  6,
+                  0,
+                  1
+                ],
+                [
+                  1,
+                  1,
+                  1,
+                  7,
+                  1,
+                  175,
+                  0,
+                  3,
+                  1,
+                  1
+                ],
+                [
+                  2,
+                  2,
+                  2,
+                  7,
+                  5,
+                  0,
+                  165,
+                  4,
+                  1,
+                  4
+                ],
+                [
+                  1,
+                  1,
+                  4,
+                  5,
+                  8,
+                  3,
+                  3,
+                  158,
+                  0,
+                  3
+                ],
+                [
+                  1,
+                  2,
+                  0,
+                  6,
+                  3,
+                  1,
+                  3,
+                  0,
+                  169,
+                  5
+                ],
+                [
+                  1,
+                  0,
+                  1,
+                  4,
+                  4,
+                  1,
+                  5,
+                  1,
+                  3,
+                  172
+                ]
+              ],
+              "per_class": [
+                {
+                  "label": 0,
+                  "support": 193,
+                  "precision": 0.9206349206349206,
+                  "recall": 0.9015544041450777,
+                  "f1": 0.9109947643979057
+                },
+                {
+                  "label": 1,
+                  "support": 191,
+                  "precision": 0.8917525773195877,
+                  "recall": 0.9057591623036649,
+                  "f1": 0.8987012987012987
+                },
+                {
+                  "label": 2,
+                  "support": 199,
+                  "precision": 0.93048128342246,
+                  "recall": 0.8743718592964824,
+                  "f1": 0.9015544041450777
+                },
+                {
+                  "label": 3,
+                  "support": 172,
+                  "precision": 0.7087912087912088,
+                  "recall": 0.75,
+                  "f1": 0.7288135593220338
+                },
+                {
+                  "label": 4,
+                  "support": 188,
+                  "precision": 0.8571428571428571,
+                  "recall": 0.8617021276595744,
+                  "f1": 0.8594164456233422
+                },
+                {
+                  "label": 5,
+                  "support": 191,
+                  "precision": 0.8333333333333334,
+                  "recall": 0.9162303664921466,
+                  "f1": 0.8728179551122195
+                },
+                {
+                  "label": 6,
+                  "support": 192,
+                  "precision": 0.8638743455497382,
+                  "recall": 0.859375,
+                  "f1": 0.8616187989556136
+                },
+                {
+                  "label": 7,
+                  "support": 186,
+                  "precision": 0.8729281767955801,
+                  "recall": 0.8494623655913979,
+                  "f1": 0.8610354223433242
+                },
+                {
+                  "label": 8,
+                  "support": 190,
+                  "precision": 0.9388888888888889,
+                  "recall": 0.8894736842105263,
+                  "f1": 0.9135135135135135
+                },
+                {
+                  "label": 9,
+                  "support": 192,
+                  "precision": 0.900523560209424,
+                  "recall": 0.8958333333333334,
+                  "f1": 0.8981723237597912
+                }
+              ]
+            },
+            "attack_successes_on_initially_correct": 46,
+            "attack_success_rate_on_initially_correct": 0.027544910179640718,
+            "quantized_attack_successes_on_initially_correct": 47,
+            "quantized_attack_success_rate_on_initially_correct": 0.0281437125748503
+          }
+        },
+        "worst_source_mixed_macro_f1": 0.863014805703559,
+        "worst_source_8bit_mixed_macro_f1": 0.863014805703559,
+        "clean_eligible": true,
+        "ranking": [
+          1,
+          0.863014805703559,
+          0.8806503850641654
+        ],
+        "float_vs_uint8_prediction_changes": {
+          "fgsm8": 0,
+          "pgd20x3": 3
+        },
+        "predictions": {
+          "path": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\improvement_probe\\residual_screen\\9d7d0636c4631220c54830f86ddfa56213b7356680c3913f66a4c51cc9d0d848_predictions.npz",
+          "sha256": "65d018a41efb3323f6a284d49b1ac864dd47da55abd4602609d3458fdafae598",
+          "reused": false
+        },
+        "timing": {
+          "seconds": 2.2244232000084594,
+          "peak_allocated_mib": 252.21923828125,
+          "peak_reserved_mib": 380.0,
+          "scope": "Warm-up excluded; five fixed-condition transfers and complete deployed-predictor inference included; data/cache loading and file writing excluded",
+          "current_inference_performed": true
+        }
+      }
+    ],
+    "completed": true
+  },
+  "qualification": "Model selection used split-trained counterparts; deployed full37 hybrid, if active, was fixed before candidate1 Public feedback. No Public Score inferred.",
+  "score_evidence": {
+    "source": "User text reply to the explicit candidate2 upload question in this chat",
+    "received_date": "2026-11-06",
+    "timezone": "Asia/Shanghai",
+    "submission_id": null,
+    "absolute_submission_time": null,
+    "screenshot": null
+  },
+  "gain_over_prior_best": 0.05307,
+  "gain_over_candidate1": 0.03909,
+  "gain_over_baseline": 0.34531,
+  "margin_above_target": 0.00725,
+  "selected_for_final": null
+}

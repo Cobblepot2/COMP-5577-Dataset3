@@ -14,8 +14,8 @@
   "submission_description": "Baseline: provided classifier, original weights, no defense",
   "selected_for_final_at_observation": false,
   "evidence_limitations": "Screenshot shows filename, completed status, description and public score, but no numeric submission ID or exact timestamp. The SHA-256 above identifies the repository artifact, not a server-side checksum.",
-  "defense_public_score": 0.80418,
-  "defense_status": "Both defense submissions Complete; Public Scores verified from user screenshot",
+  "defense_public_score": 0.85725,
+  "defense_status": "Prior pair verified from screenshot; follow-up .81816 and .85725 are actual scores reported by user text",
   "defense_candidates": [
     {
       "run": "pgd_random_converged",
@@ -38,10 +38,48 @@
       "submission_date": null,
       "selected_for_final_at_observation": false,
       "delta_vs_baseline": 0.29224
+    },
+    {
+      "run": "public85_hybrid_full37_flip",
+      "file": "submission_public85_hybrid_full37_flip.csv",
+      "sha256": "fa3520160c6d247327adc46c7ae396dad2c07d5f4cb886b4b41377a4b6f32432",
+      "public_score": 0.81816,
+      "submission_status": "User reports actual Public Score",
+      "submission_id": null,
+      "submission_date": null,
+      "selected_for_final_at_observation": null,
+      "delta_vs_baseline": 0.30622,
+      "evidence": {
+        "source": "User text reply to the explicit candidate1 upload question in this chat",
+        "received_date": "2026-11-05",
+        "timezone": "Asia/Shanghai",
+        "submission_id": null,
+        "absolute_submission_time": null,
+        "screenshot": null
+      }
+    },
+    {
+      "run": "public85_residual_hybrid50_flip",
+      "file": "submission_public85_residual_hybrid50_flip.csv",
+      "sha256": "180c2302fc163c247d5e7b2e7e36be46dfc80ccab446ecb385afd021f4b750c4",
+      "public_score": 0.85725,
+      "submission_status": "User reports actual Public Score",
+      "submission_id": null,
+      "submission_date": null,
+      "selected_for_final_at_observation": null,
+      "delta_vs_baseline": 0.34531,
+      "evidence": {
+        "source": "User text reply to the explicit candidate2 upload question in this chat",
+        "received_date": "2026-11-06",
+        "timezone": "Asia/Shanghai",
+        "submission_id": null,
+        "absolute_submission_time": null,
+        "screenshot": null
+      }
     }
   ],
-  "defense_public_score_run": "pgd_augmented",
-  "defense_public_score_definition": "Highest observed Public Score among the two submitted defense candidates",
+  "defense_public_score_run": "public85_residual_hybrid50_flip",
+  "defense_public_score_definition": "Highest user-reported observed Public Score among submitted defense candidates; screenshot and text evidence distinguished per candidate",
   "defense_score_observation": {
     "evidence": "docs/results/kaggle_defense_public_scores.png",
     "evidence_sha256": "ddfc2b88c3d0b4c3e29617e579b06a0035ea36eb096754b37522ac0b77aa0ea8",
@@ -67,5 +105,8 @@
       "submission_baseline.csv": false
     },
     "evidence_limitations": "Screenshot shows filenames, Complete status, Public Scores, relative ages and unchecked Select boxes. Numeric submission IDs and exact absolute timestamps are not visible. Local CSV hashes identify local artifacts, not server-side checksums. Public scores do not establish private/final leaderboard results."
-  }
+  },
+  "latest_followup_record": "docs/results/public85/kaggle_scores.json",
+  "target_public_score": 0.85,
+  "target_verified": true
 }

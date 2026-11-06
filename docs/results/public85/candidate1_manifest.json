@@ -1,0 +1,76 @@
+{
+  "target_public_score": 0.85,
+  "actual_new_public_score": 0.81816,
+  "goal_verified": false,
+  "candidate": "hybrid full9469 fit, stop37/cosine40, identity+flip",
+  "checkpoint": "public85_hybrid_full37.pt",
+  "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+  "csv": "submission_public85_hybrid_full37_flip.csv",
+  "csv_sha256": "fa3520160c6d247327adc46c7ae396dad2c07d5f4cb886b4b41377a4b6f32432",
+  "records": 3925,
+  "pipeline": {
+    "members": [
+      {
+        "checkpoint": "C:\\Users\\Administrator\\Documents\\Codex\\2026-11-05\\ji\\work\\dataset3\\checkpoints\\public85_hybrid_full37.pt",
+        "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+        "architecture": "provided",
+        "architecture_width": 32,
+        "architecture_code_sha256": "86a19088af768a6fea35d7c242de96c47f467cae5b586cb848f8d43499e17833",
+        "weight": 1.0,
+        "epoch": 37,
+        "initialization": "provided",
+        "final_refit": true,
+        "scope": "Full-data final fit, no held-out metric; configuration and horizon frozen before refit"
+      }
+    ],
+    "member_aggregation": "single_model_logits",
+    "inference_transform": {
+      "name": "identity_horizontal_flip_probability_average",
+      "views": [
+        "identity",
+        "horizontal_flip"
+      ],
+      "aggregation": "arithmetic_mean_softmax_probabilities",
+      "attack_output": "log_mean_probabilities",
+      "implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e"
+    },
+    "transform_order": "single_model_then_optional_flip_average",
+    "aggregation_implementation_sha256": "da54ef40620b18a05825b687a61fe5015c1c580a9a8481437826ed70ef34a64e",
+    "pipeline_sha256": "9e35362c728e9118582c214717852834504473d4ce3cde3a49cdcc588606ae43"
+  },
+  "deterministic_repeat": {
+    "full_passes": 2,
+    "predictions_equal": true,
+    "logits_bitwise_equal": true
+  },
+  "frozen_protocol": {
+    "date": "2026-11-05",
+    "frozen_before_new_public_scores": true,
+    "objective": "hybrid",
+    "selection_source_checkpoint": "runs\\improve_hybrid\\best.pt",
+    "selection_source_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+    "selected_epoch": 37,
+    "cosine_horizon": 40,
+    "training_config": "configs\\improve_hybrid.json",
+    "training_config_sha256": "38ec3133fb71bc16159c4b0aa7961208f32bda693ab0109653a061533b8cf841",
+    "final_training_records": 9469,
+    "training_csv_sha256": "e9909432b5840d13dfbae88500261d1ed81aded7985c2fb8ea6daa70d998cb07",
+    "inference": {
+      "horizontal_flip": true,
+      "batchnorm_recalibration": false
+    },
+    "rule": "No validation evaluation or epoch selection during full-data refit",
+    "implementation_commit": "fb801c7d977eb93117d484d56f9cd8a4878da7cd"
+  },
+  "qualification": "No validation evaluation/selection during full-data refit; no new Public Score inferred",
+  "public_score_evidence": {
+    "source": "User text reply to the explicit candidate1 upload question in this chat",
+    "received_date": "2026-11-05",
+    "timezone": "Asia/Shanghai",
+    "submission_id": null,
+    "absolute_submission_time": null,
+    "screenshot": null
+  },
+  "gain_over_prior_best": 0.01398,
+  "gap_to_target": 0.03184
+}

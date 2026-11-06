@@ -1,0 +1,44 @@
+{
+  "prior_best_public_score": 0.80418,
+  "target": 0.85,
+  "goal_verified": true,
+  "new_submissions": [
+    {
+      "file": "submission_public85_hybrid_full37_flip.csv",
+      "sha256": "fa3520160c6d247327adc46c7ae396dad2c07d5f4cb886b4b41377a4b6f32432",
+      "public_score": 0.81816,
+      "evidence": {
+        "source": "User text reply to the explicit candidate1 upload question in this chat",
+        "received_date": "2026-11-05",
+        "timezone": "Asia/Shanghai",
+        "submission_id": null,
+        "absolute_submission_time": null,
+        "screenshot": null
+      },
+      "gain_over_prior_best": 0.01398,
+      "gap_to_target": 0.03184,
+      "selected_for_final": null
+    },
+    {
+      "file": "submission_public85_residual_hybrid50_flip.csv",
+      "sha256": "180c2302fc163c247d5e7b2e7e36be46dfc80ccab446ecb385afd021f4b750c4",
+      "public_score": 0.85725,
+      "evidence": {
+        "source": "User text reply to the explicit candidate2 upload question in this chat",
+        "received_date": "2026-11-06",
+        "timezone": "Asia/Shanghai",
+        "submission_id": null,
+        "absolute_submission_time": null,
+        "screenshot": null
+      },
+      "gain_over_prior_best": 0.05307,
+      "gain_over_baseline": 0.34531,
+      "margin_above_target": 0.00725,
+      "selected_for_final": null
+    }
+  ],
+  "residual_recipe_frozen_before_this_score": true,
+  "best_observed_public_score": 0.85725,
+  "best_observed_file": "submission_public85_residual_hybrid50_flip.csv",
+  "goal_evidence": "Actual Public Score reported by user text; no screenshot or private leaderboard verification"
+}

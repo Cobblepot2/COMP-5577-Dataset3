@@ -1,10 +1,20 @@
-# Dataset 3 handoff — 2026-11-05
+# Dataset 3 handoff — 2026-11-06
 
 ## Current state
 
-Steps 1–6 are complete, including actual user-submitted Kaggle Public Scores: **finetuned40 0.80418**, **random50 0.79277**, baseline **0.51194**. The best observed Public Score is the supplied-weight augmented PGD model (run pgd_augmented), +0.29224 over baseline. Preserve the earlier random50 white-box robustness choice as a different criterion; do not confuse it with Public Score preference. No final competition Select box was changed. Step 7 PPT waits for the user-supplied presentation skill, per AGENTS.md.
+The user's actual Kaggle Public Score target >=0.85 has been achieved: **0.85725** for `submission_public85_residual_hybrid50_flip.csv`, reported in an explicit user text reply on2026-11-06. This is +0.05307 over prior best0.80418, +0.03909 over follow-up hybrid-only0.81816, and +0.34531 over baseline0.51194. Evidence source, CSV identity and unknown submissionID/time/Select state are recorded in docs/results/public85/kaggle_scores.json. No final Kaggle Select action was performed by this agent. Step7 PPT waits for the user-supplied presentation skill, perAGENTS.md; do not invent team contributions.
 
-Current source implementation commit: 331ec5551dfdd33dc9c200a5ea01b38b31f08170. PR: https://github.com/Cobblepot2/COMP-5577-Dataset3/pull/4. Source and curated measurements are version-controlled; raw runs, optimizer checkpoints, transfer caches and submissions remain ignored. Compact inference checkpoints/CSVs are delivered in this chat's outputs bundle, with identities in docs/results/final_artifacts.json.
+The follow-up implementation uses commits fb801c7/c4b8e62 and integration PR https://github.com/Cobblepot2/COMP-5577-Dataset3/pull/6. Source and curated measurements are version-controlled; raw runs, optimizer checkpoints, transfer caches and submissions remain ignored. New inference artifacts are in this chat's outputs/public85 directory, preserving all older artifacts.
+
+## Public85 follow-up
+
+The three40epoch objective trials and one80epoch residual trial are complete. TRADESbeta.3 had an eligible but weak early checkpoint; beta1 never met the clean floor. Hybridbest37 improved source-transfer diagnostics. Frozen full9469 hybrid refit retained the original40epoch cosine horizon and stopped37 without validation/selection, yielding actualPublic0.81816 with identity+flip.
+
+The random-initialized width32SmallResNet18 trained only on7575IDs with frozen-provided-source FGSM/PGD examples. Its selectedepoch69 was ineligible alone; the predeclared50:50 probability ensemble with split-hybrid37 and identity+flip passed localclean.880650/worst-source-mixed.863015. The deployable pipeline substitutes only the already-frozen full37hybrid and retains the split-trained residual69; no post-Public parameter sweep or new refit. The exact two-member pipeline generated3925 predictions with bitwise-identical repeated inference and produced actualPublic0.85725. SHA-256CSV:180c2302fc163c247d5e7b2e7e36be46dfc80ccab446ecb385afd021f4b750c4.
+
+See docs/results_public85.md and docs/results/public85/ for measured positive/negative trials and security checks. Provided-model descendants and the residual's exposed attack teacher make split selection diagnostic. Any checks of the deployed full9469hybrid pipeline are in-sample security diagnostics. Full1894 FGSM/PGD10/20 and reserved-random50 transfer are separate from fixed stratified200 CE/margin50x5 stress. Public success does not establish adaptive white-box robustness or private/final leaderboard results.
+
+Final follow-up verification on2026-11-06:53tests passed in1.941s, helper compiled, and all six frozen-pipeline checks completed in290.313s. All float/8bit perturbation bounds and PGD failure-retention checks passed. The Public-winning ensemble has full1894 whitePGD20x3 all-attackedF1.052530 (mixed.496969); its weaker white-box security is explicitly preserved alongside the Public improvement. Curated final_comparison.json/verification.json and the outputs/dataset3_public85_bundle.zip retain actual model/CSV identities.
 
 ## Completed on the stronger device
 
@@ -23,6 +33,6 @@ The supplied classifier saw all original training IDs; its descendants' local va
 
 Full measured table/methodology/failure classes: docs/results_5070ti.md. Commands, attack conventions and same-directory exact resume: docs/training_and_defense.md. Do not rebuild fixed splits merely for a new device, re-normalize inputs, introduce external data/pretrained weights, or use black-box attack/defense packages.
 
-Actual scores are archived in docs/results/kaggle_status.json with docs/results/kaggle_defense_public_scores.png (received 2026-11-05 Asia/Shanghai). Both entries Complete; all Select boxes unchecked; numeric submission IDs and absolute timestamps remain null. Local artifact hashes match the two filenames, not server-side checksums. Raw inference JSONs remain pre-submission snapshots. Next concrete task: assemble PPT/report using the user-supplied presentation skill and team allocation; do not invent roster/contributions or choose final Kaggle selections automatically. Brief deadlines previously recorded: Kaggle Nov10 2026 23:59, Canvas Nov13 23:59, timezone to verify in those services.
+Actual scores are archived in docs/results/kaggle_status.json with docs/results/kaggle_defense_public_scores.png (received 2026-11-05 Asia/Shanghai). At that prior screenshot observation, both entries were Complete and all Select boxes were unchecked; numeric submission IDs and absolute timestamps remain null. Local artifact hashes match the two filenames, not server-side checksums. Raw inference JSONs remain pre-submission snapshots. Next concrete task after the follow-up: assemble PPT/report using the user-supplied presentation skill and team allocation; do not invent roster/contributions or choose final Kaggle selections automatically. Brief deadlines previously recorded: Kaggle Nov10 2026 23:59, Canvas Nov13 23:59, timezone to verify in those services.
 
 Local runtime: ../ml-env/Scripts/python.exe relative to this repo. Full training runs in runs/, resume same output directory and original horizon using --resume runs/NAME/last.pt. Inference weights in checkpoints/ are local/ignored. User deliverables are in the surrounding outputs/ directory.

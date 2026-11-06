@@ -1,0 +1,19 @@
+{
+  "date": "2026-11-05",
+  "frozen_before_new_public_scores": true,
+  "objective": "hybrid",
+  "selection_source_checkpoint": "runs\\improve_hybrid\\best.pt",
+  "selection_source_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+  "selected_epoch": 37,
+  "cosine_horizon": 40,
+  "training_config": "configs\\improve_hybrid.json",
+  "training_config_sha256": "38ec3133fb71bc16159c4b0aa7961208f32bda693ab0109653a061533b8cf841",
+  "final_training_records": 9469,
+  "training_csv_sha256": "e9909432b5840d13dfbae88500261d1ed81aded7985c2fb8ea6daa70d998cb07",
+  "inference": {
+    "horizontal_flip": true,
+    "batchnorm_recalibration": false
+  },
+  "rule": "No validation evaluation or epoch selection during full-data refit",
+  "implementation_commit": "fb801c7d977eb93117d484d56f9cd8a4878da7cd"
+}
