@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-06",
+  "timezone": "Asia/Shanghai",
+  "markdown": "docs/task3_report_zh.md",
+  "markdown_sha256": "5a5304ebb1252a8394e759b71ab5aead3c7ee3335be2adcdd23d20f554d4dc20",
+  "word": "docs/task3_report_zh.docx",
+  "word_sha256": "6aa3f9ecde0efa44c8dc4d5e70348225082334ae03aaba2e147fc9fbd612a4f2",
+  "source_and_editable_word_text_match": true,
+  "tables": 7,
+  "figures": 1,
+  "rendering": "Native Microsoft Word read-only PDF export, then bundled render_docx.py rasterizer",
+  "rendered_pages": 7,
+  "visually_reviewed_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "section2_scope": "Provided-source FGSM/PGD attack simulation and original/clean10 comparison; no adaptive white-box or stress tests",
+  "later_evaluation_scope": "Section 4 retains adaptive white-box PGD, sampled CE/margin stress, and CW evaluation",
+  "table1_verified_against": [
+    {
+      "file": "docs/results/defense_provided_baseline.json",
+      "clean_f1": 0.9994764074975157,
+      "transfer_fgsm8_f1": 0.1915360704169356,
+      "transfer_pgd10_f1": 0.0,
+      "transfer_pgd20x3_f1": 0.0
+    },
+    {
+      "file": "docs/results/defense_clean_provided.json",
+      "clean_f1": 0.9962383262575052,
+      "transfer_fgsm8_f1": 0.18975870751754292,
+      "transfer_pgd10_f1": 0.0,
+      "transfer_pgd20x3_f1": 0.0
+    }
+  ],
+  "new_training_or_attack_experiments": false,
+  "original_local_word_preserved": true
+}
