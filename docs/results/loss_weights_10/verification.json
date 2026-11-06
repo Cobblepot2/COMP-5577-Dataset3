@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-07",
+  "timezone": "Asia/Shanghai",
+  "training_tests": {
+    "command": ".venv/Scripts/python.exe -m unittest discover -s tests -p test_training.py -v",
+    "count": 9,
+    "seconds": 2.415,
+    "passed": true
+  },
+  "summary_script_compile_passed": true,
+  "configuration_comparison": "Only clean_weight differs",
+  "checkpoints": "Both fixed completed epoch 10 of a ten-epoch cosine schedule",
+  "recomputed_prediction_csvs": 26,
+  "all_clean_float_8bit_and_mixed_metrics_match": true,
+  "all_perturbation_bounds_passed": true,
+  "white_box_pgd10_failures_retained_by_pgd20x3": true,
+  "diff_check_passed": true,
+  "no_kaggle_submission": true,
+  "existing_deployed_models_unchanged": true
+}
