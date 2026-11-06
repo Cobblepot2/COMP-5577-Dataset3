@@ -1,0 +1,21 @@
+{
+  "pages": 7,
+  "tables": 7,
+  "figures": 1,
+  "visually_inspected_pages": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "decimal_linebreak_check": true,
+  "title_border_absent": true,
+  "docx_sha256": "37669d703ec10671231ddeba797effda729e6cc371f3a06f7ce029b4e412e2e4",
+  "markdown_sha256": "a8a3a771027dc08640e038591aa1b1b0272a4aab684114cc7b75b6c97554d84f",
+  "original_report_preserved": true,
+  "language": "Chinese; English final awaits user review",
+  "editorial_change": "Removed preemptive rebuttals and repeated disclaimers; retained method and result definitions"
+}

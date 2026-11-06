@@ -1,0 +1,106 @@
+{
+  "precision": {
+    "float32_matmul_precision": "highest",
+    "cuda_matmul_allow_tf32": false,
+    "cudnn_allow_tf32": true,
+    "deterministic_algorithms": true,
+    "cudnn_benchmark": false,
+    "nvidia_tf32_override": null,
+    "cublas_workspace_config": ":4096:8"
+  },
+  "precision_recorded_after_primary_runs": true,
+  "scope": "Same unchanged Python/Torch/CUDA defaults and batch64 as primary runs; does not assert CPU or other-backend parity",
+  "models": {
+    "baseline": {
+      "standard_float": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "standard_quantized": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "budget_float": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "budget_quantized": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      }
+    },
+    "hybrid": {
+      "standard_float": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "standard_quantized": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "budget_float": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "budget_quantized": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      }
+    },
+    "ensemble": {
+      "standard_float": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "standard_quantized": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "budget_float": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      },
+      "budget_quantized": {
+        "differing_records_by_repeat": [
+          0,
+          0
+        ],
+        "repeats_equal": true
+      }
+    }
+  },
+  "all_saved_predictions_reproduced_on_same_gpu": true
+}

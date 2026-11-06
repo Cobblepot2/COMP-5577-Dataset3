@@ -4,3 +4,11 @@ docs/dataset3_manifest.csv text eol=lf
 splits/*.csv -text
 results/baseline/*.csv -text whitespace=cr-at-eol
 scripts/evaluate_public85_checks.py text eol=lf
+dataset3/cw.py text eol=lf
+scripts/evaluate_cw.py text eol=lf
+scripts/replay_cw.py text eol=lf
+scripts/summarize_cw.py text eol=lf
+tests/test_cw.py text eol=lf
+docs/results/cw/*.json -text whitespace=cr-at-eol
+docs/results/cw/*.csv -text whitespace=cr-at-eol
+docs/results/cw/baseline_run_source.py -text
