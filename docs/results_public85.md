@@ -132,3 +132,21 @@ The additional CE20x3/CE50x5/margin50x5 checks use the SAME predeclared200 IDs (
 |candidate2|0.065000|0.045000|0.050000|0.035000|
 
 Finite sampled attacks provide no robustness certificate. Complete full/reserved/stress records, actual pipeline members and SHA-256 identities are archived in results/public85/. Both candidates passed two full test-inference passes and exact3925-row submission validation. The latest53-test CPU suite passed in1.941s on2026-11-06.
+
+## Course-source transfer at a larger budget
+
+The frozen course-provided classifier generated PGD20×3 perturbations on the same 1,894 diagnostic images at 8/255 and 16/255. Both runs use a 2/255 step, 20 steps, three random starts, and the same seeded search protocol. The two deployment predictors classify the transferred examples. The mixed Macro-F1 uses the same fixed 947 attacked and 947 clean images at each budget.
+
+| Deployment predictor | Original mixed F1 at 8/255 | Same-GPU mixed F1 at 8/255 | Mixed F1 at 16/255 | All-attacked F1 at 16/255 |
+|---|---:|---:|---:|---:|
+| Hybrid full37 + flip | 0.986037 | 0.985545 | 0.981156 | 0.972030 |
+| Residual69/full37 ensemble + flip | 0.923071 | 0.922656 | 0.920431 | 0.902581 |
+
+The original 8/255 scores were measured on an RTX 5070 Ti. The paired budget comparison was run on an RTX 3060 Laptop GPU. At 16/255, the mixed scores decrease by 0.004389 for Hybrid and 0.002226 for the ensemble relative to their same-device controls. The 16/255 condition exceeds the project's 8/255 threat budget and measures transfer from the course model on the diagnostic split. [Recorded metrics, checkpoint identities, and prediction checks](results/public85/budget_comparison.json).
+
+Run from the repository root with the CUDA environment. Change `--epsilon-pixels 16` to `--epsilon-pixels 8` and use a separate output directory for the control.
+
+```powershell
+python -m dataset3.evaluate_defense --suite full --attack-name transfer_pgd20x3 --epsilon-pixels 16 --checkpoint models/deployed/public85_hybrid_full37.pt --horizontal-flip --output runs/public85_budget_comparison/hybrid_transfer_eps16
+python -m dataset3.evaluate_defense --suite full --attack-name transfer_pgd20x3 --epsilon-pixels 16 --checkpoint models/deployed/public85_residual_source.pt --ensemble-checkpoint models/deployed/public85_hybrid_full37.pt --ensemble-weight 0.5 --horizontal-flip --output runs/public85_budget_comparison/ensemble_transfer_eps16
+```

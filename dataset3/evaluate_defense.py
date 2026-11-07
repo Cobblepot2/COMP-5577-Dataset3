@@ -142,11 +142,11 @@ def attack_metrics(labels, clean, attacked, quantized, mixed_mask):
     }
 
 
-def attack_suite(suite, stress=False):
+def attack_suite(suite, stress=False, epsilon_pixels=8):
     if stress and suite != "full":
         raise ValueError("Stress attacks require the full suite")
     settings = []
-    methods = [("fgsm8", "fgsm", 1, 1), ("pgd10", "pgd", 10, 1)]
+    methods = [(f"fgsm{epsilon_pixels}", "fgsm", 1, 1), ("pgd10", "pgd", 10, 1)]
     if suite == "full":
         methods.append(("pgd20x3", "pgd", 20, 3))
     for threat_model in ("white_box", "transfer"):
@@ -154,7 +154,7 @@ def attack_suite(suite, stress=False):
             if suite == "quick" and threat_model == "transfer" and method == "fgsm":
                 continue
             entry = {"name": f"{threat_model}_{name}", "threat_model": threat_model,
-                     "method": method, "epsilon": 8 / 255}
+                     "method": method, "epsilon": epsilon_pixels / 255}
             if method == "pgd":
                 entry.update(step_size=2 / 255, steps=steps, restarts=restarts)
             settings.append(entry)
@@ -164,7 +164,7 @@ def attack_suite(suite, stress=False):
             ("margin_pgd50x5", "margin_pgd", "max_other_logit_minus_true_logit"),
         ]:
             settings.append({"name": f"white_box_{name}", "threat_model": "white_box",
-                             "method": method, "objective": objective, "epsilon": 8 / 255,
+                             "method": method, "objective": objective, "epsilon": epsilon_pixels / 255,
                              "step_size": 2 / 255, "steps": 50, "restarts": 5})
     return settings
 
@@ -284,6 +284,9 @@ def main():
     parser.add_argument("--checkpoint", help="Trusted local best.pt/last.pt; omit for provided baseline")
     parser.add_argument("--output", default="runs/defense")
     parser.add_argument("--suite", choices=("quick", "full"), default="full")
+    parser.add_argument("--epsilon-pixels", type=int, choices=(8, 16), default=8,
+                        help="L-infinity budget in 8-bit pixel levels. PGD step size stays at 2/255.")
+    parser.add_argument("--attack-name", help="Run one named attack from the selected suite.")
     parser.add_argument("--transfer-cache", help="Reuse source float attacks across candidate defenses")
     parser.add_argument("--transfer-source-checkpoint",
                         help="Trusted local transfer-source checkpoint; default is the unwrapped provided model")
@@ -297,6 +300,13 @@ def main():
     args = parser.parse_args()
     if args.stress and args.suite != "full":
         parser.error("--stress requires --suite full")
+    if args.stress and args.attack_name:
+        parser.error("--stress requires running the entire suite")
+    settings_list = attack_suite(args.suite, stress=args.stress, epsilon_pixels=args.epsilon_pixels)
+    if args.attack_name:
+        settings_list = [settings for settings in settings_list if settings["name"] == args.attack_name]
+        if not settings_list:
+            parser.error(f"attack {args.attack_name!r} is not in the selected suite")
     config, device = setup(args.config)
     if config["seed"] != 5577:
         raise ValueError("The fixed Dataset3 experiment uses seed5577")
@@ -330,6 +340,14 @@ def main():
     report["scope"] = checkpoint.get("provenance", {}).get("scope", report["scope"])
     if len(pipeline["members"]) == 2:
         report["scope"] = "Validation-selected two-model probability ensemble; per-member validation scopes are recorded in inference_pipeline.members; local results are diagnostic"
+    threat_models = {settings["threat_model"] for settings in settings_list}
+    threat_description = [f"Untargeted Linf <={args.epsilon_pixels}/255 in [0,1]"]
+    if "transfer" in threat_models:
+        threat_description.append(
+            f"transfers use the frozen, unwrapped {source_metadata['source_kind']} "
+            f"source {source_metadata['checkpoint']}")
+    if "white_box" in threat_models:
+        threat_description.append("white-box attacks use the evaluated defense")
     report.update(checkpoint=checkpoint, suite=args.suite, source=cache_identity,
                   transfer_source=source_metadata,
                   inference_transform=transform, inference_pipeline=pipeline, stress=args.stress,
@@ -338,9 +356,7 @@ def main():
                   mixed_attacked_records=int(mask.sum()), mixed_mask_seed=5578,
                   mixed_mask_sha256=hashlib.sha256(mask.tobytes()).hexdigest(), attacks=[],
                   certified_robustness=False,
-                  threat_model=("Untargeted Linf <=8/255 in [0,1]; transfers use the frozen, unwrapped "
-                                f"{source_metadata['source_kind']} source {source_metadata['checkpoint']}; "
-                                "white-box attacks use the evaluated defense"),
+                  threat_model="; ".join(threat_description),
                   pgd_selection="Per-image misclassification first, then maximum CE across clean input, all iterates and restarts; no FGSM injection")
     survives_float = clean == dataset.labels
     survives_quantized = survives_float.copy()
@@ -350,7 +366,7 @@ def main():
         report["margin_pgd_selection"] = "Per-image misclassification first, then maximum (max other logit - true logit) across clean input, all iterates and restarts"
         report["stress_attack_implementation_sha256"] = hashlib.sha256(
             Path(__file__).with_name("stress_attacks.py").read_bytes()).hexdigest()
-    for settings in attack_suite(args.suite, stress=args.stress):
+    for settings in settings_list:
         attack_source = model if settings["threat_model"] == "white_box" else source
         entry, pred, quantized = evaluate_attack(
             model, attack_source, dataset, config, device, settings, clean, mask,
@@ -367,8 +383,9 @@ def main():
         print(f"{settings['name']}: F1={entry['float_metrics']['macro_f1']:.6f}; {entry['seconds']:.2f}s", flush=True)
     report["empirical_accuracy_surviving_clean_and_all_configured_float_attacks"] = float(survives_float.mean())
     report["empirical_accuracy_surviving_clean_and_all_configured_8bit_attacks"] = float(survives_quantized.mean())
-    report["empirical_accuracy_surviving_clean_and_all_white_box_float_attacks"] = float(white_float.mean())
-    if args.suite == "full":
+    if "white_box" in threat_models:
+        report["empirical_accuracy_surviving_clean_and_all_white_box_float_attacks"] = float(white_float.mean())
+    if "white_box_pgd10" in predictions and "white_box_pgd20x3" in predictions:
         weak = predictions["white_box_pgd10"] == dataset.labels
         strong = predictions["white_box_pgd20x3"] == dataset.labels
         report["white_box_pgd_strength_check"] = {

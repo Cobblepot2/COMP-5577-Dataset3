@@ -1,0 +1,180 @@
+{
+  "validation_records": 1894,
+  "validation_csv_sha256": "526e594a8fe6cbdc6a099e11f857ce4618eb26274f82719c0f5b30843465f4c5",
+  "scope": "In-sample transfer diagnostics for the two frozen deployed predictors using the unwrapped course-provided classifier as the attack source. The project threat budget is 8/255.",
+  "pgd20x3": {
+    "step_size": 0.00784313725490196,
+    "steps": 20,
+    "restarts": 3,
+    "seed": 5577,
+    "batch_size": 64
+  },
+  "predictions_independently_recomputed": true,
+  "predictors": {
+    "hybrid": {
+      "model": {
+        "members": [
+          {
+            "architecture": "provided",
+            "epoch": 37,
+            "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+            "weight": 1.0
+          }
+        ],
+        "transform": {
+          "name": "identity_horizontal_flip_probability_average",
+          "views": [
+            "identity",
+            "horizontal_flip"
+          ],
+          "aggregation": "arithmetic_mean_softmax_probabilities",
+          "attack_output": "log_mean_probabilities"
+        },
+        "aggregation": "single_model_logits"
+      },
+      "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+      "mixed_mask_sha256": "64d2304ff025a400973ab1d2003a7a5948a395a96cc3f1612088a997da6e1277",
+      "published_eps8": {
+        "source": "docs/results/public85/candidate1_full.json",
+        "gpu": "NVIDIA GeForce RTX 5070 Ti",
+        "float_f1": 0.9806070234647348,
+        "mixed_float_f1": 0.986036719635411,
+        "quantized_f1": 0.9806070234647348
+      },
+      "eps16": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "torch": "2.9.1+cu128",
+        "cuda_runtime": "12.8",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.06274509803921569,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.9720300476326896,
+        "mixed_float_f1": 0.9811558648876852,
+        "quantized_f1": 0.9720300476326896,
+        "mixed_quantized_f1": 0.9811558648876852,
+        "float_accuracy": 0.9725448785638859,
+        "float_attack_success_rate": 0.019169329073482427,
+        "observed_linf": 0.0627451241016388,
+        "observed_quantized_linf": 0.06274515390396118,
+        "seconds": 32.909523700000136,
+        "prediction_sha256": "8d7f3aecf71499ff6df3ab494cc875a39ea0b04d150f6205f48bca0f7c61e9e7",
+        "quantized_prediction_sha256": "8d7f3aecf71499ff6df3ab494cc875a39ea0b04d150f6205f48bca0f7c61e9e7"
+      },
+      "eps8": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.9807069850715383,
+        "mixed_float_f1": 0.9855447891133979,
+        "quantized_f1": 0.9807069850715383,
+        "mixed_quantized_f1": 0.9855447891133979,
+        "float_accuracy": 0.9809926082365364,
+        "float_attack_success_rate": 0.010649627263045794,
+        "observed_linf": 0.03137257695198059,
+        "observed_quantized_linf": 0.03137260675430298,
+        "seconds": 32.51429999999527,
+        "prediction_sha256": "3c1674f453b2767c30dc0033787934bd951efd795f135606c85d2c6c0b7edddd",
+        "quantized_prediction_sha256": "3c1674f453b2767c30dc0033787934bd951efd795f135606c85d2c6c0b7edddd"
+      }
+    },
+    "ensemble": {
+      "model": {
+        "members": [
+          {
+            "architecture": "small_resnet18",
+            "epoch": 69,
+            "checkpoint_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+            "weight": 0.5
+          },
+          {
+            "architecture": "provided",
+            "epoch": 37,
+            "checkpoint_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+            "weight": 0.5
+          }
+        ],
+        "transform": {
+          "name": "identity_horizontal_flip_probability_average",
+          "views": [
+            "identity",
+            "horizontal_flip"
+          ],
+          "aggregation": "arithmetic_mean_softmax_probabilities",
+          "attack_output": "log_mean_probabilities"
+        },
+        "aggregation": "weighted_mean_softmax_probabilities"
+      },
+      "input_pixels_sha256": "98e0726314f78007f3484fdf045c66a04b8fbfdf49aee50b73d7ec364dda5736",
+      "mixed_mask_sha256": "64d2304ff025a400973ab1d2003a7a5948a395a96cc3f1612088a997da6e1277",
+      "published_eps8": {
+        "source": "docs/results/public85/candidate2_full.json",
+        "gpu": "NVIDIA GeForce RTX 5070 Ti",
+        "float_f1": 0.916883849030661,
+        "mixed_float_f1": 0.9230706158321619,
+        "quantized_f1": 0.9173829991999167
+      },
+      "eps16": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "torch": "2.9.1+cu128",
+        "cuda_runtime": "12.8",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.06274509803921569,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.9025807364999124,
+        "mixed_float_f1": 0.9204306451032762,
+        "quantized_f1": 0.9031024734413904,
+        "mixed_quantized_f1": 0.9204306451032762,
+        "float_accuracy": 0.9023231256599789,
+        "float_attack_success_rate": 0.03798185941043084,
+        "observed_linf": 0.0627451241016388,
+        "observed_quantized_linf": 0.06274515390396118,
+        "seconds": 34.58797019999474,
+        "prediction_sha256": "b524f5ab20ccc7e110d24bc522b2f8dbab6359dcb5e739386ebe4f893974020f",
+        "quantized_prediction_sha256": "a616c3328ac795a42f60438b9b4ac474fc3d7286c0d34941058f4c5d1b7ea781"
+      },
+      "eps8": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.9142738808274915,
+        "mixed_float_f1": 0.9226563804930314,
+        "quantized_f1": 0.9137500371946883,
+        "mixed_quantized_f1": 0.9226563804930314,
+        "float_accuracy": 0.9149947201689546,
+        "float_attack_success_rate": 0.02040816326530612,
+        "observed_linf": 0.03137257695198059,
+        "observed_quantized_linf": 0.03137260675430298,
+        "seconds": 3.124666600007913,
+        "prediction_sha256": "8c64119cdbf173e23efa7251343a666cb349e69e4731af1165accd697e1a4583",
+        "quantized_prediction_sha256": "7b4f52185306ac57094a4d4d2c77e4f0e37e252d4e948031162387f83cfc0ec0"
+      }
+    }
+  },
+  "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3"
+}
