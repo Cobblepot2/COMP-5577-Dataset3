@@ -1,0 +1,22 @@
+{
+  "source_sha256": "90772f370367d757fdc223c5fe11e5832541486dc38d161d310c4b54a4f98f8d",
+  "output": "docs/task3_report_en.docx",
+  "output_sha256": "673f458840a8bc0636a1fa1e322fe56a6b94277dc98b69792786e7729c65833d",
+  "tables": 8,
+  "all_decimal_table_values_preserved": true,
+  "figures": 1,
+  "native_equations": 2,
+  "source_document": "user-edited COMP5577_Task3_\u4e2d\u6587\u62a5\u544a_\u7b2c\u4e8c\u90e8\u5206\u4fee\u8ba2\u7248.docx",
+  "rendering": "Read-only Microsoft Word PDF export followed by bundled documents render_docx.py rasterization",
+  "pages": 8,
+  "all_pages_visually_reviewed": true,
+  "source_document_unchanged": true,
+  "new_training_or_inference": false,
+  "editorial_changes": [
+    "Continuous table numbering 1-8 and corrected cross-references",
+    "Randomly initialized PGD training corrected to 50 epochs, consistent with archived records",
+    "Standardized transfer/adaptive-white-box terminology and loss-weight explanation",
+    "Removed dangling table reference from resource paragraph",
+    "Formal English figure legend with unchanged experimental curves"
+  ]
+}
