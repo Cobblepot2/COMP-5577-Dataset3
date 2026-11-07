@@ -119,6 +119,37 @@
         "peak_allocated_mib": 681.3291015625,
         "transfer_cache_reused": false,
         "timing_scope": "Warm-up excluded; loader/transfers, attack generation, float/8-bit target inference and bound checks included; initial image/cache disk loading, cache save, metrics/CSV writing excluded"
+      },
+      "eps64": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "torch": "2.9.1+cu128",
+        "cuda_runtime": "12.8",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.25098039215686274,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.7476376528319358,
+        "mixed_float_f1": 0.8730367212259621,
+        "quantized_f1": 0.7476376528319358,
+        "mixed_quantized_f1": 0.8730367212259621,
+        "float_accuracy": 0.7381203801478353,
+        "float_attack_success_rate": 0.2571884984025559,
+        "observed_linf": 0.2509804368019104,
+        "observed_quantized_linf": 0.2509804368019104,
+        "seconds": 33.82482809999783,
+        "prediction_sha256": "596b14f7a6ade8fbb98a6155978653a7382bd3a73c8a415b21c4ad3de2fec338",
+        "quantized_prediction_sha256": "596b14f7a6ade8fbb98a6155978653a7382bd3a73c8a415b21c4ad3de2fec338",
+        "initially_correct": 1878,
+        "float_attack_successes": 483,
+        "clean_f1": 0.9914508982755106,
+        "peak_allocated_mib": 681.3291015625,
+        "transfer_cache_reused": false,
+        "timing_scope": "Warm-up excluded; loader/transfers, attack generation, float/8-bit target inference and bound checks included; initial image/cache disk loading, cache save, metrics/CSV writing excluded"
       }
     },
     "ensemble": {
@@ -235,6 +266,37 @@
         "peak_allocated_mib": 224.72265625,
         "transfer_cache_reused": true,
         "timing_scope": "Warm-up excluded; loader/transfers, cached attack loading to device, float/8-bit target inference and bound checks included; initial image/cache disk loading, cache save, metrics/CSV writing excluded"
+      },
+      "eps64": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "torch": "2.9.1+cu128",
+        "cuda_runtime": "12.8",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.25098039215686274,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.6339786674449676,
+        "mixed_float_f1": 0.789019685525847,
+        "quantized_f1": 0.6341327393301319,
+        "mixed_quantized_f1": 0.789019685525847,
+        "float_accuracy": 0.6050686378035903,
+        "float_attack_success_rate": 0.3645124716553288,
+        "observed_linf": 0.2509804368019104,
+        "observed_quantized_linf": 0.2509804368019104,
+        "seconds": 3.250477800000226,
+        "prediction_sha256": "ecdf654b80dd0da1f9343405c99c91e18ae899026da8988e5e0b201947b09253",
+        "quantized_prediction_sha256": "0ac94330c378283ea350982c4852b40dcb3c8eff00d741d2fdccb0b2fcd58867",
+        "initially_correct": 1764,
+        "float_attack_successes": 643,
+        "clean_f1": 0.9307727633292131,
+        "peak_allocated_mib": 224.72265625,
+        "transfer_cache_reused": true,
+        "timing_scope": "Warm-up excluded; loader/transfers, cached attack loading to device, float/8-bit target inference and bound checks included; initial image/cache disk loading, cache save, metrics/CSV writing excluded"
       }
     }
   },
@@ -244,6 +306,16 @@
     "same_validation_inputs_mask_and_pipelines_as_eps8_and_eps16": true,
     "both_predictors_used_identical_cached_float_attacks": true,
     "cached_float_tensor_sha256": "5597e0979efc38318e3c4fb6b0c752f89160e72d584aaa27d69e32f4fac3c5f4",
+    "attacked_records_reaching_linf_budget_within_1e-6": 1894,
+    "source_correct_on_float_attacks": 0,
+    "source_float_f1": 0.0,
+    "unit_tests_passed": 57
+  },
+  "eps64_verification": {
+    "prediction_csv_metrics_recomputed": true,
+    "same_validation_inputs_mask_and_pipelines_as_eps8_eps16_and_eps32": true,
+    "both_predictors_used_identical_cached_float_attacks": true,
+    "cached_float_tensor_sha256": "5582c000cc90a53204adede517fec2b69cd0313de6c2d6e0399effe888483f5d",
     "attacked_records_reaching_linf_budget_within_1e-6": 1894,
     "source_correct_on_float_attacks": 0,
     "source_float_f1": 0.0,

@@ -284,7 +284,7 @@ def main():
     parser.add_argument("--checkpoint", help="Trusted local best.pt/last.pt; omit for provided baseline")
     parser.add_argument("--output", default="runs/defense")
     parser.add_argument("--suite", choices=("quick", "full"), default="full")
-    parser.add_argument("--epsilon-pixels", type=int, choices=(8, 16, 32), default=8,
+    parser.add_argument("--epsilon-pixels", type=int, choices=(8, 16, 32, 64), default=8,
                         help="L-infinity budget in 8-bit pixel levels. PGD step size stays at 2/255.")
     parser.add_argument("--attack-name", help="Run one named attack from the selected suite.")
     parser.add_argument("--transfer-cache", help="Reuse source float attacks across candidate defenses")
