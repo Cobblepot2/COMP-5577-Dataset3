@@ -117,7 +117,7 @@ Table 5. PGD20×3 diagnostics at 8/255 for the two deployment predictors
 | Hybrid with flip averaging | 0.986037 | 0.888931 | 0.687515 | 0.377272 |
 | Final ensemble with flip averaging | 0.923071 | 0.807639 | 0.496969 | 0.052530 |
 
-Table 5 retains the original RTX 5070 Ti results. Table 6 compares 8/255, 16/255, 32/255, and 64/255 on the same RTX 3060 Laptop GPU. Only the frozen course classifier supplies gradients for PGD20×3 (2/255 step size, 20 iterations, three random starts). The search retains misclassifying candidates. Both predictors share the perturbations and mixed mask. All-attacked F1 uses all 1,894 perturbed images. Budgets above 8/255 serve as in-sample stress tests.
+Table 6 compares 8/255, 16/255, 32/255, and 64/255. Only the frozen course classifier supplies gradients for PGD20×3 (2/255 step size, 20 iterations, three random starts). The search retains misclassifying candidates. Both predictors share the perturbations and mixed mask. All-attacked F1 uses all 1,894 perturbed images. Budgets above 8/255 serve as in-sample stress tests.
 
 Table 6. Course-source PGD20×3 transfer across perturbation budgets
 
