@@ -12,3 +12,5 @@ tests/test_cw.py text eol=lf
 docs/results/cw/*.json -text whitespace=cr-at-eol
 docs/results/cw/*.csv -text whitespace=cr-at-eol
 docs/results/cw/baseline_run_source.py -text
+models/**/*.pt -text
+models/*.json text eol=lf

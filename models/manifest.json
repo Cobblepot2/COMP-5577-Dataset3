@@ -1,0 +1,1870 @@
+{
+  "schema_version": 1,
+  "published_date": "2026-11-07",
+  "timezone": "Asia/Shanghai",
+  "source_repository_commit": "dc42ede6e95e061111d887ca27312887552abf46",
+  "seed": 5577,
+  "scope": "11 actual training runs on this device, their saved best/final weights, four historical inference artifacts, and 21 train-only BN recalibration variants",
+  "excluded_by_user": [
+    "loss_weight_10/clean50",
+    "loss_weight_10/clean75"
+  ],
+  "checkpoint_format": "model_state_dict plus original configuration, provenance and selection metadata, loadable with weights_only=True",
+  "training_state": "Original optimizer, scheduler, RNG and full history remain in the local runs directory",
+  "state_sha256_convention": "Sorted tensor names, each followed by a JSON [name, torch dtype, shape] header and LF, then contiguous CPU NumPy C-order bytes",
+  "runs": [
+    {
+      "run_id": "01",
+      "name": "clean_provided",
+      "stage": "初始比较",
+      "description": "干净样本微调",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/training_clean.json",
+      "training_config_sha256": "260a5afa94ad0b5bf39f31f9d544bdfd327ded74743c2b8183114ec1c1eda098",
+      "effective_training_config": {
+        "mode": "clean",
+        "initialization": "provided",
+        "epochs": 10,
+        "batch_size": 128,
+        "learning_rate": 0.005,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.5,
+        "augmentation": false,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        }
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 10,
+      "cosine_horizon_epochs": 10,
+      "selection_rule": "Maximum actual fixed-50%-mixed validation macro-F1, then clean macro-F1; earliest exact tie",
+      "best_selection": {
+        "mixed_macro_f1": 0.5160337242867798,
+        "clean_macro_f1": 0.9962383262575052,
+        "epoch": 7
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/clean_provided/metrics.json",
+      "local_metrics_sha256": "27896117d48470e19fee62a671a082d67a6302a95330dff940f09d5ba773fab6",
+      "repository_evidence": "docs/results/training_comparison.json",
+      "artifacts": {
+        "best": "models/training/01_clean_provided/best_epoch007.pt",
+        "last": "models/training/01_clean_provided/last_epoch010.pt"
+      }
+    },
+    {
+      "run_id": "02",
+      "name": "fgsm_provided",
+      "stage": "初始比较",
+      "description": "FGSM 对抗微调",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/training_fgsm.json",
+      "training_config_sha256": "47e82170683f7cba4cc00676d819ee377ea7a40392a481ce494e302272cb58cf",
+      "effective_training_config": {
+        "mode": "fgsm",
+        "initialization": "provided",
+        "epochs": 10,
+        "batch_size": 128,
+        "learning_rate": 0.005,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.5,
+        "augmentation": false,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        }
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 10,
+      "cosine_horizon_epochs": 10,
+      "selection_rule": "Maximum actual fixed-50%-mixed validation macro-F1, then clean macro-F1; earliest exact tie",
+      "best_selection": {
+        "mixed_macro_f1": 0.5003905265591078,
+        "clean_macro_f1": 0.9009287928933383,
+        "epoch": 7
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/fgsm_provided/metrics.json",
+      "local_metrics_sha256": "50ff4da30a40cd73ff0cffb05104ac2d772bfb6de6bbb558c6947bcd4747abb0",
+      "repository_evidence": "docs/results/training_comparison.json",
+      "artifacts": {
+        "best": "models/training/02_fgsm_provided/best_epoch007.pt",
+        "last": "models/training/02_fgsm_provided/last_epoch010.pt"
+      }
+    },
+    {
+      "run_id": "03",
+      "name": "pgd_provided",
+      "stage": "初始比较",
+      "description": "PGD7 对抗微调",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/training.json",
+      "training_config_sha256": "446b21a640e56640638d72c0a4aec1bbac2309d8b937397f888492e58f3a129f",
+      "effective_training_config": {
+        "mode": "pgd",
+        "initialization": "provided",
+        "epochs": 10,
+        "batch_size": 128,
+        "learning_rate": 0.005,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.5,
+        "augmentation": false,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        }
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 10,
+      "cosine_horizon_epochs": 10,
+      "selection_rule": "Maximum actual fixed-50%-mixed validation macro-F1, then clean macro-F1; earliest exact tie",
+      "best_selection": {
+        "mixed_macro_f1": 0.5554126824452194,
+        "clean_macro_f1": 0.7854924233447773,
+        "epoch": 9
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/pgd_provided/metrics.json",
+      "local_metrics_sha256": "a497cb9e7d97b2d4a6a9c1ca3d6828a2e1f68b3a5617fd828157da910f3fcd8f",
+      "repository_evidence": "docs/results/training_comparison.json",
+      "artifacts": {
+        "best": "models/training/03_pgd_provided/best_epoch009.pt",
+        "last": "models/training/03_pgd_provided/last_epoch010.pt"
+      }
+    },
+    {
+      "run_id": "04",
+      "name": "pgd_random_short",
+      "stage": "初始比较",
+      "description": "随机初始化 PGD7 短程训练",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "random",
+      "training_config_path": "configs/training_random_pgd.json",
+      "training_config_sha256": "d47064d1580e8cad69c04d0a2c365082c83a02e1e2afb6a6358fde17e34df92c",
+      "effective_training_config": {
+        "mode": "pgd",
+        "initialization": "random",
+        "epochs": 10,
+        "batch_size": 128,
+        "learning_rate": 0.005,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.5,
+        "augmentation": false,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        }
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 10,
+      "cosine_horizon_epochs": 10,
+      "selection_rule": "Maximum actual fixed-50%-mixed validation macro-F1, then clean macro-F1; earliest exact tie",
+      "best_selection": {
+        "mixed_macro_f1": 0.4971893522460265,
+        "clean_macro_f1": 0.6440396235041554,
+        "epoch": 10
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/pgd_random_short/metrics.json",
+      "local_metrics_sha256": "69b674c7434555de54ad5a17a7fbe4881dd9d5e148ca186ae7e5ca2db25b59bf",
+      "repository_evidence": "docs/results/training_comparison.json",
+      "artifacts": {
+        "best": "models/training/04_pgd_random_short/best_epoch010.pt",
+        "last": "models/training/04_pgd_random_short/last_epoch010.pt"
+      }
+    },
+    {
+      "run_id": "05",
+      "name": "pgd_augmented",
+      "stage": "扩展训练",
+      "description": "PGD7 加增强微调",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/training_pgd_augmented.json",
+      "training_config_sha256": "a22097fd76107e7ad17ae258d401be11316f328b85ca834c36b820ae6d84c8fc",
+      "effective_training_config": {
+        "mode": "pgd",
+        "initialization": "provided",
+        "epochs": 40,
+        "batch_size": 128,
+        "learning_rate": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.75,
+        "augmentation": true,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        }
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 40,
+      "cosine_horizon_epochs": 40,
+      "selection_rule": "Maximum actual fixed-50%-mixed validation macro-F1, then clean macro-F1; earliest exact tie",
+      "best_selection": {
+        "mixed_macro_f1": 0.6193334933421527,
+        "clean_macro_f1": 0.8626394443879033,
+        "epoch": 39
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/pgd_augmented/metrics.json",
+      "local_metrics_sha256": "efc34d53eea60f811163e1cbfe1290078bd22311c09569a4eab17574cb1560f1",
+      "repository_evidence": "docs/results/training_comparison.json",
+      "artifacts": {
+        "best": "models/training/05_pgd_augmented/best_epoch039.pt",
+        "last": "models/training/05_pgd_augmented/last_epoch040.pt"
+      }
+    },
+    {
+      "run_id": "06",
+      "name": "pgd_random_converged",
+      "stage": "扩展训练",
+      "description": "随机初始化 PGD7 加增强训练",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "random",
+      "training_config_path": "configs/training_random_convergence.json",
+      "training_config_sha256": "996eec8c2272d88c3d93e0a0427fa13b796826ba54fb147efab335cb9ea60604",
+      "effective_training_config": {
+        "mode": "pgd",
+        "initialization": "random",
+        "epochs": 50,
+        "batch_size": 128,
+        "learning_rate": 0.05,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.5,
+        "augmentation": true,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        }
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 50,
+      "cosine_horizon_epochs": 50,
+      "selection_rule": "Maximum actual fixed-50%-mixed validation macro-F1, then clean macro-F1; earliest exact tie",
+      "best_selection": {
+        "mixed_macro_f1": 0.636961573380807,
+        "clean_macro_f1": 0.7968800030888226,
+        "epoch": 50
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/pgd_random_converged/metrics.json",
+      "local_metrics_sha256": "add83f7919240f53b554a73c3678c78775fdb62982e58093a150ea6a689e44ee",
+      "repository_evidence": "docs/results/training_comparison.json",
+      "artifacts": {
+        "best": "models/training/06_pgd_random_converged/best_epoch050.pt",
+        "last": "models/training/06_pgd_random_converged/last_epoch050.pt"
+      }
+    },
+    {
+      "run_id": "07",
+      "name": "improve_trades_beta03",
+      "stage": "Public85 后续",
+      "description": "TRADES β=0.3 微调",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/improve_trades_beta03.json",
+      "training_config_sha256": "e1078faf79568029fa757d6beff13f76ea9b276ee98453387fa41f8f615e4973",
+      "effective_training_config": {
+        "initialization": "provided",
+        "epochs": 40,
+        "batch_size": 128,
+        "learning_rate": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.75,
+        "augmentation": true,
+        "clean_floor": 0.857639,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        },
+        "mode": "trades",
+        "beta": 0.3,
+        "final_refit": false
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 40,
+      "cosine_horizon_epochs": 40,
+      "selection_rule": "Prefer clean>=clean_floor, then maximum minimum source-FGSM8/source-PGD20x3 mixed F1, then clean F1; earliest exact tie",
+      "best_selection": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8863432785667449,
+        "worst_source_mixed_macro_f1": 0.5311791296205906,
+        "own_pgd10_mixed_macro_f1": 0.4560782859499003,
+        "rank": [
+          1,
+          0.5311791296205906,
+          0.8863432785667449
+        ],
+        "epoch": 3
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/improve_trades_beta03/metrics.json",
+      "local_metrics_sha256": "d50a219f1727fc986efc5ab21449a60abbae7056c8ae4f1600a9a93bebfde13f",
+      "repository_evidence": "docs/results/public85/study_summary.json",
+      "artifacts": {
+        "best": "models/training/07_improve_trades_beta03/best_epoch003.pt",
+        "last": "models/training/07_improve_trades_beta03/last_epoch040.pt"
+      }
+    },
+    {
+      "run_id": "08",
+      "name": "improve_trades_beta1",
+      "stage": "Public85 后续",
+      "description": "TRADES β=1 微调",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/improve_trades_beta1.json",
+      "training_config_sha256": "ce31f6303a36c3d99969230180f805ba6ce50443df008e535a73e9b77d909fea",
+      "effective_training_config": {
+        "initialization": "provided",
+        "epochs": 40,
+        "batch_size": 128,
+        "learning_rate": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.75,
+        "augmentation": true,
+        "clean_floor": 0.857639,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        },
+        "mode": "trades",
+        "beta": 1.0,
+        "final_refit": false
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 40,
+      "cosine_horizon_epochs": 40,
+      "selection_rule": "Prefer clean>=clean_floor, then maximum minimum source-FGSM8/source-PGD20x3 mixed F1, then clean F1; earliest exact tie",
+      "best_selection": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8354958643371931,
+        "worst_source_mixed_macro_f1": 0.8193896125603926,
+        "own_pgd10_mixed_macro_f1": 0.623991677781464,
+        "rank": [
+          0,
+          0.8193896125603926,
+          0.8354958643371931
+        ],
+        "epoch": 39
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/improve_trades_beta1/metrics.json",
+      "local_metrics_sha256": "6a96e0d62c794499a5686f67f040d5fbb0fbabcc15e028cfeddf0221cbcd6344",
+      "repository_evidence": "docs/results/public85/study_summary.json",
+      "artifacts": {
+        "best": "models/training/08_improve_trades_beta1/best_epoch039.pt",
+        "last": "models/training/08_improve_trades_beta1/last_epoch040.pt"
+      }
+    },
+    {
+      "run_id": "09",
+      "name": "improve_hybrid",
+      "stage": "Public85 后续",
+      "description": "自身与课程源 Hybrid PGD 微调",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/improve_hybrid.json",
+      "training_config_sha256": "38ec3133fb71bc16159c4b0aa7961208f32bda693ab0109653a061533b8cf841",
+      "effective_training_config": {
+        "initialization": "provided",
+        "epochs": 40,
+        "batch_size": 128,
+        "learning_rate": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.75,
+        "augmentation": true,
+        "clean_floor": 0.857639,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        },
+        "mode": "hybrid",
+        "beta": 1.0,
+        "final_refit": false
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 40,
+      "cosine_horizon_epochs": 40,
+      "selection_rule": "Prefer clean>=clean_floor, then maximum minimum source-FGSM8/source-PGD20x3 mixed F1, then clean F1; earliest exact tie",
+      "best_selection": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8746923409996501,
+        "worst_source_mixed_macro_f1": 0.8502924204837139,
+        "own_pgd10_mixed_macro_f1": 0.5882013623418894,
+        "rank": [
+          1,
+          0.8502924204837139,
+          0.8746923409996501
+        ],
+        "epoch": 37
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/improve_hybrid/metrics.json",
+      "local_metrics_sha256": "a0d3e6092663e735e48b11a55a53134886c90cb30b5ab5d27dfeabc44ed310e1",
+      "repository_evidence": "docs/results/public85/study_summary.json",
+      "artifacts": {
+        "best": "models/training/09_improve_hybrid/best_epoch037.pt",
+        "last": "models/training/09_improve_hybrid/last_epoch040.pt"
+      }
+    },
+    {
+      "run_id": "10",
+      "name": "public85_hybrid_fullrefit",
+      "stage": "Public85 后续",
+      "description": "Hybrid 全 9,469 张固定轮次重训",
+      "training_date_local": "2026-11-05",
+      "architecture": "provided",
+      "initialization": "provided",
+      "training_config_path": "configs/improve_hybrid.json",
+      "training_config_sha256": "38ec3133fb71bc16159c4b0aa7961208f32bda693ab0109653a061533b8cf841",
+      "effective_training_config": {
+        "initialization": "provided",
+        "epochs": 40,
+        "batch_size": 128,
+        "learning_rate": 0.01,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "min_learning_rate": 0.0,
+        "epsilon": 0.03137254901960784,
+        "step_size": 0.00784313725490196,
+        "steps": 7,
+        "random_start": true,
+        "clean_weight": 0.75,
+        "augmentation": true,
+        "clean_floor": 0.857639,
+        "validation_attack": {
+          "epsilon": 0.03137254901960784,
+          "step_size": 0.00784313725490196,
+          "steps": 10,
+          "restarts": 1
+        },
+        "mode": "hybrid",
+        "beta": 1.0,
+        "final_refit": true
+      },
+      "training_records": 9469,
+      "validation_records": 0,
+      "completed_epochs": 37,
+      "cosine_horizon_epochs": 40,
+      "selection_rule": "Prefer clean>=clean_floor, then maximum minimum source-FGSM8/source-PGD20x3 mixed F1, then clean F1; earliest exact tie",
+      "best_selection": null,
+      "selection_performed": false,
+      "local_metrics_path": "runs/public85_hybrid_fullrefit/metrics.json",
+      "local_metrics_sha256": "68ade5d2f9715488494edc81d2a8387906f5d418b01183ea4bb1f20fc2fb99a3",
+      "repository_evidence": "docs/results/public85/study_summary.json",
+      "artifacts": {
+        "last": "models/training/10_public85_hybrid_fullrefit/last_epoch037.pt"
+      }
+    },
+    {
+      "run_id": "11",
+      "name": "public85_residual_source",
+      "stage": "Public85 后续",
+      "description": "随机 SmallResNet18 课程源攻击训练",
+      "training_date_local": "2026-11-05",
+      "architecture": "small_resnet18",
+      "initialization": "random",
+      "training_config_path": "configs/public85_residual_source.json",
+      "training_config_sha256": "1c4a7ac37ea1d7323dbcd90e3a2b9aed7ef1d4b0c221c39b5291d2cdb3ba506f",
+      "effective_training_config": {
+        "architecture": "small_resnet18",
+        "architecture_width": 32,
+        "initialization": "random",
+        "epochs": 80,
+        "batch_size": 128,
+        "learning_rate": 0.1,
+        "momentum": 0.9,
+        "weight_decay": 0.0005,
+        "scheduler": "cosine",
+        "clean_weight": 0.5,
+        "fgsm_probability": 0.5,
+        "augmentation": true,
+        "clean_floor": 0.857639,
+        "final_refit": false
+      },
+      "training_records": 7575,
+      "validation_records": 1894,
+      "completed_epochs": 80,
+      "cosine_horizon_epochs": 80,
+      "selection_rule": "Prefer clean>=.857639 then maximize minimum source-FGSM8/source-PGD20x3 fixed-half mixed F1, clean tie-break",
+      "best_selection": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8471981512653715,
+        "worst_source_mixed_macro_f1": 0.8342094787811167,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          0,
+          0.8342094787811167,
+          0.8471981512653715
+        ],
+        "epoch": 69
+      },
+      "selection_performed": true,
+      "local_metrics_path": "runs/public85_residual_source/metrics.json",
+      "local_metrics_sha256": "e57e9b0b0b845890d68f74f7ef1e5fcdcef3658bf01468ec26ad4d59e7f7b271",
+      "repository_evidence": "docs/results/public85/study_summary.json",
+      "artifacts": {
+        "best": "models/training/11_public85_residual_source/best_epoch069.pt",
+        "last": "models/training/11_public85_residual_source/last_epoch080.pt"
+      }
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "models/training/01_clean_provided/best_epoch007.pt",
+      "kind": "training_export",
+      "run": "clean_provided",
+      "role": "best",
+      "epoch": 7,
+      "architecture": "provided",
+      "source_path": "runs/clean_provided/best.pt",
+      "source_sha256": "59769a2382fc4015453cc5d27931f2a695ffc3741d70f16ce03cd500fa3e45cc",
+      "sha256": "2d5c2b7177cd7425d264bdda832c3018c2579f2dfc412bd0653ba4a78aa008bf",
+      "bytes": 4730915,
+      "state_sha256": "dcac1b13899f62d061e4dc64ff19d34da38f6893136918c872958c8f0956f446",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.9962383262575052,
+        "own_pgd10_macro_f1": 0.0,
+        "own_pgd10_mixed_macro_f1": 0.5160337242867798,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/01_clean_provided/last_epoch010.pt",
+      "kind": "training_export",
+      "run": "clean_provided",
+      "role": "last",
+      "epoch": 10,
+      "architecture": "provided",
+      "source_path": "runs/clean_provided/last.pt",
+      "source_sha256": "2a6f64e4231d972ea9a143726614ad52625cc9e075fa38d33eaf0fbe10c1422f",
+      "sha256": "ebe16465c7584457b2aeb6cd6b5c4826ab5c146f54b60bf9964157ccf6c36ed7",
+      "bytes": 4730915,
+      "state_sha256": "282c1c24aa590e0e4476b7d59e820d4eb1584946749f8190c93f56aa31bd9c30",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.9978576273006651,
+        "own_pgd10_macro_f1": 0.0,
+        "own_pgd10_mixed_macro_f1": 0.5126949736556276,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/02_fgsm_provided/best_epoch007.pt",
+      "kind": "training_export",
+      "run": "fgsm_provided",
+      "role": "best",
+      "epoch": 7,
+      "architecture": "provided",
+      "source_path": "runs/fgsm_provided/best.pt",
+      "source_sha256": "4aace5bc4eaca2bc02f1e4efc3e732b0864c8a01ebfb1ffd9e711bb3cc3300c9",
+      "sha256": "8162fab16dce14acc4284de2076c58747487005330b42e99cfb3e833cf3c254b",
+      "bytes": 4730915,
+      "state_sha256": "1e5f95087f42d19bb7aa5e0dead6bf83d5ebd1cd355452304f47ef8bfbc3ade9",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.9009287928933383,
+        "own_pgd10_macro_f1": 0.09538916217342155,
+        "own_pgd10_mixed_macro_f1": 0.5003905265591078,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/02_fgsm_provided/last_epoch010.pt",
+      "kind": "training_export",
+      "run": "fgsm_provided",
+      "role": "last",
+      "epoch": 10,
+      "architecture": "provided",
+      "source_path": "runs/fgsm_provided/last.pt",
+      "source_sha256": "9d7f524733ed4e1cf42297be91d7695f810157ac83748ca3f5b2bf8959f6a559",
+      "sha256": "b6bebef605d4ae7ac248e12482594d4b091a196dee065574d6a01cee6e0ab390",
+      "bytes": 4730915,
+      "state_sha256": "ab42eba552e4b985de7e1fe758d9cb59e4bf7981c72fe25296a6d84c023585ea",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.886359837121341,
+        "own_pgd10_macro_f1": 0.10205855159710704,
+        "own_pgd10_mixed_macro_f1": 0.49704946617890655,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/03_pgd_provided/best_epoch009.pt",
+      "kind": "training_export",
+      "run": "pgd_provided",
+      "role": "best",
+      "epoch": 9,
+      "architecture": "provided",
+      "source_path": "runs/pgd_provided/best.pt",
+      "source_sha256": "9936a238ca7285dd881fba3b589431d4741d4230f13928a3a11a123046954ebf",
+      "sha256": "14258645c882c773f26e441636f6faa95bd303a1da3005758be657427aa97516",
+      "bytes": 4731171,
+      "state_sha256": "8ca6238da12ed3aa8de6b2fdb7f743da78daeb1721819d812b9bf4b544c304f1",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.7854924233447773,
+        "own_pgd10_macro_f1": 0.3091380758443053,
+        "own_pgd10_mixed_macro_f1": 0.5554126824452194,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/03_pgd_provided/last_epoch010.pt",
+      "kind": "training_export",
+      "run": "pgd_provided",
+      "role": "last",
+      "epoch": 10,
+      "architecture": "provided",
+      "source_path": "runs/pgd_provided/last.pt",
+      "source_sha256": "2564ed0e72b9a52b0f526ec72d590ec18b7656a66db4343b9c93f4e558a19b0b",
+      "sha256": "17312d49d5b9359e884635fa1ca28f3314bdbda9b19f9c5ac601cd17fceba70c",
+      "bytes": 4731171,
+      "state_sha256": "c43dc28d5b5d74e1ea78c2620e5d3709051cd0e1680cb3fea82f590520836d02",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.7873790930158077,
+        "own_pgd10_macro_f1": 0.30999381221238076,
+        "own_pgd10_mixed_macro_f1": 0.5549261621906376,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/04_pgd_random_short/best_epoch010.pt",
+      "kind": "training_export",
+      "run": "pgd_random_short",
+      "role": "best",
+      "epoch": 10,
+      "architecture": "provided",
+      "source_path": "runs/pgd_random_short/best.pt",
+      "source_sha256": "2a78c9712f2b3640ab8391f081085dcf7a9e79eb550b7c439fcdcc1e1dd6bfa4",
+      "sha256": "9f632f4917d010dd1776634f61acbdb86739ab7f4d56243bbf45c4456e44ac07",
+      "bytes": 4730915,
+      "state_sha256": "d912c254d97386bd51c5af70ff1d02afbf17b9cef8d081b5db5ed2e0aadf58ce",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.6440396235041554,
+        "own_pgd10_macro_f1": 0.33520454024941443,
+        "own_pgd10_mixed_macro_f1": 0.4971893522460265,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/04_pgd_random_short/last_epoch010.pt",
+      "kind": "training_export",
+      "run": "pgd_random_short",
+      "role": "last",
+      "epoch": 10,
+      "architecture": "provided",
+      "source_path": "runs/pgd_random_short/last.pt",
+      "source_sha256": "38c83bdfdda1afc49d16e20d22720bda5cb256c65293290339e018400d5a0b63",
+      "sha256": "c306c3e081ec2d26e742859756096f87d6eab68df18ed93c3c740838a19f211a",
+      "bytes": 4730915,
+      "state_sha256": "d912c254d97386bd51c5af70ff1d02afbf17b9cef8d081b5db5ed2e0aadf58ce",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.6440396235041554,
+        "own_pgd10_macro_f1": 0.33520454024941443,
+        "own_pgd10_mixed_macro_f1": 0.4971893522460265,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/05_pgd_augmented/best_epoch039.pt",
+      "kind": "training_export",
+      "run": "pgd_augmented",
+      "role": "best",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/pgd_augmented/best.pt",
+      "source_sha256": "2e11528df3e8ccef8c153ce86b55022b2ce4f14a4d9f81f0ce96c4082a98e451",
+      "sha256": "982c1fea193e9ead1ae5d6a8b0ae2917c6b85c9b938eea5ddfea6a6931b7fe51",
+      "bytes": 4730915,
+      "state_sha256": "91df0de87c5921d6ec0ce7cefb00327a4f01d302b7a5852c0c6c7c7d70cc7d52",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8626394443879033,
+        "own_pgd10_macro_f1": 0.3561947768585281,
+        "own_pgd10_mixed_macro_f1": 0.6193334933421527,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/05_pgd_augmented/last_epoch040.pt",
+      "kind": "training_export",
+      "run": "pgd_augmented",
+      "role": "last",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/pgd_augmented/last.pt",
+      "source_sha256": "b7f5817461569dba327e14c3234517fd89fa6db5328327c00aa04ab3c17be2c0",
+      "sha256": "867e43d4b22229a9bd30f15b297559b99ef9de9bb7b71cc0350af655c745d9c2",
+      "bytes": 4730915,
+      "state_sha256": "8e2923b39b5df1fdbbfae5b2ea05084bb0156b142aab6bc4ee74a2a7e5e0936e",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8599282303458928,
+        "own_pgd10_macro_f1": 0.3561086196499514,
+        "own_pgd10_mixed_macro_f1": 0.6172124617708147,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/06_pgd_random_converged/best_epoch050.pt",
+      "kind": "training_export",
+      "run": "pgd_random_converged",
+      "role": "best",
+      "epoch": 50,
+      "architecture": "provided",
+      "source_path": "runs/pgd_random_converged/best.pt",
+      "source_sha256": "ecaedefefbd35d48c9115981dc72f767b25e48bd2a24ba33573ff60c5a8db6d2",
+      "sha256": "aa7f17831bee063eafe15008c4993c009fe7c6f2bd04e57735a7ff8fccedc2ab",
+      "bytes": 4730979,
+      "state_sha256": "cfe04a0932e09f03fecb07bd0a9d2375269206c80d800fbeb8e64a7bc81b5d9a",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.7968800030888226,
+        "own_pgd10_macro_f1": 0.4587736560048019,
+        "own_pgd10_mixed_macro_f1": 0.636961573380807,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/06_pgd_random_converged/last_epoch050.pt",
+      "kind": "training_export",
+      "run": "pgd_random_converged",
+      "role": "last",
+      "epoch": 50,
+      "architecture": "provided",
+      "source_path": "runs/pgd_random_converged/last.pt",
+      "source_sha256": "75b3e00392e63ff64f338ac079531dccddc27a2541885c8a583d90b689a5e7ef",
+      "sha256": "4a14df14a10525265680e24852c1aaacaa380dab466bcb8e1fd4f982a24ef87c",
+      "bytes": 4730979,
+      "state_sha256": "cfe04a0932e09f03fecb07bd0a9d2375269206c80d800fbeb8e64a7bc81b5d9a",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.7968800030888226,
+        "own_pgd10_macro_f1": 0.4587736560048019,
+        "own_pgd10_mixed_macro_f1": 0.636961573380807,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/07_improve_trades_beta03/best_epoch003.pt",
+      "kind": "training_export",
+      "run": "improve_trades_beta03",
+      "role": "best",
+      "epoch": 3,
+      "architecture": "provided",
+      "source_path": "runs/improve_trades_beta03/best.pt",
+      "source_sha256": "3ada07524356da50290960b9b85849970ffe5821812e017064342fe352637048",
+      "sha256": "f25f6af9bcce3d6a144186f02184735d177a4eb893e97a4e91a9c8270956c83a",
+      "bytes": 4732707,
+      "state_sha256": "dd08b30a1b9e6c9dec2379c426952826a929b4702a7cfd1e01a78f20d0913265",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8863432785667449,
+        "own_pgd10_macro_f1": 0.015232119744723781,
+        "own_pgd10_mixed_macro_f1": 0.4560782859499003,
+        "criterion": {
+          "eligible": true,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.8863432785667449,
+          "worst_source_mixed_macro_f1": 0.5311791296205906,
+          "own_pgd10_mixed_macro_f1": 0.4560782859499003,
+          "rank": [
+            1,
+            0.5311791296205906,
+            0.8863432785667449
+          ],
+          "epoch": 3
+        }
+      }
+    },
+    {
+      "path": "models/training/07_improve_trades_beta03/last_epoch040.pt",
+      "kind": "training_export",
+      "run": "improve_trades_beta03",
+      "role": "last",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/improve_trades_beta03/last.pt",
+      "source_sha256": "53ebc39af703a7b20b0e40d8145def03b790ec41cdbb386370b2511172b3ec80",
+      "sha256": "c85a852e0f7b789daec19bf81508475c92ee05522585671703fa279c3d8cadb0",
+      "bytes": 4732707,
+      "state_sha256": "fa60b1c82bab318681705b10d2da7bc789e5e3a5ff74d5371500a77a7ed53f88",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.7709779798619056,
+        "own_pgd10_macro_f1": 0.09689233944347213,
+        "own_pgd10_mixed_macro_f1": 0.4486493684054813,
+        "criterion": {
+          "eligible": false,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.7709779798619056,
+          "worst_source_mixed_macro_f1": 0.6686057872221369,
+          "own_pgd10_mixed_macro_f1": 0.4486493684054813,
+          "rank": [
+            0,
+            0.6686057872221369,
+            0.7709779798619056
+          ],
+          "epoch": 40
+        }
+      }
+    },
+    {
+      "path": "models/training/08_improve_trades_beta1/best_epoch039.pt",
+      "kind": "training_export",
+      "run": "improve_trades_beta1",
+      "role": "best",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/improve_trades_beta1/best.pt",
+      "source_sha256": "7c968fae5f380921b9cd6bac4e9a0cda9ad0426e732d56e72917885bf6540bb8",
+      "sha256": "a6f30d704069acb47cb7a054922f2e52349750954d388e97968b4d892b443f2f",
+      "bytes": 4732707,
+      "state_sha256": "ca20dc3948161ba338b30442f7fa6525674b0f5397a8fc4f773d96e21861fefe",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8354958643371931,
+        "own_pgd10_macro_f1": 0.3983902595772188,
+        "own_pgd10_mixed_macro_f1": 0.623991677781464,
+        "criterion": {
+          "eligible": false,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.8354958643371931,
+          "worst_source_mixed_macro_f1": 0.8193896125603926,
+          "own_pgd10_mixed_macro_f1": 0.623991677781464,
+          "rank": [
+            0,
+            0.8193896125603926,
+            0.8354958643371931
+          ],
+          "epoch": 39
+        }
+      }
+    },
+    {
+      "path": "models/training/08_improve_trades_beta1/last_epoch040.pt",
+      "kind": "training_export",
+      "run": "improve_trades_beta1",
+      "role": "last",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/improve_trades_beta1/last.pt",
+      "source_sha256": "2f48b17d58a8356d3a7e8b8bb95982852f0e3efeb7b08c7f893f0fbc9b811ae0",
+      "sha256": "224e7a404a7758a73d1358675a5977dc7d4d2e355665449155f687b05cee7de2",
+      "bytes": 4732707,
+      "state_sha256": "89b18220b3383c02e2dc5de602cfcdf29df1132494fe27f417b5b575a1862ab2",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8397798038608913,
+        "own_pgd10_macro_f1": 0.3976685428996856,
+        "own_pgd10_mixed_macro_f1": 0.6251044398500096,
+        "criterion": {
+          "eligible": false,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.8397798038608913,
+          "worst_source_mixed_macro_f1": 0.815731958722397,
+          "own_pgd10_mixed_macro_f1": 0.6251044398500096,
+          "rank": [
+            0,
+            0.815731958722397,
+            0.8397798038608913
+          ],
+          "epoch": 40
+        }
+      }
+    },
+    {
+      "path": "models/training/09_improve_hybrid/best_epoch037.pt",
+      "kind": "training_export",
+      "run": "improve_hybrid",
+      "role": "best",
+      "epoch": 37,
+      "architecture": "provided",
+      "source_path": "runs/improve_hybrid/best.pt",
+      "source_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+      "sha256": "2ab2de77f97fca2abb44fa3cdb99b2c3d8793def9b9c05add797da8306067029",
+      "bytes": 4732707,
+      "state_sha256": "d67f69acb4e6f668167a738f5fb493ef4da98e864c09bcf871f88364f3d5d48d",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8746923409996501,
+        "own_pgd10_macro_f1": 0.27757202816299753,
+        "own_pgd10_mixed_macro_f1": 0.5882013623418894,
+        "criterion": {
+          "eligible": true,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.8746923409996501,
+          "worst_source_mixed_macro_f1": 0.8502924204837139,
+          "own_pgd10_mixed_macro_f1": 0.5882013623418894,
+          "rank": [
+            1,
+            0.8502924204837139,
+            0.8746923409996501
+          ],
+          "epoch": 37
+        }
+      }
+    },
+    {
+      "path": "models/training/09_improve_hybrid/last_epoch040.pt",
+      "kind": "training_export",
+      "run": "improve_hybrid",
+      "role": "last",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/improve_hybrid/last.pt",
+      "source_sha256": "23d3082af529732308ad8d1da1edd2cf3d969ea22480a8e35eaa575e8db8732d",
+      "sha256": "bcdae5ca8ba89298e4d5cded6714f918681fee244b773beb8e6a4f7a927e3120",
+      "bytes": 4732707,
+      "state_sha256": "0fb41fb4420317e94296f0705c9ab63b671bdc507e0ef7d6f90d376028ec7423",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8779677679810935,
+        "own_pgd10_macro_f1": 0.27706744592580596,
+        "own_pgd10_mixed_macro_f1": 0.5871667706386393,
+        "criterion": {
+          "eligible": true,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.8779677679810935,
+          "worst_source_mixed_macro_f1": 0.8448732029416203,
+          "own_pgd10_mixed_macro_f1": 0.5871667706386393,
+          "rank": [
+            1,
+            0.8448732029416203,
+            0.8779677679810935
+          ],
+          "epoch": 40
+        }
+      }
+    },
+    {
+      "path": "models/training/10_public85_hybrid_fullrefit/last_epoch037.pt",
+      "kind": "training_export",
+      "run": "public85_hybrid_fullrefit",
+      "role": "last",
+      "epoch": 37,
+      "architecture": "provided",
+      "source_path": "runs/public85_hybrid_fullrefit/last.pt",
+      "source_sha256": "34040aaa550b047e0e452bc329f506764f5d263510b9648045535624963067d9",
+      "sha256": "caa0ade5b13f9ca30ee29674ba2e2d10b123dc4ce709d891d1cdb207251477f2",
+      "bytes": 4731363,
+      "state_sha256": "9349e24ddb54cbbe7a13639b8a6c64613f866ecb60b47553ee956b314eeab441",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": null,
+        "own_pgd10_macro_f1": null,
+        "own_pgd10_mixed_macro_f1": null,
+        "criterion": null
+      }
+    },
+    {
+      "path": "models/training/11_public85_residual_source/best_epoch069.pt",
+      "kind": "training_export",
+      "run": "public85_residual_source",
+      "role": "best",
+      "epoch": 69,
+      "architecture": "small_resnet18",
+      "source_path": "runs/public85_residual_source/best.pt",
+      "source_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+      "sha256": "be910c520a91cc8e9cc8b1258d4d19f2a5a012acb6fccdeff8a914b685cd3924",
+      "bytes": 11256147,
+      "state_sha256": "28e76da5ddeea9bb3f09ea15283eb7a007a32bf1b09b0c97d4aa59fdbb0009eb",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8471981512653715,
+        "own_pgd10_macro_f1": null,
+        "own_pgd10_mixed_macro_f1": null,
+        "criterion": {
+          "eligible": false,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.8471981512653715,
+          "worst_source_mixed_macro_f1": 0.8342094787811167,
+          "own_pgd10_mixed_macro_f1": null,
+          "rank": [
+            0,
+            0.8342094787811167,
+            0.8471981512653715
+          ],
+          "epoch": 69
+        }
+      }
+    },
+    {
+      "path": "models/training/11_public85_residual_source/last_epoch080.pt",
+      "kind": "training_export",
+      "run": "public85_residual_source",
+      "role": "last",
+      "epoch": 80,
+      "architecture": "small_resnet18",
+      "source_path": "runs/public85_residual_source/last.pt",
+      "source_sha256": "bf9d57c8e546d92065b3534bb2e0e48434386f5c8c14d4787a7469dd41304115",
+      "sha256": "02bd39d63d1c91eec2ffd34d63f8246a3458e890764982a9041247ac18ae0c81",
+      "bytes": 11256147,
+      "state_sha256": "1433fd99aef76854228bba965de9913ad9b3447854c0720f6526b7410893f006",
+      "checkpoint_epoch_validation": {
+        "clean_macro_f1": 0.8445472968915709,
+        "own_pgd10_macro_f1": null,
+        "own_pgd10_mixed_macro_f1": null,
+        "criterion": {
+          "eligible": false,
+          "clean_floor": 0.857639,
+          "clean_macro_f1": 0.8445472968915709,
+          "worst_source_mixed_macro_f1": 0.8325527233096922,
+          "own_pgd10_mixed_macro_f1": null,
+          "rank": [
+            0,
+            0.8325527233096922,
+            0.8445472968915709
+          ],
+          "epoch": 80
+        }
+      }
+    },
+    {
+      "path": "models/deployed/pgd_augmented.pt",
+      "kind": "historical_inference_artifact",
+      "run": "pgd_augmented",
+      "role": "best",
+      "epoch": 39,
+      "architecture": "provided",
+      "description": "40 轮增强 PGD 的第 39 轮最佳模型",
+      "source_path": "checkpoints/pgd_augmented.pt",
+      "source_sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "bytes": 4730979,
+      "state_sha256": "91df0de87c5921d6ec0ce7cefb00327a4f01d302b7a5852c0c6c7c7d70cc7d52",
+      "same_weights_as": "models/training/05_pgd_augmented/best_epoch039.pt",
+      "repository_evidence": "docs/results/final_artifacts.json",
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/deployed/pgd_random_converged.pt",
+      "kind": "historical_inference_artifact",
+      "run": "pgd_random_converged",
+      "role": "best",
+      "epoch": 50,
+      "architecture": "provided",
+      "description": "50 轮随机 PGD 的第 50 轮最佳模型",
+      "source_path": "checkpoints/pgd_random_converged.pt",
+      "source_sha256": "e29f8e2ec6a85a6e6fb768dc886a71e2579aec46f36fd951521d9aa114955792",
+      "sha256": "e29f8e2ec6a85a6e6fb768dc886a71e2579aec46f36fd951521d9aa114955792",
+      "bytes": 4731449,
+      "state_sha256": "cfe04a0932e09f03fecb07bd0a9d2375269206c80d800fbeb8e64a7bc81b5d9a",
+      "same_weights_as": "models/training/06_pgd_random_converged/best_epoch050.pt",
+      "repository_evidence": "docs/results/final_artifacts.json",
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/deployed/public85_hybrid_full37.pt",
+      "kind": "historical_inference_artifact",
+      "run": "public85_hybrid_fullrefit",
+      "role": "last",
+      "epoch": 37,
+      "architecture": "provided",
+      "description": "全数据 Hybrid 第 37 轮，最终集成成员",
+      "source_path": "checkpoints/public85_hybrid_full37.pt",
+      "source_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+      "sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+      "bytes": 4732845,
+      "state_sha256": "9349e24ddb54cbbe7a13639b8a6c64613f866ecb60b47553ee956b314eeab441",
+      "same_weights_as": "models/training/10_public85_hybrid_fullrefit/last_epoch037.pt",
+      "repository_evidence": "docs/results/public85/candidate1_manifest.json",
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/deployed/public85_residual_source.pt",
+      "kind": "historical_inference_artifact",
+      "run": "public85_residual_source",
+      "role": "best",
+      "epoch": 69,
+      "architecture": "small_resnet18",
+      "description": "Residual 第 69 轮，最终集成成员",
+      "source_path": "checkpoints/public85_residual_source.pt",
+      "source_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+      "sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+      "bytes": 11258409,
+      "state_sha256": "28e76da5ddeea9bb3f09ea15283eb7a007a32bf1b09b0c97d4aa59fdbb0009eb",
+      "same_weights_as": "models/training/11_public85_residual_source/best_epoch069.pt",
+      "repository_evidence": "docs/results/public85/candidate2_manifest.json",
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/checkpoints__pgd_augmented__bn_clean.pt",
+      "kind": "bn_recalibration",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/checkpoints__pgd_augmented__bn_clean.pt",
+      "source_sha256": "e7fc1feb1dd6cb62c0283f5213ebc1ff8cbbf43bcd475f33ddd6b747210da870",
+      "sha256": "e7fc1feb1dd6cb62c0283f5213ebc1ff8cbbf43bcd475f33ddd6b747210da870",
+      "bytes": 4732441,
+      "state_sha256": "b1c3a5d5a13908810fcacc843b8a3e70249d5c63882c639e03d77066911d4889",
+      "base_checkpoint": "checkpoints/pgd_augmented.pt",
+      "base_checkpoint_sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "calibration_method": "clean",
+      "calibration_records": 7575,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8622427988589738,
+        "worst_source_mixed_macro_f1": 0.8371758526962149,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8371758526962149,
+          0.8622427988589738
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/checkpoints__pgd_augmented__bn_mixed_fgsm.pt",
+      "kind": "bn_recalibration",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/checkpoints__pgd_augmented__bn_mixed_fgsm.pt",
+      "source_sha256": "61d91d1198b922cdde7cffa7ccad73fca1bd5522e2ec90011c46c35eee2e4668",
+      "sha256": "61d91d1198b922cdde7cffa7ccad73fca1bd5522e2ec90011c46c35eee2e4668",
+      "bytes": 4733563,
+      "state_sha256": "405cd8280f8a5129918283f7025dfc45213bb5c67a75d7b9a1f582e0bbfc9a02",
+      "base_checkpoint": "checkpoints/pgd_augmented.pt",
+      "base_checkpoint_sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "calibration_method": "mixed_fgsm",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8607379835574432,
+        "worst_source_mixed_macro_f1": 0.8365559228431019,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8365559228431019,
+          0.8607379835574432
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/checkpoints__pgd_augmented__bn_mixed_pgd10.pt",
+      "kind": "bn_recalibration",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/checkpoints__pgd_augmented__bn_mixed_pgd10.pt",
+      "source_sha256": "2a8657b92e9969550f11fd7d161b30ec498cf86e1a6cf34d72ca5ed312a43204",
+      "sha256": "2a8657b92e9969550f11fd7d161b30ec498cf86e1a6cf34d72ca5ed312a43204",
+      "bytes": 4733685,
+      "state_sha256": "63c8ec5f7f5c52bf23a60f6fe31033a508efdeb74a0012e913e56e5f26fab5d4",
+      "base_checkpoint": "checkpoints/pgd_augmented.pt",
+      "base_checkpoint_sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "calibration_method": "mixed_pgd10",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8622171936920399,
+        "worst_source_mixed_macro_f1": 0.8374833409273424,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8374833409273424,
+          0.8622171936920399
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__best__bn_clean.pt",
+      "kind": "bn_recalibration",
+      "epoch": 37,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_hybrid__best__bn_clean.pt",
+      "source_sha256": "e03f1c704a18eae1a238d8a0209fcd6ce7e7627b37cbeaec49181d3707ca1ef7",
+      "sha256": "e03f1c704a18eae1a238d8a0209fcd6ce7e7627b37cbeaec49181d3707ca1ef7",
+      "bytes": 4734141,
+      "state_sha256": "885c6c14f472f5555ce25ce6fd8962bab495ea9daaf19e68db14f2d73f3c5d99",
+      "base_checkpoint": "runs/improve_hybrid/best.pt",
+      "base_checkpoint_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+      "calibration_method": "clean",
+      "calibration_records": 7575,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8808901555057508,
+        "worst_source_mixed_macro_f1": 0.8514110300694802,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8514110300694802,
+          0.8808901555057508
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__best__bn_mixed_fgsm.pt",
+      "kind": "bn_recalibration",
+      "epoch": 37,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_hybrid__best__bn_mixed_fgsm.pt",
+      "source_sha256": "277030b6fcee77ba0ec4b8f7ed9960e3b7fda25cd3bdfc90e7c4de6e35716742",
+      "sha256": "277030b6fcee77ba0ec4b8f7ed9960e3b7fda25cd3bdfc90e7c4de6e35716742",
+      "bytes": 4735327,
+      "state_sha256": "6e8ce4cc1877f2a547d2f5905cb441a368eab5d30fd22e5fdc084d3f07c54b7e",
+      "base_checkpoint": "runs/improve_hybrid/best.pt",
+      "base_checkpoint_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+      "calibration_method": "mixed_fgsm",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8802223343133736,
+        "worst_source_mixed_macro_f1": 0.8495181981934372,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8495181981934372,
+          0.8802223343133736
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__best__bn_mixed_pgd10.pt",
+      "kind": "bn_recalibration",
+      "epoch": 37,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_hybrid__best__bn_mixed_pgd10.pt",
+      "source_sha256": "1b7cb889e5d6b9fe6a976799f34f0ca7486e0e7dab6b311de908d21a94ae25bf",
+      "sha256": "1b7cb889e5d6b9fe6a976799f34f0ca7486e0e7dab6b311de908d21a94ae25bf",
+      "bytes": 4735449,
+      "state_sha256": "51789545607b3608b51d4cad3331fd9e692ebcdeed12246155b07ef085d7688a",
+      "base_checkpoint": "runs/improve_hybrid/best.pt",
+      "base_checkpoint_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+      "calibration_method": "mixed_pgd10",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8796802184876122,
+        "worst_source_mixed_macro_f1": 0.8495349762284576,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8495349762284576,
+          0.8796802184876122
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__last__bn_clean.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_hybrid__last__bn_clean.pt",
+      "source_sha256": "eebc36a8216aaa8aac026841ab2d6121793feb852330be4eb14218b296b56506",
+      "sha256": "eebc36a8216aaa8aac026841ab2d6121793feb852330be4eb14218b296b56506",
+      "bytes": 4734141,
+      "state_sha256": "97e9e605334612a44cde05bc85ab5fa30dc7b32bd1718736ff4901272a44dc5d",
+      "base_checkpoint": "runs/improve_hybrid/last.pt",
+      "base_checkpoint_sha256": "23d3082af529732308ad8d1da1edd2cf3d969ea22480a8e35eaa575e8db8732d",
+      "calibration_method": "clean",
+      "calibration_records": 7575,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8813946216647442,
+        "worst_source_mixed_macro_f1": 0.8514408567503958,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8514408567503958,
+          0.8813946216647442
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__last__bn_mixed_fgsm.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_hybrid__last__bn_mixed_fgsm.pt",
+      "source_sha256": "1dadf66c6a1daba71a730f9fcaf80d897cebe667e2af881dc706b191fb0198a8",
+      "sha256": "1dadf66c6a1daba71a730f9fcaf80d897cebe667e2af881dc706b191fb0198a8",
+      "bytes": 4735327,
+      "state_sha256": "2953bf921b90a68c7db222fb22efa2674a52206177e3e3e8032870b47f4f3a43",
+      "base_checkpoint": "runs/improve_hybrid/last.pt",
+      "base_checkpoint_sha256": "23d3082af529732308ad8d1da1edd2cf3d969ea22480a8e35eaa575e8db8732d",
+      "calibration_method": "mixed_fgsm",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8802645987784723,
+        "worst_source_mixed_macro_f1": 0.8512580272825593,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8512580272825593,
+          0.8802645987784723
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__last__bn_mixed_pgd10.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_hybrid__last__bn_mixed_pgd10.pt",
+      "source_sha256": "743abf538d25840d11048e3f2e4a3f0124948336175b5ae6c30085a2f465a379",
+      "sha256": "743abf538d25840d11048e3f2e4a3f0124948336175b5ae6c30085a2f465a379",
+      "bytes": 4735449,
+      "state_sha256": "65db7e8c69b9810ab8a186ded9321e6308a277647107198208b18bf9c232801e",
+      "base_checkpoint": "runs/improve_hybrid/last.pt",
+      "base_checkpoint_sha256": "23d3082af529732308ad8d1da1edd2cf3d969ea22480a8e35eaa575e8db8732d",
+      "calibration_method": "mixed_pgd10",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8796397699975304,
+        "worst_source_mixed_macro_f1": 0.8478727613067866,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.8478727613067866,
+          0.8796397699975304
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__best__bn_clean.pt",
+      "kind": "bn_recalibration",
+      "epoch": 3,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta03__best__bn_clean.pt",
+      "source_sha256": "51c8d0bce5bf1c121f063c9674208d0a9886a91280d4d1a319c56c467f290d1c",
+      "sha256": "51c8d0bce5bf1c121f063c9674208d0a9886a91280d4d1a319c56c467f290d1c",
+      "bytes": 4734611,
+      "state_sha256": "b15e8eca446c1ae2396df2b2b6492d784e9f27d3ab96f203fc63bce9ab23850f",
+      "base_checkpoint": "runs/improve_trades_beta03/best.pt",
+      "base_checkpoint_sha256": "3ada07524356da50290960b9b85849970ffe5821812e017064342fe352637048",
+      "calibration_method": "clean",
+      "calibration_records": 7575,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.9718408322508723,
+        "worst_source_mixed_macro_f1": 0.5294044355800857,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.5294044355800857,
+          0.9718408322508723
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__best__bn_mixed_fgsm.pt",
+      "kind": "bn_recalibration",
+      "epoch": 3,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta03__best__bn_mixed_fgsm.pt",
+      "source_sha256": "2afe50a98e57ee8b09b2273d8bf4853193d4de8de9e8cad05ccfc0ea7c9b28c2",
+      "sha256": "2afe50a98e57ee8b09b2273d8bf4853193d4de8de9e8cad05ccfc0ea7c9b28c2",
+      "bytes": 4735733,
+      "state_sha256": "9b9e4ca5f13646c1fbd2bac5a1a864a2905e898d1cf9c7287b1724fc448ca48d",
+      "base_checkpoint": "runs/improve_trades_beta03/best.pt",
+      "base_checkpoint_sha256": "3ada07524356da50290960b9b85849970ffe5821812e017064342fe352637048",
+      "calibration_method": "mixed_fgsm",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.9469583690685874,
+        "worst_source_mixed_macro_f1": 0.5498529927324766,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.5498529927324766,
+          0.9469583690685874
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__best__bn_mixed_pgd10.pt",
+      "kind": "bn_recalibration",
+      "epoch": 3,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta03__best__bn_mixed_pgd10.pt",
+      "source_sha256": "93b867b00614b5961a958714be0dfe8ef9f6564ceed6df42f886358cba35084c",
+      "sha256": "93b867b00614b5961a958714be0dfe8ef9f6564ceed6df42f886358cba35084c",
+      "bytes": 4735855,
+      "state_sha256": "0c9b220bd9a1cbe443462c036b52e1589a19e68de74557320ce055aed8d2f514",
+      "base_checkpoint": "runs/improve_trades_beta03/best.pt",
+      "base_checkpoint_sha256": "3ada07524356da50290960b9b85849970ffe5821812e017064342fe352637048",
+      "calibration_method": "mixed_pgd10",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.9485330441977927,
+        "worst_source_mixed_macro_f1": 0.5410959458268663,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.5410959458268663,
+          0.9485330441977927
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__last__bn_clean.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta03__last__bn_clean.pt",
+      "source_sha256": "c35f381cf824b77f7a3a46d22d2c8f87f8eca4489004c48c47aab93298976a2e",
+      "sha256": "c35f381cf824b77f7a3a46d22d2c8f87f8eca4489004c48c47aab93298976a2e",
+      "bytes": 4734611,
+      "state_sha256": "fe64e35e3e26ddf767d48d0d590d9fb036ae4e843c2681d423d4a3bfcbac8396",
+      "base_checkpoint": "runs/improve_trades_beta03/last.pt",
+      "base_checkpoint_sha256": "53ebc39af703a7b20b0e40d8145def03b790ec41cdbb386370b2511172b3ec80",
+      "calibration_method": "clean",
+      "calibration_records": 7575,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.9480221731367479,
+        "worst_source_mixed_macro_f1": 0.7087644731791276,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.7087644731791276,
+          0.9480221731367479
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__last__bn_mixed_fgsm.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta03__last__bn_mixed_fgsm.pt",
+      "source_sha256": "2f44d7e946a371a44821dc348b2104850ab7e40bf553bf56002000b03892ae4d",
+      "sha256": "2f44d7e946a371a44821dc348b2104850ab7e40bf553bf56002000b03892ae4d",
+      "bytes": 4735733,
+      "state_sha256": "22f7f6984c9a0305d0bfdef08fca30aa1226a416f47771da8a822581ad0052a3",
+      "base_checkpoint": "runs/improve_trades_beta03/last.pt",
+      "base_checkpoint_sha256": "53ebc39af703a7b20b0e40d8145def03b790ec41cdbb386370b2511172b3ec80",
+      "calibration_method": "mixed_fgsm",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.87501722542713,
+        "worst_source_mixed_macro_f1": 0.7342633697953772,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.7342633697953772,
+          0.87501722542713
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__last__bn_mixed_pgd10.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta03__last__bn_mixed_pgd10.pt",
+      "source_sha256": "9e41a521ed2d0f5025a8ffe6cf76d392b24aeebf3a353e0e22ea7d2b4a4093af",
+      "sha256": "9e41a521ed2d0f5025a8ffe6cf76d392b24aeebf3a353e0e22ea7d2b4a4093af",
+      "bytes": 4735855,
+      "state_sha256": "c4b92ee17745b555e40b99dab8000f79d68bc698e5ad938f542513fd0182bd39",
+      "base_checkpoint": "runs/improve_trades_beta03/last.pt",
+      "base_checkpoint_sha256": "53ebc39af703a7b20b0e40d8145def03b790ec41cdbb386370b2511172b3ec80",
+      "calibration_method": "mixed_pgd10",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": true,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.9191777089041093,
+        "worst_source_mixed_macro_f1": 0.7361279815048414,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          1,
+          0.7361279815048414,
+          0.9191777089041093
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__best__bn_clean.pt",
+      "kind": "bn_recalibration",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta1__best__bn_clean.pt",
+      "source_sha256": "b17c8c9289c50c3f7eb923352b0bde898e067aef2b2abbb964e74d09f2e24816",
+      "sha256": "b17c8c9289c50c3f7eb923352b0bde898e067aef2b2abbb964e74d09f2e24816",
+      "bytes": 4734553,
+      "state_sha256": "764c25481d18bd6fd80954b1d34fd27f884ac2781bcf004f8b8887791efbcaa7",
+      "base_checkpoint": "runs/improve_trades_beta1/best.pt",
+      "base_checkpoint_sha256": "7c968fae5f380921b9cd6bac4e9a0cda9ad0426e732d56e72917885bf6540bb8",
+      "calibration_method": "clean",
+      "calibration_records": 7575,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8417709858701954,
+        "worst_source_mixed_macro_f1": 0.818779054849293,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          0,
+          0.818779054849293,
+          0.8417709858701954
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__best__bn_mixed_fgsm.pt",
+      "kind": "bn_recalibration",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta1__best__bn_mixed_fgsm.pt",
+      "source_sha256": "732666b5a764c75af6240617d1fb39b5183a361e413387e862282ab7a537a867",
+      "sha256": "732666b5a764c75af6240617d1fb39b5183a361e413387e862282ab7a537a867",
+      "bytes": 4735675,
+      "state_sha256": "9c90d0e077f2095a55726abfd7cf0f6e6d598dd8a6f2578c1f3faca6d4c6f05e",
+      "base_checkpoint": "runs/improve_trades_beta1/best.pt",
+      "base_checkpoint_sha256": "7c968fae5f380921b9cd6bac4e9a0cda9ad0426e732d56e72917885bf6540bb8",
+      "calibration_method": "mixed_fgsm",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8394694182440634,
+        "worst_source_mixed_macro_f1": 0.8182579335202155,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          0,
+          0.8182579335202155,
+          0.8394694182440634
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__best__bn_mixed_pgd10.pt",
+      "kind": "bn_recalibration",
+      "epoch": 39,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta1__best__bn_mixed_pgd10.pt",
+      "source_sha256": "8698eda71e80374c1be1ccbf61cb15e3f11b5bde73fd9a0cae68a07d4c312f55",
+      "sha256": "8698eda71e80374c1be1ccbf61cb15e3f11b5bde73fd9a0cae68a07d4c312f55",
+      "bytes": 4735797,
+      "state_sha256": "201d14914665c81b57ede17472e6ddcc384b2b9ebe9d3e22c47b8f4049150d27",
+      "base_checkpoint": "runs/improve_trades_beta1/best.pt",
+      "base_checkpoint_sha256": "7c968fae5f380921b9cd6bac4e9a0cda9ad0426e732d56e72917885bf6540bb8",
+      "calibration_method": "mixed_pgd10",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8399283725468687,
+        "worst_source_mixed_macro_f1": 0.8188311893392548,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          0,
+          0.8188311893392548,
+          0.8399283725468687
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__last__bn_clean.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta1__last__bn_clean.pt",
+      "source_sha256": "db62a5f24cd4800ae09e8157569830a44b7ca1e677d7260dbbcf73abf525234e",
+      "sha256": "db62a5f24cd4800ae09e8157569830a44b7ca1e677d7260dbbcf73abf525234e",
+      "bytes": 4734553,
+      "state_sha256": "454881967c6f02e109b4c5726c1ad69f2d2009db307b75ce0feb2e54dc8130e1",
+      "base_checkpoint": "runs/improve_trades_beta1/last.pt",
+      "base_checkpoint_sha256": "2f48b17d58a8356d3a7e8b8bb95982852f0e3efeb7b08c7f893f0fbc9b811ae0",
+      "calibration_method": "clean",
+      "calibration_records": 7575,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8423510131606049,
+        "worst_source_mixed_macro_f1": 0.8182134871690877,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          0,
+          0.8182134871690877,
+          0.8423510131606049
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__last__bn_mixed_fgsm.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta1__last__bn_mixed_fgsm.pt",
+      "source_sha256": "ccb8503477fce2fc8bfa375f520f035080f4560738aa5496414b81583ef4adb2",
+      "sha256": "ccb8503477fce2fc8bfa375f520f035080f4560738aa5496414b81583ef4adb2",
+      "bytes": 4735675,
+      "state_sha256": "4510a13e7a143cf2ca5c33557805cc47207862b73040211b93fef013c6611560",
+      "base_checkpoint": "runs/improve_trades_beta1/last.pt",
+      "base_checkpoint_sha256": "2f48b17d58a8356d3a7e8b8bb95982852f0e3efeb7b08c7f893f0fbc9b811ae0",
+      "calibration_method": "mixed_fgsm",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8394694182440634,
+        "worst_source_mixed_macro_f1": 0.8182579335202155,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          0,
+          0.8182579335202155,
+          0.8394694182440634
+        ]
+      },
+      "copy_is_byte_identical": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__last__bn_mixed_pgd10.pt",
+      "kind": "bn_recalibration",
+      "epoch": 40,
+      "architecture": "provided",
+      "source_path": "runs/public85_bnprobe/improve_trades_beta1__last__bn_mixed_pgd10.pt",
+      "source_sha256": "0a2b67d5f4d212e973318bdb15b7791d2474083d079bacf7de2974eda3ab0285",
+      "sha256": "0a2b67d5f4d212e973318bdb15b7791d2474083d079bacf7de2974eda3ab0285",
+      "bytes": 4735797,
+      "state_sha256": "aa7d885f647d2f3a714995cc3b910234e149c599c3ac97f3b5b8abc774390f55",
+      "base_checkpoint": "runs/improve_trades_beta1/last.pt",
+      "base_checkpoint_sha256": "2f48b17d58a8356d3a7e8b8bb95982852f0e3efeb7b08c7f893f0fbc9b811ae0",
+      "calibration_method": "mixed_pgd10",
+      "calibration_records": 15150,
+      "unique_training_ids": 7575,
+      "frozen_parameters_bitwise_unchanged": true,
+      "repository_evidence": "docs/results/public85/bn_recalibration_probe.json",
+      "criterion": {
+        "eligible": false,
+        "clean_floor": 0.857639,
+        "clean_macro_f1": 0.8399283725468687,
+        "worst_source_mixed_macro_f1": 0.8188311893392548,
+        "own_pgd10_mixed_macro_f1": null,
+        "rank": [
+          0,
+          0.8188311893392548,
+          0.8399283725468687
+        ]
+      },
+      "copy_is_byte_identical": true
+    }
+  ],
+  "provided_baseline": {
+    "path": "data/dataset3/provided_model.pt",
+    "sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+    "bytes": 4727005,
+    "training_role": "course-provided initialization and attack source"
+  },
+  "final_ensemble": {
+    "members": [
+      {
+        "path": "models/deployed/public85_residual_source.pt",
+        "epoch": 69,
+        "probability_weight": 0.5
+      },
+      {
+        "path": "models/deployed/public85_hybrid_full37.pt",
+        "epoch": 37,
+        "probability_weight": 0.5
+      }
+    ],
+    "horizontal_flip": true,
+    "aggregation": "Member softmax probability average followed by identity/horizontal-flip probability average",
+    "recorded_kaggle_public_score": 0.85725,
+    "score_evidence": "docs/results/public85/kaggle_scores.json",
+    "submission_sha256": "180c2302fc163c247d5e7b2e7e36be46dfc80ccab446ecb385afd021f4b750c4"
+  },
+  "counts": {
+    "training_runs": 11,
+    "training_exports": 21,
+    "historical_inference_artifacts": 4,
+    "bn_recalibration_variants": 21,
+    "new_weight_files": 46,
+    "total_new_weight_bytes": 237299172
+  }
+}
