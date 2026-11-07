@@ -1,7 +1,7 @@
 {
   "date": "2026-11-07",
   "timezone": "Asia/Shanghai",
-  "manifest_sha256": "75680525be7cf934f0ff190df6ee107f838e88d69a9a206847dc20ee98db3749",
+  "manifest_sha256": "f59fe310ee724e6b020a298d429eff151f3260a7d0c6c74deeafe2ddb0102e59",
   "torch": "2.9.1+cu128",
   "device": "cpu",
   "training_runs": 11,
