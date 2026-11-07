@@ -1,0 +1,504 @@
+{
+  "date": "2026-11-07",
+  "timezone": "Asia/Shanghai",
+  "manifest_sha256": "f59fe310ee724e6b020a298d429eff151f3260a7d0c6c74deeafe2ddb0102e59",
+  "torch": "2.9.1+cu128",
+  "device": "cpu",
+  "training_runs": 11,
+  "weight_files_checked": 46,
+  "input_validation_ids": [
+    "1",
+    "7",
+    "8",
+    "11"
+  ],
+  "input_shape": [
+    4,
+    3,
+    64,
+    64
+  ],
+  "all_source_files_match_manifest": true,
+  "all_configuration_and_metrics_hashes_match": true,
+  "all_four_historical_inference_artifacts_match_committed_evidence": true,
+  "all_six_initial_best_checkpoint_hashes_match_committed_evidence": true,
+  "all_21_bn_variants_preserve_trainable_parameters": true,
+  "all_21_bn_variants_change_only_recorded_buffers": true,
+  "checks": [
+    {
+      "path": "models/training/01_clean_provided/best_epoch007.pt",
+      "sha256": "2d5c2b7177cd7425d264bdda832c3018c2579f2dfc412bd0653ba4a78aa008bf",
+      "source_sha256": "59769a2382fc4015453cc5d27931f2a695ffc3741d70f16ce03cd500fa3e45cc",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/01_clean_provided/last_epoch010.pt",
+      "sha256": "ebe16465c7584457b2aeb6cd6b5c4826ab5c146f54b60bf9964157ccf6c36ed7",
+      "source_sha256": "2a6f64e4231d972ea9a143726614ad52625cc9e075fa38d33eaf0fbe10c1422f",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/02_fgsm_provided/best_epoch007.pt",
+      "sha256": "8162fab16dce14acc4284de2076c58747487005330b42e99cfb3e833cf3c254b",
+      "source_sha256": "4aace5bc4eaca2bc02f1e4efc3e732b0864c8a01ebfb1ffd9e711bb3cc3300c9",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/02_fgsm_provided/last_epoch010.pt",
+      "sha256": "b6bebef605d4ae7ac248e12482594d4b091a196dee065574d6a01cee6e0ab390",
+      "source_sha256": "9d7f524733ed4e1cf42297be91d7695f810157ac83748ca3f5b2bf8959f6a559",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/03_pgd_provided/best_epoch009.pt",
+      "sha256": "14258645c882c773f26e441636f6faa95bd303a1da3005758be657427aa97516",
+      "source_sha256": "9936a238ca7285dd881fba3b589431d4741d4230f13928a3a11a123046954ebf",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/03_pgd_provided/last_epoch010.pt",
+      "sha256": "17312d49d5b9359e884635fa1ca28f3314bdbda9b19f9c5ac601cd17fceba70c",
+      "source_sha256": "2564ed0e72b9a52b0f526ec72d590ec18b7656a66db4343b9c93f4e558a19b0b",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/04_pgd_random_short/best_epoch010.pt",
+      "sha256": "9f632f4917d010dd1776634f61acbdb86739ab7f4d56243bbf45c4456e44ac07",
+      "source_sha256": "2a78c9712f2b3640ab8391f081085dcf7a9e79eb550b7c439fcdcc1e1dd6bfa4",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/04_pgd_random_short/last_epoch010.pt",
+      "sha256": "c306c3e081ec2d26e742859756096f87d6eab68df18ed93c3c740838a19f211a",
+      "source_sha256": "38c83bdfdda1afc49d16e20d22720bda5cb256c65293290339e018400d5a0b63",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/05_pgd_augmented/best_epoch039.pt",
+      "sha256": "982c1fea193e9ead1ae5d6a8b0ae2917c6b85c9b938eea5ddfea6a6931b7fe51",
+      "source_sha256": "2e11528df3e8ccef8c153ce86b55022b2ce4f14a4d9f81f0ce96c4082a98e451",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/05_pgd_augmented/last_epoch040.pt",
+      "sha256": "867e43d4b22229a9bd30f15b297559b99ef9de9bb7b71cc0350af655c745d9c2",
+      "source_sha256": "b7f5817461569dba327e14c3234517fd89fa6db5328327c00aa04ab3c17be2c0",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/06_pgd_random_converged/best_epoch050.pt",
+      "sha256": "aa7f17831bee063eafe15008c4993c009fe7c6f2bd04e57735a7ff8fccedc2ab",
+      "source_sha256": "ecaedefefbd35d48c9115981dc72f767b25e48bd2a24ba33573ff60c5a8db6d2",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/06_pgd_random_converged/last_epoch050.pt",
+      "sha256": "4a14df14a10525265680e24852c1aaacaa380dab466bcb8e1fd4f982a24ef87c",
+      "source_sha256": "75b3e00392e63ff64f338ac079531dccddc27a2541885c8a583d90b689a5e7ef",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/07_improve_trades_beta03/best_epoch003.pt",
+      "sha256": "f25f6af9bcce3d6a144186f02184735d177a4eb893e97a4e91a9c8270956c83a",
+      "source_sha256": "3ada07524356da50290960b9b85849970ffe5821812e017064342fe352637048",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/07_improve_trades_beta03/last_epoch040.pt",
+      "sha256": "c85a852e0f7b789daec19bf81508475c92ee05522585671703fa279c3d8cadb0",
+      "source_sha256": "53ebc39af703a7b20b0e40d8145def03b790ec41cdbb386370b2511172b3ec80",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/08_improve_trades_beta1/best_epoch039.pt",
+      "sha256": "a6f30d704069acb47cb7a054922f2e52349750954d388e97968b4d892b443f2f",
+      "source_sha256": "7c968fae5f380921b9cd6bac4e9a0cda9ad0426e732d56e72917885bf6540bb8",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/08_improve_trades_beta1/last_epoch040.pt",
+      "sha256": "224e7a404a7758a73d1358675a5977dc7d4d2e355665449155f687b05cee7de2",
+      "source_sha256": "2f48b17d58a8356d3a7e8b8bb95982852f0e3efeb7b08c7f893f0fbc9b811ae0",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/09_improve_hybrid/best_epoch037.pt",
+      "sha256": "2ab2de77f97fca2abb44fa3cdb99b2c3d8793def9b9c05add797da8306067029",
+      "source_sha256": "81961bb71d6c29eac97daf04cc919cc4a7e06c0533e643b959f42003e56ef02d",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/09_improve_hybrid/last_epoch040.pt",
+      "sha256": "bcdae5ca8ba89298e4d5cded6714f918681fee244b773beb8e6a4f7a927e3120",
+      "source_sha256": "23d3082af529732308ad8d1da1edd2cf3d969ea22480a8e35eaa575e8db8732d",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/10_public85_hybrid_fullrefit/last_epoch037.pt",
+      "sha256": "caa0ade5b13f9ca30ee29674ba2e2d10b123dc4ce709d891d1cdb207251477f2",
+      "source_sha256": "34040aaa550b047e0e452bc329f506764f5d263510b9648045535624963067d9",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/11_public85_residual_source/best_epoch069.pt",
+      "sha256": "be910c520a91cc8e9cc8b1258d4d19f2a5a012acb6fccdeff8a914b685cd3924",
+      "source_sha256": "0707d430466eb6327535271005db53b8db9994f5ae3f238cea97c5ae40208c72",
+      "tensor_count": 124,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/training/11_public85_residual_source/last_epoch080.pt",
+      "sha256": "02bd39d63d1c91eec2ffd34d63f8246a3458e890764982a9041247ac18ae0c81",
+      "source_sha256": "bf9d57c8e546d92065b3534bb2e0e48434386f5c8c14d4787a7469dd41304115",
+      "tensor_count": 124,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/deployed/pgd_augmented.pt",
+      "sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "source_sha256": "dcc44405e98344dfce48e6c5d1072499819e7dc4e5682ec552bfebde5f88f3b1",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/deployed/pgd_random_converged.pt",
+      "sha256": "e29f8e2ec6a85a6e6fb768dc886a71e2579aec46f36fd951521d9aa114955792",
+      "source_sha256": "e29f8e2ec6a85a6e6fb768dc886a71e2579aec46f36fd951521d9aa114955792",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/deployed/public85_hybrid_full37.pt",
+      "sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+      "source_sha256": "000686d04046e5c08cc47632fb6a7c22459d5d1e7ef7a00d1d8e4c2bbe4a5926",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/deployed/public85_residual_source.pt",
+      "sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+      "source_sha256": "796115df763d9124a827b418ce12d41030eeb060ac72a32753b2f9a005716283",
+      "tensor_count": 124,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/checkpoints__pgd_augmented__bn_clean.pt",
+      "sha256": "e7fc1feb1dd6cb62c0283f5213ebc1ff8cbbf43bcd475f33ddd6b747210da870",
+      "source_sha256": "e7fc1feb1dd6cb62c0283f5213ebc1ff8cbbf43bcd475f33ddd6b747210da870",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/checkpoints__pgd_augmented__bn_mixed_fgsm.pt",
+      "sha256": "61d91d1198b922cdde7cffa7ccad73fca1bd5522e2ec90011c46c35eee2e4668",
+      "source_sha256": "61d91d1198b922cdde7cffa7ccad73fca1bd5522e2ec90011c46c35eee2e4668",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/checkpoints__pgd_augmented__bn_mixed_pgd10.pt",
+      "sha256": "2a8657b92e9969550f11fd7d161b30ec498cf86e1a6cf34d72ca5ed312a43204",
+      "source_sha256": "2a8657b92e9969550f11fd7d161b30ec498cf86e1a6cf34d72ca5ed312a43204",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__best__bn_clean.pt",
+      "sha256": "e03f1c704a18eae1a238d8a0209fcd6ce7e7627b37cbeaec49181d3707ca1ef7",
+      "source_sha256": "e03f1c704a18eae1a238d8a0209fcd6ce7e7627b37cbeaec49181d3707ca1ef7",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__best__bn_mixed_fgsm.pt",
+      "sha256": "277030b6fcee77ba0ec4b8f7ed9960e3b7fda25cd3bdfc90e7c4de6e35716742",
+      "source_sha256": "277030b6fcee77ba0ec4b8f7ed9960e3b7fda25cd3bdfc90e7c4de6e35716742",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__best__bn_mixed_pgd10.pt",
+      "sha256": "1b7cb889e5d6b9fe6a976799f34f0ca7486e0e7dab6b311de908d21a94ae25bf",
+      "source_sha256": "1b7cb889e5d6b9fe6a976799f34f0ca7486e0e7dab6b311de908d21a94ae25bf",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__last__bn_clean.pt",
+      "sha256": "eebc36a8216aaa8aac026841ab2d6121793feb852330be4eb14218b296b56506",
+      "source_sha256": "eebc36a8216aaa8aac026841ab2d6121793feb852330be4eb14218b296b56506",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__last__bn_mixed_fgsm.pt",
+      "sha256": "1dadf66c6a1daba71a730f9fcaf80d897cebe667e2af881dc706b191fb0198a8",
+      "source_sha256": "1dadf66c6a1daba71a730f9fcaf80d897cebe667e2af881dc706b191fb0198a8",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_hybrid__last__bn_mixed_pgd10.pt",
+      "sha256": "743abf538d25840d11048e3f2e4a3f0124948336175b5ae6c30085a2f465a379",
+      "source_sha256": "743abf538d25840d11048e3f2e4a3f0124948336175b5ae6c30085a2f465a379",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__best__bn_clean.pt",
+      "sha256": "51c8d0bce5bf1c121f063c9674208d0a9886a91280d4d1a319c56c467f290d1c",
+      "source_sha256": "51c8d0bce5bf1c121f063c9674208d0a9886a91280d4d1a319c56c467f290d1c",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__best__bn_mixed_fgsm.pt",
+      "sha256": "2afe50a98e57ee8b09b2273d8bf4853193d4de8de9e8cad05ccfc0ea7c9b28c2",
+      "source_sha256": "2afe50a98e57ee8b09b2273d8bf4853193d4de8de9e8cad05ccfc0ea7c9b28c2",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__best__bn_mixed_pgd10.pt",
+      "sha256": "93b867b00614b5961a958714be0dfe8ef9f6564ceed6df42f886358cba35084c",
+      "source_sha256": "93b867b00614b5961a958714be0dfe8ef9f6564ceed6df42f886358cba35084c",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__last__bn_clean.pt",
+      "sha256": "c35f381cf824b77f7a3a46d22d2c8f87f8eca4489004c48c47aab93298976a2e",
+      "source_sha256": "c35f381cf824b77f7a3a46d22d2c8f87f8eca4489004c48c47aab93298976a2e",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__last__bn_mixed_fgsm.pt",
+      "sha256": "2f44d7e946a371a44821dc348b2104850ab7e40bf553bf56002000b03892ae4d",
+      "source_sha256": "2f44d7e946a371a44821dc348b2104850ab7e40bf553bf56002000b03892ae4d",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta03__last__bn_mixed_pgd10.pt",
+      "sha256": "9e41a521ed2d0f5025a8ffe6cf76d392b24aeebf3a353e0e22ea7d2b4a4093af",
+      "source_sha256": "9e41a521ed2d0f5025a8ffe6cf76d392b24aeebf3a353e0e22ea7d2b4a4093af",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__best__bn_clean.pt",
+      "sha256": "b17c8c9289c50c3f7eb923352b0bde898e067aef2b2abbb964e74d09f2e24816",
+      "source_sha256": "b17c8c9289c50c3f7eb923352b0bde898e067aef2b2abbb964e74d09f2e24816",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__best__bn_mixed_fgsm.pt",
+      "sha256": "732666b5a764c75af6240617d1fb39b5183a361e413387e862282ab7a537a867",
+      "source_sha256": "732666b5a764c75af6240617d1fb39b5183a361e413387e862282ab7a537a867",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__best__bn_mixed_pgd10.pt",
+      "sha256": "8698eda71e80374c1be1ccbf61cb15e3f11b5bde73fd9a0cae68a07d4c312f55",
+      "source_sha256": "8698eda71e80374c1be1ccbf61cb15e3f11b5bde73fd9a0cae68a07d4c312f55",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__last__bn_clean.pt",
+      "sha256": "db62a5f24cd4800ae09e8157569830a44b7ca1e677d7260dbbcf73abf525234e",
+      "source_sha256": "db62a5f24cd4800ae09e8157569830a44b7ca1e677d7260dbbcf73abf525234e",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__last__bn_mixed_fgsm.pt",
+      "sha256": "ccb8503477fce2fc8bfa375f520f035080f4560738aa5496414b81583ef4adb2",
+      "source_sha256": "ccb8503477fce2fc8bfa375f520f035080f4560738aa5496414b81583ef4adb2",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    },
+    {
+      "path": "models/bn_recalibration/improve_trades_beta1__last__bn_mixed_pgd10.pt",
+      "sha256": "0a2b67d5f4d212e973318bdb15b7791d2474083d079bacf7de2974eda3ab0285",
+      "source_sha256": "0a2b67d5f4d212e973318bdb15b7791d2474083d079bacf7de2974eda3ab0285",
+      "tensor_count": 52,
+      "weights_only_reload": true,
+      "strict_architecture_load": true,
+      "all_source_tensors_bitwise_equal": true,
+      "four_image_logits_bitwise_equal": true
+    }
+  ],
+  "normal_prediction_entry_point": {
+    "module": "dataset3.predict_defense",
+    "records": 3925,
+    "full_passes": 2,
+    "logits_bitwise_equal": true,
+    "submission_sha256": "180c2302fc163c247d5e7b2e7e36be46dfc80ccab446ecb385afd021f4b750c4",
+    "matches_archived_public85725_submission": true,
+    "local_inference_report": "runs/reproduce_published_ensemble/inference_metrics.json",
+    "local_inference_report_sha256": "4ffae5357b2a971ac2083eb7a270f3af35a4a92b4cdec9ad37630d0ab7444db2"
+  },
+  "existing_unit_tests": {
+    "command": "python -m unittest discover -s tests -v",
+    "passed": 57,
+    "failed": 0
+  }
+}
