@@ -78,7 +78,7 @@ Figure 1. Worst source mixed Macro-F1 over all forty epochs for the three object
 
 ### 3.3 Residual Network and Final Ensemble
 
-To introduce architectural diversity, we implement SmallResNet18 with base width 32 [5]. Its input stem is a 3 × 3 convolution with stride 1 and no initial max pooling. Four residual stages use 32, 64, 128, and 256 channels, with two basic residual blocks per stage. Global average pooling is followed by a ten-class linear head. The network uses no dropout or external pretrained weights.
+To introduce architectural diversity, we implement SmallResNet18 with base width 32 [5]. Averaging the models' class probabilities equally may let the residual model correct Hybrid on new images. Its input stem is a 3 × 3 convolution with stride 1 and no initial max pooling. Four residual stages use 32, 64, 128, and 256 channels, with two basic residual blocks per stage. Global average pooling is followed by a ten-class linear head. The network uses no dropout or external pretrained weights.
 
 The residual network is trained from random initialization on the 7,575 training images for eighty epochs with batch size 128 and an initial SGD learning rate of 0.1. Momentum, weight decay, and cosine scheduling follow the earlier settings. FGSM8 and PGD10 perturbations are first cached using the frozen provided classifier; each training image selects either attack with equal probability. Each clean–adversarial pair receives the same crop and flip. The two domains are concatenated for one joint forward pass, allowing batch normalization to observe both, and clean and adversarial cross-entropy receive equal weight. This procedure targets source-attack transfer; it does not generate online self-PGD examples against the residual student in every batch.
 
@@ -108,16 +108,29 @@ Table 4. Actual Kaggle Public Macro-F1 results
 
 After freezing the defense, we evaluate attacks from several sources. Provided-source attacks continue to use the frozen course classifier. Additional transfer attacks use random50, the randomly initialized fifty-epoch PGD model, which was not used as an attack source for training the final defense. Adaptive white-box attacks instead optimize perturbations directly against the predictor being evaluated. For the final ensemble, gradients pass through both models, probability averaging, and the horizontal-flip branches.
 
-The full diagnostic evaluation uses the same 1,894 images with FGSM, PGD10, and PGD20×3 at 8/255. To examine transfer at a larger budget, we generate PGD20×3 perturbations at 16/255 using input gradients solely from the frozen course-provided classifier. Both deployment predictors classify the resulting inputs. PGD uses a step size of 2/255 at both budgets. PGD20×3 uses 20 steps and three random starts and retains misclassifying candidates found during the search. Table 5 reports Macro-F1 on floating-point inputs. Each mixed score is computed jointly over 947 attacked images and 947 clean images selected by the same fixed mask. The 16/255 column reports course-source transfer. The other columns use 8/255. The 16/255 budget exceeds the course limit and serves as an in-sample stress test.
+The full evaluation tests FGSM, PGD10, and PGD20×3 on the same 1,894 diagnostic images at the course budget of 8/255. Table 5 reports floating-point Macro-F1 for PGD20×3. The mixed score combines predictions from a fixed set of 947 attacked and 947 clean images.
 
-Table 5. Security diagnostics for frozen deployment predictors using PGD20×3
+Table 5. PGD20×3 diagnostics at 8/255 for the two deployment predictors
 
-| Predictor | Course-source mixed F1 (8/255) | Course-source mixed F1 (16/255) | random50-source mixed F1 | White-box mixed F1 | White-box all-attacked F1 |
-| --- | --- | --- | --- | --- | --- |
-| Hybrid with flip averaging | 0.986037 | 0.981156 | 0.888931 | 0.687515 | 0.377272 |
-| Final ensemble with flip averaging | 0.923071 | 0.920431 | 0.807639 | 0.496969 | 0.052530 |
+| Predictor | Course-source mixed F1 (8/255) | random50-source mixed F1 | White-box mixed F1 | White-box all-attacked F1 |
+| --- | --- | --- | --- | --- |
+| Hybrid with flip averaging | 0.986037 | 0.888931 | 0.687515 | 0.377272 |
+| Final ensemble with flip averaging | 0.923071 | 0.807639 | 0.496969 | 0.052530 |
 
-With both budgets evaluated on the same GPU, the course-source mixed F1 decreased from 0.985545 to 0.981156 for Hybrid and from 0.922656 to 0.920431 for the final ensemble. The table retains the original 8/255 scores. Although the ensemble leads on the Public leaderboard, it is substantially weaker than Hybrid under these adaptive white-box attacks. The measured gain therefore concerns the course test scenario and does not establish broad white-box robustness. Transfer performance also decreases when the attack source changes to random50, demonstrating the importance of evaluating sources beyond the provided classifier.
+Table 5 retains the original RTX 5070 Ti results. Table 6 compares 8/255, 16/255, 32/255, and 64/255 on the same RTX 3060 Laptop GPU. Only the frozen course classifier supplies gradients for PGD20×3 (2/255 step size, 20 iterations, three random starts). The search retains misclassifying candidates. Both predictors share the perturbations and mixed mask. All-attacked F1 uses all 1,894 perturbed images. Budgets above 8/255 serve as in-sample stress tests.
+
+Table 6. Course-source PGD20×3 transfer across perturbation budgets
+
+| L∞ budget | Hybrid Mixed F1 | Hybrid All-attacked F1 | Final ensemble Mixed F1 | Final ensemble All-attacked F1 |
+| --- | ---: | ---: | ---: | ---: |
+| 8/255 | 0.985545 | 0.980707 | 0.922656 | 0.914274 |
+| 16/255 | 0.981156 | 0.972030 | 0.920431 | 0.902581 |
+| 32/255 | 0.970301 | 0.946673 | 0.896669 | 0.862166 |
+| 64/255 | 0.873037 | 0.747638 | 0.789020 | 0.633979 |
+
+From 32/255 to 64/255, mixed F1 falls by 9.73 percentage points for Hybrid and 10.76 for the final ensemble. Using a mixed F1 of 0.90 as a reference, Hybrid is above it at 32/255 and below it at 64/255. The final ensemble is above it at 16/255 and below it at 32/255.
+
+Although the ensemble leads on the Public leaderboard, it is substantially weaker than Hybrid under these adaptive white-box attacks. The measured gain therefore concerns the course test scenario and does not establish broad white-box robustness. Transfer performance also decreases when the attack source changes to random50, demonstrating the importance of evaluating sources beyond the provided classifier.
 
 A fixed 200-image subset is sampled with seed 5577 and twenty images per class. Fifty-step, five-start white-box PGD is run separately with cross-entropy (CE) and margin objectives. The final ensemble achieves Macro-F1 of 0.049514 under CE-PGD50×5 and 0.054438 under margin-PGD50×5. Only 3.5% of images are classified correctly under all three conditions—clean, CE attack, and margin attack—compared with 34.0% for Hybrid. Longer searches retain the failures already found by shorter searches, both for the full-set PGD10-to-PGD20×3 comparison and for CE-PGD20×3-to-CE-PGD50×5 on the same 200 images. For the original 8/255 evaluations, floating-point and eight-bit perturbations pass the budget checks.
 
@@ -127,9 +140,9 @@ To complement FGSM and PGD, we implement the untargeted Carlini–Wagner (C&W) L
 
 The confidence parameter is κ = 0, the initial c is 0.001, and the input-optimization learning rate is 0.01. Seven constant-search rounds are used, each with at most 500 steps and early stopping when the batch loss stagnates; batch size is 64. Standard C&W-L2 constrains pixels only to [0, 1] and may exceed the project budget. We therefore also evaluate a bounded C&W-L2 variant that restricts each channel to the intersection of [0, 1] and the original pixel ±8/255. This is C&W-L2 with an additional L∞ box constraint. The minimum-L2 successful candidate is retained across steps and constants for each image; if no successful candidate is found, the clean input is retained.
 
-All three models use the same fixed 200-image subset, and PGD20×3 is rerun on that subset. Table 6 reports all-attacked floating-point Macro-F1. Attack success rate (ASR) is the proportion of initially correct predictions changed to incorrect predictions; images already misclassified before the attack are excluded from its denominator. Table 6 is a matched-subset comparison, whereas Table 5 uses all 1,894 diagnostic images.
+All three models use the same fixed 200-image subset, and PGD20×3 is rerun on that subset. Table 7 reports all-attacked floating-point Macro-F1. Attack success rate (ASR) is the proportion of initially correct predictions changed to incorrect predictions; images already misclassified before the attack are excluded from its denominator. Table 7 is a matched-subset comparison, whereas Table 5 uses all 1,894 diagnostic images.
 
-Table 6. C&W and PGD on the same 200-image subset
+Table 7. C&W and PGD on the same 200-image subset
 
 | Predictor | PGD20×3 F1 | Standard C&W-L2 F1 | Bounded C&W-L2 F1 | Bounded C&W ASR |
 | --- | --- | --- | --- | --- |
@@ -147,11 +160,11 @@ Rounding the minimum-distance floating-point candidates to eight-bit inputs rais
 
 ## 5 Computational Performance and Resource Use
 
-The main training and evaluation experiments use an NVIDIA GeForce RTX 5070 Ti with 16 GB VRAM, an Intel Core Ultra 9 285K, and 64 GB system memory. Software versions are Python 3.12.13, PyTorch 2.9.1+cu128, NumPy 2.2.6, and Pillow 11.3.0. Table 7 reports summed epoch timings and peak GPU memory allocated to active PyTorch tensors during training and associated validation. One MiB equals 2²⁰ bytes.
+The main training and evaluation experiments use an NVIDIA GeForce RTX 5070 Ti with 16 GB VRAM, an Intel Core Ultra 9 285K, and 64 GB system memory. Software versions are Python 3.12.13, PyTorch 2.9.1+cu128, NumPy 2.2.6, and Pillow 11.3.0. Table 8 reports summed epoch timings and peak GPU memory allocated to active PyTorch tensors during training and associated validation. One MiB equals 2²⁰ bytes.
 
 Two additional ten-epoch loss-weight comparison runs use an RTX 3060 Laptop GPU with 6 GB VRAM and Python 3.12.14, with the other software versions unchanged. Their training and per-epoch validation take 451.793 and 456.467 seconds, respectively, and both peak at 1,251.313 MiB of allocated memory. These timings exclude initial loading, checkpoint writes, and final attack evaluation.
 
-Table 7. Main training time and peak GPU memory
+Table 8. Main training time and peak GPU memory
 
 | Training run | Epochs completed | Summed epoch time (s) | Peak allocated memory (MiB) |
 | --- | --- | --- | --- |
@@ -163,9 +176,9 @@ Table 7. Main training time and peak GPU memory
 
 The three forty-epoch timings include training, own-model PGD10 validation, and inference under cached source attacks. Residual training includes clean and source-attack validation but no per-epoch white-box attack against the student. The full-data Hybrid refit performs no validation. All timings exclude model initialization, initial image decoding, initial attack-cache generation or loading, and checkpoint writes. The five recorded intervals sum to approximately 57.68 minutes; they do not represent the total cost of every project experiment.
 
-Table 8 compares inference over all 3,925 test images with batch size 64. Each predictor is run twice, producing identical labels and bitwise-identical returned score tensors across its repeated runs.
+Table 9 compares inference over all 3,925 test images with batch size 64. Each predictor is run twice, producing identical labels and bitwise-identical returned score tensors across its repeated runs.
 
-Table 8. Test-set inference time and peak GPU memory
+Table 9. Test-set inference time and peak GPU memory
 
 | Deployment predictor | First run (s) | Second run (s) | First-run throughput (images/s) | Peak allocated memory (MiB) |
 | --- | --- | --- | --- | --- |
