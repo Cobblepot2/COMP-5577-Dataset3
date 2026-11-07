@@ -88,6 +88,37 @@
         "seconds": 32.51429999999527,
         "prediction_sha256": "3c1674f453b2767c30dc0033787934bd951efd795f135606c85d2c6c0b7edddd",
         "quantized_prediction_sha256": "3c1674f453b2767c30dc0033787934bd951efd795f135606c85d2c6c0b7edddd"
+      },
+      "eps32": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "torch": "2.9.1+cu128",
+        "cuda_runtime": "12.8",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.12549019607843137,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.946673214213322,
+        "mixed_float_f1": 0.9703009122537649,
+        "quantized_f1": 0.946673214213322,
+        "mixed_quantized_f1": 0.9703009122537649,
+        "float_accuracy": 0.9461457233368532,
+        "float_attack_success_rate": 0.04792332268370607,
+        "observed_linf": 0.1254902184009552,
+        "observed_quantized_linf": 0.1254902482032776,
+        "seconds": 34.07668860000558,
+        "prediction_sha256": "dbaeadea232f03b83fba1023b464546da3ed5759aff9a8432ed3b3b9eaa89e1c",
+        "quantized_prediction_sha256": "47875d27a3d8ab4bd4c5c50ab0cfd37a88317989cd084cb52707a8201526011e",
+        "initially_correct": 1878,
+        "float_attack_successes": 90,
+        "clean_f1": 0.9914508982755106,
+        "peak_allocated_mib": 681.3291015625,
+        "transfer_cache_reused": false,
+        "timing_scope": "Warm-up excluded; loader/transfers, attack generation, float/8-bit target inference and bound checks included; initial image/cache disk loading, cache save, metrics/CSV writing excluded"
       }
     },
     "ensemble": {
@@ -173,8 +204,49 @@
         "seconds": 3.124666600007913,
         "prediction_sha256": "8c64119cdbf173e23efa7251343a666cb349e69e4731af1165accd697e1a4583",
         "quantized_prediction_sha256": "7b4f52185306ac57094a4d4d2c77e4f0e37e252d4e948031162387f83cfc0ec0"
+      },
+      "eps32": {
+        "gpu": "NVIDIA GeForce RTX 3060 Laptop GPU",
+        "torch": "2.9.1+cu128",
+        "cuda_runtime": "12.8",
+        "settings": {
+          "name": "transfer_pgd20x3",
+          "threat_model": "transfer",
+          "method": "pgd",
+          "epsilon": 0.12549019607843137,
+          "step_size": 0.00784313725490196,
+          "steps": 20,
+          "restarts": 3
+        },
+        "float_f1": 0.862165821770559,
+        "mixed_float_f1": 0.8966693556282358,
+        "quantized_f1": 0.862165821770559,
+        "mixed_quantized_f1": 0.8966693556282358,
+        "float_accuracy": 0.8579725448785639,
+        "float_attack_success_rate": 0.08786848072562359,
+        "observed_linf": 0.1254902184009552,
+        "observed_quantized_linf": 0.1254902482032776,
+        "seconds": 3.2710632999951486,
+        "prediction_sha256": "28218bb641bb1e4694692fe944bf7fefbee5139c3d5c12390c2fba070c83f651",
+        "quantized_prediction_sha256": "28218bb641bb1e4694692fe944bf7fefbee5139c3d5c12390c2fba070c83f651",
+        "initially_correct": 1764,
+        "float_attack_successes": 155,
+        "clean_f1": 0.9307727633292131,
+        "peak_allocated_mib": 224.72265625,
+        "transfer_cache_reused": true,
+        "timing_scope": "Warm-up excluded; loader/transfers, cached attack loading to device, float/8-bit target inference and bound checks included; initial image/cache disk loading, cache save, metrics/CSV writing excluded"
       }
     }
   },
-  "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3"
+  "provided_model_sha256": "e7cb97890ceb3323ee0119b65c4bff0f2aaa5bb274e77a1b003930968e7dabe3",
+  "eps32_verification": {
+    "prediction_csv_metrics_recomputed": true,
+    "same_validation_inputs_mask_and_pipelines_as_eps8_and_eps16": true,
+    "both_predictors_used_identical_cached_float_attacks": true,
+    "cached_float_tensor_sha256": "5597e0979efc38318e3c4fb6b0c752f89160e72d584aaa27d69e32f4fac3c5f4",
+    "attacked_records_reaching_linf_budget_within_1e-6": 1894,
+    "source_correct_on_float_attacks": 0,
+    "source_float_f1": 0.0,
+    "unit_tests_passed": 57
+  }
 }
