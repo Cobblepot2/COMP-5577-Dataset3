@@ -1,8 +1,8 @@
-# Dataset 3 handoff — 2026-11-08
+# Dataset 3 handoff — 2026-11-12
 
 ## Current state
 
-The Task 3 presentation now separates Hybrid-only training and performance from the reason for adding SmallResNet18. Slide 2 shows the course initialization, two PGD7 sources, 0.75/0.25 loss, and actual Hybrid-only Kaggle Public Macro-F1 of 0.81816 compared with augmented PGD at 0.80418. Slide 3 explains how the separately trained residual network can make complementary predictions under 50:50 probability averaging. Both slides have updated Chinese speaker notes. Use `docs/task3_presentation_en.pptx` for the editable four-slide deck. The local team edition is `output/pptx/DSAI5210_Task3_Integrated_Hybrid_Residual.pptx`, with the changes on slides 9 and 10. Native PowerPoint rendered all 4 and 13 slides. The edited slides were visually reviewed and the other slide images matched their source versions pixel for pixel.
+The Task 3 presentation now has two content slides. The first merges Hybrid training, its standalone Public Macro-F1 of 0.81816, and the reason for adding SmallResNet18 with 50:50 probability averaging. It also states the course attack source, 8/255 budget, and approximately half-attacked test condition. The second retains the native Public-score chart and adaptive white-box findings. Use `docs/task3_presentation_en.pptx` for the editable two-slide deck. The latest local team edition is `output/pptx/DSAI5210_Task3_Integrated_Task3_2slides.pptx`, with eleven slides overall and Task 3 content on slides 8 and 9. Both content slides have Chinese speaker notes. The same team version is included in the local final-review folder.
 
 The English Word and Markdown now follow the user's saved Chinese revision by introducing the four perturbation budgets directly above the comparison table. The machine details for the sweep are recorded in `docs/results_public85.md`. Word rendering changed only page 5 and verified the revised paragraph and budget table.
 
